@@ -22,11 +22,11 @@ public struct FeedItem: Equatable {
 public struct MoviesFeed: Equatable {
     public let items: [FeedItem]
     public let page: Int
-    public let totalPages: Int
     
-    public init(items: [FeedItem], page: Int, totalPages: Int) {
+    public init(items: [FeedItem], page: Int) {
         self.items = items
         self.page = page
-        self.totalPages = totalPages
     }
 }
+
+
