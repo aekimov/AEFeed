@@ -9,5 +9,5 @@ import Foundation
 
 public protocol FeedLoader {
     typealias Result = Swift.Result<MoviesFeed, Error>
-    func load(_ req: URL, completion: @escaping (Result) -> Void)
+    func load(completion: @escaping (Result) -> Void) 
 }

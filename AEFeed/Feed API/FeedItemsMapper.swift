@@ -24,16 +24,12 @@ public final class FeedItemsMapper {
             results.map { FeedItem(id: $0.id, title: $0.original_title, imagePath: $0.poster_path ?? "") }
         }
     }
-    
-    public enum Error: Swift.Error {
-        case invalidData
-    }
-    
+
     private static var OK_200: Int { return 200 }
     
-    static func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteFeedLoader.RFResult {
+    static func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteFeedLoader.Result {
         guard response.statusCode == OK_200, let page = try? JSONDecoder().decode(RemoteFeed.self, from: data) else {
-            return .failure(.invalidData)
+            return .failure(RemoteFeedLoader.Error.invalidData)
         }
         let feed = MoviesFeed(items: page.images, page: page.page)
         return .success(feed)
