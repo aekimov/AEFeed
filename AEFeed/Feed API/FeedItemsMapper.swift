@@ -31,12 +31,12 @@ public final class FeedItemsMapper {
     
     private static var OK_200: Int { return 200 }
     
-    public static func map(_ data: Data, _ response: HTTPURLResponse) throws -> MoviesFeed {
+    static func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteFeedLoader.RFResult {
         guard response.statusCode == OK_200, let page = try? JSONDecoder().decode(RemoteFeed.self, from: data) else {
-            throw Error.invalidData
+            return .failure(.invalidData)
         }
-
-        return MoviesFeed(items: page.images, page: page.page)
+        let feed = MoviesFeed(items: page.images, page: page.page)
+        return .success(feed)
     }
 }
 

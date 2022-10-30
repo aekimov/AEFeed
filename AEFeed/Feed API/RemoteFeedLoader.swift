@@ -7,12 +7,6 @@
 
 import Foundation
 
-
-public protocol HTTPClient {
-    typealias Result = Swift.Result<(Data, HTTPURLResponse), Error>
-    func get(from url: URL, completion: @escaping (Result) -> Void)
-}
-
 public final class RemoteFeedLoader {
     private let url: URL
     private let client: HTTPClient
@@ -30,14 +24,11 @@ public final class RemoteFeedLoader {
     public typealias RFResult = Result<MoviesFeed, Error>
     
     public func load(completion: @escaping (RFResult) -> Void) {
-        client.get(from: url) { result in
+        client.get(from: url) { [weak self] result in
+            guard self != nil else { return }
             switch result {
             case let .success((data, response)):
-                if let feed = try? FeedItemsMapper.map(data, response) {
-                    completion(.success(feed))
-                } else {
-                    completion(.failure(.invalidData))
-                }
+                completion(FeedItemsMapper.map(data, response))
             case .failure:
                 completion(.failure(.connectivity))
             }
