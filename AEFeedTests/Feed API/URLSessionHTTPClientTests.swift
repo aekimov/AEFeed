@@ -8,52 +8,31 @@
 import XCTest
 import AEFeed
 
-final public class URLSessionHTTPClient: HTTPClient {
-    private let session: URLSession
-    
-    public init(session: URLSession = .shared) {
-        self.session = session
-    }
-    
-    struct UnexpectedValuesError: Error {}
-    
-    public func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-        session.dataTask(with: url) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-            } else if let data = data, let response = response as? HTTPURLResponse {
-                completion(.success((data, response)))
-            } else {
-                completion(.failure(UnexpectedValuesError()))
-            }
-            
-        }.resume()
-    }
-}
-
 class URLSessionHTTPClientTests: XCTestCase {
 
-    override class func setUp() {
+    override func setUp() {
+        super.setUp()
         URLProtocolStub.startInterceptingRequest()
     }
     
-    override class func tearDown() {
+    override func tearDown() {
+        super.tearDown()
         URLProtocolStub.stopInterceptingRequest()
     }
     
     func test_getFromURL_performsGETRequestWithURL() {
         let url = anyURL()
         let exp = expectation(description: "Wait for request")
-        
+
         URLProtocolStub.observeRequests { request in
             XCTAssertEqual(request.url, url)
             XCTAssertEqual(request.httpMethod, "GET")
             exp.fulfill()
         }
-        
+
         makeSUT().get(from: url) { _ in }
-        
-        wait(for: [exp], timeout: 2)
+
+        wait(for: [exp], timeout: 1)
     }
     
     func test_getFromURL_failsOnRequestError() {
@@ -100,7 +79,7 @@ class URLSessionHTTPClientTests: XCTestCase {
     
     //MARK: - Helpers
     
-    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> URLSessionHTTPClient {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> HTTPClient {
         let sut = URLSessionHTTPClient()
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
