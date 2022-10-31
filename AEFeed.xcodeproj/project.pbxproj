@@ -16,11 +16,20 @@
 		FF78D4F3290E9DD400C4E37D /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78D4F1290E9B8400C4E37D /* XCTestCase+MemoryLeakTracking.swift */; };
 		FF78D4F6290ED26300C4E37D /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78D4F5290ED26300C4E37D /* URLSessionHTTPClientTests.swift */; };
 		FFAE5F90291017FC00D78CF8 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE5F8F291017FC00D78CF8 /* URLSessionHTTPClient.swift */; };
+		FFAE5F982910200100D78CF8 /* AEFeedAPIEndToEndTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE5F972910200100D78CF8 /* AEFeedAPIEndToEndTest.swift */; };
+		FFAE5F992910200100D78CF8 /* AEFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFB4D3F3290D87CF00FC6F96 /* AEFeed.framework */; };
 		FFB4D3FC290D87CF00FC6F96 /* AEFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFB4D3F3290D87CF00FC6F96 /* AEFeed.framework */; };
 		FFB4D40C290D87DC00FC6F96 /* FeedItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB4D40B290D87DC00FC6F96 /* FeedItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		FFAE5F9A2910200100D78CF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FFB4D3EA290D87CF00FC6F96 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FFB4D3F2290D87CF00FC6F96;
+			remoteInfo = AEFeed;
+		};
 		FFB4D3FD290D87CF00FC6F96 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FFB4D3EA290D87CF00FC6F96 /* Project object */;
@@ -40,12 +49,22 @@
 		FF78D4F1290E9B8400C4E37D /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		FF78D4F5290ED26300C4E37D /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		FFAE5F8F291017FC00D78CF8 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
+		FFAE5F952910200100D78CF8 /* AEFeedAPIEndToEndTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AEFeedAPIEndToEndTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFAE5F972910200100D78CF8 /* AEFeedAPIEndToEndTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEFeedAPIEndToEndTest.swift; sourceTree = "<group>"; };
 		FFB4D3F3290D87CF00FC6F96 /* AEFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AEFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFB4D3FB290D87CF00FC6F96 /* AEFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AEFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFB4D40B290D87DC00FC6F96 /* FeedItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FFAE5F922910200100D78CF8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFAE5F992910200100D78CF8 /* AEFeed.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFB4D3F0290D87CF00FC6F96 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -102,11 +121,20 @@
 			path = "Feed API";
 			sourceTree = "<group>";
 		};
+		FFAE5F962910200100D78CF8 /* AEFeedAPIEndToEndTest */ = {
+			isa = PBXGroup;
+			children = (
+				FFAE5F972910200100D78CF8 /* AEFeedAPIEndToEndTest.swift */,
+			);
+			path = AEFeedAPIEndToEndTest;
+			sourceTree = "<group>";
+		};
 		FFB4D3E9290D87CF00FC6F96 = {
 			isa = PBXGroup;
 			children = (
 				FFB4D3F5290D87CF00FC6F96 /* AEFeed */,
 				FFB4D3FF290D87CF00FC6F96 /* AEFeedTests */,
+				FFAE5F962910200100D78CF8 /* AEFeedAPIEndToEndTest */,
 				FFB4D3F4290D87CF00FC6F96 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -116,6 +144,7 @@
 			children = (
 				FFB4D3F3290D87CF00FC6F96 /* AEFeed.framework */,
 				FFB4D3FB290D87CF00FC6F96 /* AEFeedTests.xctest */,
+				FFAE5F952910200100D78CF8 /* AEFeedAPIEndToEndTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,6 +180,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		FFAE5F942910200100D78CF8 /* AEFeedAPIEndToEndTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFAE5F9C2910200100D78CF8 /* Build configuration list for PBXNativeTarget "AEFeedAPIEndToEndTest" */;
+			buildPhases = (
+				FFAE5F912910200100D78CF8 /* Sources */,
+				FFAE5F922910200100D78CF8 /* Frameworks */,
+				FFAE5F932910200100D78CF8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FFAE5F9B2910200100D78CF8 /* PBXTargetDependency */,
+			);
+			name = AEFeedAPIEndToEndTest;
+			productName = AEFeedAPIEndToEndTest;
+			productReference = FFAE5F952910200100D78CF8 /* AEFeedAPIEndToEndTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FFB4D3F2290D87CF00FC6F96 /* AEFeed */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FFB4D405290D87CF00FC6F96 /* Build configuration list for PBXNativeTarget "AEFeed" */;
@@ -197,6 +244,9 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					FFAE5F942910200100D78CF8 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					FFB4D3F2290D87CF00FC6F96 = {
 						CreatedOnToolsVersion = 13.2.1;
 						LastSwiftMigration = 1320;
@@ -221,11 +271,19 @@
 			targets = (
 				FFB4D3F2290D87CF00FC6F96 /* AEFeed */,
 				FFB4D3FA290D87CF00FC6F96 /* AEFeedTests */,
+				FFAE5F942910200100D78CF8 /* AEFeedAPIEndToEndTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FFAE5F932910200100D78CF8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFB4D3F1290D87CF00FC6F96 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -243,6 +301,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FFAE5F912910200100D78CF8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FFAE5F982910200100D78CF8 /* AEFeedAPIEndToEndTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFB4D3EF290D87CF00FC6F96 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -270,6 +336,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		FFAE5F9B2910200100D78CF8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FFB4D3F2290D87CF00FC6F96 /* AEFeed */;
+			targetProxy = FFAE5F9A2910200100D78CF8 /* PBXContainerItemProxy */;
+		};
 		FFB4D3FE290D87CF00FC6F96 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FFB4D3F2290D87CF00FC6F96 /* AEFeed */;
@@ -278,6 +349,36 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		FFAE5F9D2910200100D78CF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3285BMFMRD;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artemekimov.AEFeedAPIEndToEndTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FFAE5F9E2910200100D78CF8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3285BMFMRD;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artemekimov.AEFeedAPIEndToEndTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		FFB4D403290D87CF00FC6F96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -493,6 +594,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FFAE5F9C2910200100D78CF8 /* Build configuration list for PBXNativeTarget "AEFeedAPIEndToEndTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFAE5F9D2910200100D78CF8 /* Debug */,
+				FFAE5F9E2910200100D78CF8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FFB4D3ED290D87CF00FC6F96 /* Build configuration list for PBXProject "AEFeed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
