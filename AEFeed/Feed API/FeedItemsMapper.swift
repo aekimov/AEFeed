@@ -7,32 +7,26 @@
 
 import Foundation
 
+struct RemoteFeed: Decodable {
+    let results: [RemoteItem]
+    let page: Int
+}
+
+struct RemoteItem: Decodable {
+    let id: Int
+    let original_title: String
+    let poster_path: String?
+}
+
 public final class FeedItemsMapper {
-    
-    private struct RemoteFeed: Decodable {
-        
-        struct RemoteItem: Decodable {
-            let id: Int
-            let original_title: String
-            let poster_path: String?
-        }
-        
-        let results: [RemoteItem]
-        let page: Int
-        
-        var images: [FeedItem] {
-            results.map { FeedItem(id: $0.id, title: $0.original_title, imagePath: $0.poster_path ?? "") }
-        }
-    }
 
     private static var OK_200: Int { return 200 }
     
-    static func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteFeedLoader.Result {
+    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> RemoteFeed {
         guard response.statusCode == OK_200, let page = try? JSONDecoder().decode(RemoteFeed.self, from: data) else {
-            return .failure(RemoteFeedLoader.Error.invalidData)
+            throw RemoteFeedLoader.Error.invalidData
         }
-        let feed = MoviesFeed(items: page.images, page: page.page)
-        return .success(feed)
+        return page
     }
 }
 
