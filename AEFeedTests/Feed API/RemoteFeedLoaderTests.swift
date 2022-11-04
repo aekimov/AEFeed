@@ -120,7 +120,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         return try! JSONSerialization.data(withJSONObject: items)
     }
     
-    private func makeFeed(items: [(model: FeedItem, json: [String : Any])] = [], pageNumber: Int = 1) -> (model: MoviesFeed, json: [String: Any]) {
+    private func makeFeed(items: [(model: FeedImage, json: [String : Any])] = [], pageNumber: Int = 1) -> (model: MoviesFeed, json: [String: Any]) {
         
         let model = MoviesFeed(items: items.map { $0.model }, page: pageNumber)
         
@@ -132,8 +132,8 @@ class RemoteFeedLoaderTests: XCTestCase {
         return (model, json.compactMapValues { $0 })
     }
     
-    private func makeItem(id: Int, title: String, imagePath: String? = nil) -> (model: FeedItem, json: [String: Any]) {
-        let item = FeedItem(id: id, title: title, imagePath: imagePath ?? "")
+    private func makeItem(id: Int, title: String, imagePath: String? = nil) -> (model: FeedImage, json: [String: Any]) {
+        let item = FeedImage(id: id, title: title, imagePath: imagePath ?? "")
         
         let json: [String: Any] = [
             "id": item.id,

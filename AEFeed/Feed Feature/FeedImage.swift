@@ -1,5 +1,5 @@
 //
-//  FeedItem.swift
+//  FeedImage.swift
 //  AEFeed
 //
 //  Created by Artem Ekimov on 10/29/22.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct FeedItem: Equatable {
+public struct FeedImage: Equatable {
     public let id: Int
     public let title: String
     public let imagePath: String
@@ -20,10 +20,10 @@ public struct FeedItem: Equatable {
 }
 
 public struct MoviesFeed: Equatable {
-    public let items: [FeedItem]
+    public let items: [FeedImage]
     public let page: Int
     
-    public init(items: [FeedItem], page: Int) {
+    public init(items: [FeedImage], page: Int) {
         self.items = items
         self.page = page
     }

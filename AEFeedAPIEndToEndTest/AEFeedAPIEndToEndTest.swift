@@ -48,8 +48,8 @@ class AEFeedAPIEndToEndTest: XCTestCase {
         return receivedResult
     }
     
-    private func expectedItem(at index: Int) -> FeedItem {
-        return FeedItem(
+    private func expectedItem(at index: Int) -> FeedImage {
+        return FeedImage(
             id: id(at: index),
             title: title(at: index),
             imagePath: imagePath(at: index))
