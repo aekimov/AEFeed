@@ -18,3 +18,13 @@ public struct LocalFeedImage: Equatable {
         self.imagePath = imagePath
     }
 }
+
+public struct LocalFeed {
+    public let items: [LocalFeedImage]
+    public let page: Int
+    
+    public init(items: [LocalFeedImage], page: Int) {
+        self.items = items
+        self.page = page
+    }
+}

@@ -12,8 +12,7 @@ class AEFeedAPIEndToEndTest: XCTestCase {
 
     func test_endToEndTestServerGETFeedResult_matchedFixedTestAccountData() {
         switch getFeedResult() {
-        case let .success(feed)?:
-            let items = feed.items
+        case let .success(items)?:
             XCTAssertEqual(items.count, 5, "Expected 5 items")
             XCTAssertEqual(items[0], expectedItem(at: 0))
             XCTAssertEqual(items[1], expectedItem(at: 1))

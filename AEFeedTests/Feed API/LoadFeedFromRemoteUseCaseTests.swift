@@ -1,5 +1,5 @@
 //
-//  RemoteFeedLoaderTests.swift
+//  LoadFeedFromRemoteUseCaseTests.swift
 //  AEFeedTests
 //
 //  Created by Artem Ekimov on 10/30/22.
@@ -8,7 +8,7 @@
 import XCTest
 import AEFeed
 
-class RemoteFeedLoaderTests: XCTestCase {
+class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     func test_init_doesNotRequestData() {
         let (_, client) = makeSUT()
         
@@ -49,9 +49,8 @@ class RemoteFeedLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500]
         samples.enumerated().forEach { index, code in
             expect(sut, toCompleteWith: failure(.invalidData)) {
-                let feed = makeFeed()
-                let data = makeItemsJSON(feed.json)
-                client.complete(withStatusCode: code, data: data, at: index)
+                let json = makeItemsJSON([])
+                client.complete(withStatusCode: code, data: json, at: index)
             }
         }
     }
@@ -64,26 +63,25 @@ class RemoteFeedLoaderTests: XCTestCase {
             client.complete(withStatusCode: 200, data: invalidJSON)
         }
     }
-    
+
     func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
         let(sut, client) = makeSUT()
-        let feed = makeFeed(items: [])
         
-        expect(sut, toCompleteWith: .success(feed.model)) {
-            let json = makeItemsJSON(feed.json)
-            client.complete(withStatusCode: 200, data: json)
+        expect(sut, toCompleteWith: .success([])) {
+            let emptyListJSON = makeItemsJSON([])
+            client.complete(withStatusCode: 200, data: emptyListJSON)
         }
     }
-    
+
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let(sut, client) = makeSUT()
         
         let item1 = makeItem(id: UUID().hashValue, title: "item1", imagePath: "/path1")
         let item2 = makeItem(id: UUID().hashValue, title: "item2", imagePath: "/path2")
-        let feed = makeFeed(items: [item1, item2])
+        let items = [item1.model, item2.model]
         
-        expect(sut, toCompleteWith: .success(feed.model)) {
-            let json = makeItemsJSON(feed.json)
+        expect(sut, toCompleteWith: .success(items)) {
+            let json = makeItemsJSON([item1.json, item2.json])
             client.complete(withStatusCode: 200, data: json)
         }
     }
@@ -97,7 +95,7 @@ class RemoteFeedLoaderTests: XCTestCase {
         sut?.load { capturedResults.append($0) }
 
         sut = nil
-        client.complete(withStatusCode: 200, data: makeItemsJSON([:]))
+        client.complete(withStatusCode: 200, data: makeItemsJSON([]))
 
         XCTAssertTrue(capturedResults.isEmpty)
     }
@@ -116,19 +114,19 @@ class RemoteFeedLoaderTests: XCTestCase {
         return .failure(error)
     }
     
-    private func makeItemsJSON(_ items: [String: Any]) -> Data {
-        return try! JSONSerialization.data(withJSONObject: items)
+    private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
+        let json = ["results": items]
+        return try! JSONSerialization.data(withJSONObject: json)
     }
     
-    private func makeFeed(items: [(model: FeedImage, json: [String : Any])] = [], pageNumber: Int = 1) -> (model: MoviesFeed, json: [String: Any]) {
-        
-        let model = MoviesFeed(items: items.map { $0.model }, page: pageNumber)
-        
+    
+    private func makeFeed(items: [(model: FeedImage, json: [String : Any])] = []) -> (model: [FeedImage], json: [String: Any]) {
+        let model = items.map { $0.model }
+
         let json: [String: Any] = [
-            "results": items.map { $0.json },
-            "page": pageNumber
+            "results": items.map { $0.json }
         ]
-        
+
         return (model, json.compactMapValues { $0 })
     }
     
