@@ -32,6 +32,7 @@
 		FFB4D3FC290D87CF00FC6F96 /* AEFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFB4D3F3290D87CF00FC6F96 /* AEFeed.framework */; };
 		FFB4D40C290D87DC00FC6F96 /* FeedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB4D40B290D87DC00FC6F96 /* FeedImage.swift */; };
 		FFE3D731297664D60046B611 /* CodableFeedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3D730297664D60046B611 /* CodableFeedStoreTests.swift */; };
+		FFE3D7332976BC1C0046B611 /* CodableFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3D7322976BC1C0046B611 /* CodableFeedStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		FFB4D3FB290D87CF00FC6F96 /* AEFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AEFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFB4D40B290D87DC00FC6F96 /* FeedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImage.swift; sourceTree = "<group>"; };
 		FFE3D730297664D60046B611 /* CodableFeedStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStoreTests.swift; sourceTree = "<group>"; };
+		FFE3D7322976BC1C0046B611 /* CodableFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableFeedStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				FF4FCE2B2914FC6A004DA00E /* LocalFeedLoader.swift */,
 				FF4FCE2F29156FB7004DA00E /* LocalFeedImage.swift */,
 				FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */,
+				FFE3D7322976BC1C0046B611 /* CodableFeedStore.swift */,
 			);
 			path = "Feed Cache";
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				FF4FCE3029156FB7004DA00E /* LocalFeedImage.swift in Sources */,
 				FF4FCE2C2914FC6A004DA00E /* LocalFeedLoader.swift in Sources */,
 				FF4FCE3229156FC5004DA00E /* RemoteFeedItem.swift in Sources */,
+				FFE3D7332976BC1C0046B611 /* CodableFeedStore.swift in Sources */,
 				FFB4D40C290D87DC00FC6F96 /* FeedImage.swift in Sources */,
 				FF78D4ED290E8E6B00C4E37D /* FeedItemsMapper.swift in Sources */,
 				FFAE5F90291017FC00D78CF8 /* URLSessionHTTPClient.swift in Sources */,
