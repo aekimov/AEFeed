@@ -5,22 +5,6 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FFB4D3F2290D87CF00FC6F96"
-               BuildableName = "AEFeed.framework"
-               BlueprintName = "AEFeed"
-               ReferencedContainer = "container:AEFeed.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -44,9 +28,9 @@
             testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FFB4D3FA290D87CF00FC6F96"
-               BuildableName = "AEFeedTests.xctest"
-               BlueprintName = "AEFeedTests"
+               BlueprintIdentifier = "FF2AB6C429785D7A00A659BE"
+               BuildableName = "AEFeedCacheIntegrationTests.xctest"
+               BlueprintName = "AEFeedCacheIntegrationTests"
                ReferencedContainer = "container:AEFeed.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -69,15 +53,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FFB4D3F2290D87CF00FC6F96"
-            BuildableName = "AEFeed.framework"
-            BlueprintName = "AEFeed"
-            ReferencedContainer = "container:AEFeed.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
