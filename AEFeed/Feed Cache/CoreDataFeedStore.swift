@@ -20,10 +20,7 @@ public final class CoreDataFeedStore: FeedStore {
         let context = self.context
         context.perform {
             do {
-                let request = NSFetchRequest<ManagedCache>.init(entityName: ManagedCache.entity().name!)
-                request.returnsObjectsAsFaults = false
-                
-                if let cache = try context.fetch(request).first {
+                if let cache = try ManagedCache.findCache(in: context) {
                     completion(.found(feed: cache.localFeed, timestamp: cache.timestamp))
                 } else {
                     completion(.empty)
@@ -92,6 +89,12 @@ private class ManagedCache: NSManagedObject {
     @NSManaged var timestamp: Date
     @NSManaged var feed: NSOrderedSet
     
+    static func findCache(in context: NSManagedObjectContext) throws -> ManagedCache? {
+        let request = NSFetchRequest<ManagedCache>(entityName: entity().name!)
+        request.returnsObjectsAsFaults = false
+        return try context.fetch(request).first
+    }
+    
     var localFeed: [LocalFeedImage] {
         return feed
             .compactMap { $0 as? ManagedFeedImage }
@@ -107,11 +110,11 @@ private class ManagedFeedImage: NSManagedObject {
     @NSManaged var cache: ManagedCache
     
     static func images(from localFeed: [LocalFeedImage], in context: NSManagedObjectContext) -> NSOrderedSet {
-        return NSOrderedSet(array: localFeed.map { local in
+        return NSOrderedSet(array: localFeed.map {
             let managed = ManagedFeedImage(context: context)
-            managed.id = NSNumber(value: local.id)
-            managed.title = local.title
-            managed.imagePath = local.imagePath
+            managed.id = NSNumber(value: $0.id)
+            managed.title = $0.title
+            managed.imagePath = $0.imagePath
             return managed
         })
     }
