@@ -17,11 +17,45 @@ public final class CoreDataFeedStore: FeedStore {
     }
 
     public func retrieve(completion: @escaping RetrievalCompletion) {
-        completion(.empty)
+        let context = self.context
+        context.perform {
+            do {
+                let request = NSFetchRequest<ManagedCache>.init(entityName: ManagedCache.entity().name!)
+                request.returnsObjectsAsFaults = false
+                
+                if let cache = try context.fetch(request).first {
+                    completion(.found(feed: cache.feed
+                        .compactMap { $0 as? ManagedFeedImage }
+                        .map { LocalFeedImage(id: $0.id.intValue, title: $0.title, imagePath: $0.imagePath) }, timestamp: cache.timestamp))
+                } else {
+                    completion(.empty)
+                }
+            } catch {
+                completion(.failure(error))
+            }
+        }
     }
 
     public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-
+        let context = self.context
+        context.perform {
+            do {
+                let managedCache = ManagedCache(context: context)
+                managedCache.timestamp = timestamp
+                managedCache.feed = NSOrderedSet(array: feed.map { local in
+                    let managed = ManagedFeedImage(context: context)
+                    managed.id = NSNumber(value: local.id)
+                    managed.title = local.title
+                    managed.imagePath = local.imagePath
+                    return managed
+                })
+                
+                try context.save()
+                completion(nil)
+            } catch {
+                completion(error)
+            }
+        }
     }
 
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
@@ -61,12 +95,13 @@ private extension NSManagedObjectModel {
     }
 }
 
-
+@objc(ManagedCache)
 private class ManagedCache: NSManagedObject {
     @NSManaged var timestamp: Date
     @NSManaged var feed: NSOrderedSet
 }
 
+@objc(ManagedFeedImage)
 private class ManagedFeedImage: NSManagedObject {
     @NSManaged var id: NSNumber
     @NSManaged var title: String
