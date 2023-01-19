@@ -14,6 +14,7 @@ struct RemoteFeed: Decodable {
 
 struct RemoteItem: Decodable {
     let id: Int
-    let original_title: String
+    let title: String
     let poster_path: String?
+    let overview: String
 }

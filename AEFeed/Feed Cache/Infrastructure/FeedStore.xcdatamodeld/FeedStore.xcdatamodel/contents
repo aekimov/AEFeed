@@ -7,6 +7,7 @@
     <entity name="ManagedFeedImage" representedClassName="ManagedFeedImage" syncable="YES">
         <attribute name="id" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="imagePath" attributeType="String"/>
+        <attribute name="overview" attributeType="String"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="cache" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ManagedCache" inverseName="feed" inverseEntity="ManagedCache"/>
     </entity>

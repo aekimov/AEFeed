@@ -26,6 +26,6 @@ class ManagedCache: NSManagedObject {
     var localFeed: [LocalFeedImage] {
         return feed
             .compactMap { $0 as? ManagedFeedImage }
-            .map { LocalFeedImage(id: $0.id.intValue, title: $0.title, imagePath: $0.imagePath) }
+            .map { LocalFeedImage(id: $0.id.intValue, title: $0.title, imagePath: $0.imagePath, overview: $0.overview) }
     }
 }

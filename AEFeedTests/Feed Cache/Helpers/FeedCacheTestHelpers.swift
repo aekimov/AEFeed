@@ -9,12 +9,12 @@ import Foundation
 import AEFeed
 
 func uniqueImage() -> FeedImage {
-    return FeedImage(id: UUID().hashValue, title: "any", imagePath: "/any-path")
+    return FeedImage(id: UUID().hashValue, title: "any", imagePath: "/any-path", overview: "any overview")
 }
 
 func uniqueImageFeed() -> (models: [FeedImage], local: [LocalFeedImage]) {
     let models = [uniqueImage(), uniqueImage()]
-    let local = models.map { LocalFeedImage(id: $0.id, title: $0.title, imagePath: $0.imagePath) }
+    let local = models.map { LocalFeedImage(id: $0.id, title: $0.title, imagePath: $0.imagePath, overview: $0.overview) }
     return (models, local)
 }
 

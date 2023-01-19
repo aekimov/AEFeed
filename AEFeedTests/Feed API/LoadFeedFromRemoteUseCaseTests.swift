@@ -76,8 +76,8 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let(sut, client) = makeSUT()
         
-        let item1 = makeItem(id: UUID().hashValue, title: "item1", imagePath: "/path1")
-        let item2 = makeItem(id: UUID().hashValue, title: "item2", imagePath: "/path2")
+        let item1 = makeItem(id: UUID().hashValue, title: "item1", imagePath: "/path1", overview: "overview1")
+        let item2 = makeItem(id: UUID().hashValue, title: "item2", imagePath: "/path2", overview: "overview2")
         let items = [item1.model, item2.model]
         
         expect(sut, toCompleteWith: .success(items)) {
@@ -130,13 +130,14 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         return (model, json.compactMapValues { $0 })
     }
     
-    private func makeItem(id: Int, title: String, imagePath: String? = nil) -> (model: FeedImage, json: [String: Any]) {
-        let item = FeedImage(id: id, title: title, imagePath: imagePath ?? "")
+    private func makeItem(id: Int, title: String, imagePath: String? = nil, overview: String) -> (model: FeedImage, json: [String: Any]) {
+        let item = FeedImage(id: id, title: title, imagePath: imagePath ?? "", overview: overview)
         
         let json: [String: Any] = [
             "id": item.id,
-            "original_title": item.title,
-            "poster_path": item.imagePath
+            "title": item.title,
+            "poster_path": item.imagePath,
+            "overview": item.overview
         ]
         
         return (item, json)
