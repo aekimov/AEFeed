@@ -9,7 +9,7 @@ import XCTest
 import UIKit
 import AEFeed
 
-class ListViewController: UIViewController {
+class ListViewController: UITableViewController {
     private var loader: FeedLoader?
     
     convenience init(loader: FeedLoader) {
@@ -19,7 +19,12 @@ class ListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        load()
+    }
+    
+    @objc private func load() {
         loader?.load { _ in }
     }
 }
@@ -39,6 +44,17 @@ class ListViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 1)
     }
 
+    
+    func test_pullToRefresh_loadsFeed() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        sut.simulateUserInitiatedFeedReload()
+        
+        XCTAssertEqual(loader.loadCallCount, 2)
+    }
+    
+    
     //MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
@@ -58,4 +74,20 @@ class ListViewControllerTests: XCTestCase {
         }
     }
     
+}
+
+private extension ListViewController {
+    func simulateUserInitiatedFeedReload() {
+        refreshControl?.simulatePullToRefresh()
+    }
+}
+
+private extension UIRefreshControl {
+    func simulatePullToRefresh() {
+        allTargets.forEach { target in
+            actions(forTarget: target, forControlEvent: .valueChanged)?.forEach {
+                (target as NSObject).perform(Selector($0))
+            }
+        }
+    }
 }
