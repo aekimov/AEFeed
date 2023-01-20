@@ -8,18 +8,26 @@
 import UIKit
 import AEFeed
 
+public protocol FeedImageDataLoader {
+    func loadImageData(from path: String)
+}
+
+
 public class ListViewController: UITableViewController {
-    private let loader: FeedLoader
-    private var items: [FeedImage] = []
+    private let feedLoader: FeedLoader
+    private let imageLoader: FeedImageDataLoader
     
-    public init(loader: FeedLoader) {
-        self.loader = loader
+    public init(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) {
+        self.feedLoader = feedLoader
+        self.imageLoader = imageLoader
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    private var items: [FeedImage] = []
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +38,7 @@ public class ListViewController: UITableViewController {
     
     @objc private func load() {
         refreshControl?.beginRefreshing()
-        loader.load { [weak self] result in
+        feedLoader.load { [weak self] result in
             if let feed = try? result.get() {
                 self?.items = feed
                 self?.tableView.reloadData()
@@ -48,6 +56,7 @@ public class ListViewController: UITableViewController {
         let cell = FeedImageCell()
         cell.titleLabel.text = item.title
         cell.overviewLabel.text = item.overview
+        imageLoader.loadImageData(from: item.imagePath)
         return cell
     }
 }

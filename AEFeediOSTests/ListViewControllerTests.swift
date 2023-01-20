@@ -71,12 +71,29 @@ class ListViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: [image0])
     }
     
+    func test_feedImageView_loadsImageURLWhenVisible() {
+        let image0 = makeImage(imagePath: "path1")
+        let image1 = makeImage(imagePath: "path2")
+        let (sut, loader) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading(with: [image0, image1])
+
+        XCTAssertEqual(loader.loadedImagePaths, [], "Expected no image URL requests until views become visible")
+
+        sut.simulateFeedImageViewVisible(at: 0)
+        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath], "Expected first image URL request once first view becomes visible")
+
+        sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath], "Expected second image URL request once second view also becomes visible")
+    }
+    
     
     //MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = ListViewController(loader: loader)
+        let sut = ListViewController(feedLoader: loader, imageLoader: loader)
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
@@ -108,7 +125,7 @@ class ListViewControllerTests: XCTestCase {
         return FeedImage(id: UUID().hashValue, title: title, imagePath: imagePath, overview:overview)
     }
     
-    class LoaderSpy: FeedLoader {
+    class LoaderSpy: FeedLoader, FeedImageDataLoader {
         private var completions: [(FeedLoader.Result) -> Void] = []
         
         var loadCallCount: Int {
@@ -127,6 +144,13 @@ class ListViewControllerTests: XCTestCase {
             let error = NSError(domain: "an error", code: 0)
             completions[index](.failure(error))
         }
+        
+        
+        private(set) var loadedImagePaths = [String]()
+        
+        func loadImageData(from path: String) {
+            loadedImagePaths.append(path)
+        }
     }
     
 }
@@ -134,6 +158,10 @@ class ListViewControllerTests: XCTestCase {
 private extension ListViewController {
     func simulateUserInitiatedFeedReload() {
         refreshControl?.simulatePullToRefresh()
+    }
+    
+    func simulateFeedImageViewVisible(at index: Int) {
+        _ = feedImageView(at: index)
     }
     
     var isShowingLoadingIndicator: Bool {
