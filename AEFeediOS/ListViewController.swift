@@ -10,6 +10,7 @@ import AEFeed
 
 public class ListViewController: UITableViewController {
     private let loader: FeedLoader
+    private var items: [FeedImage] = []
     
     public init(loader: FeedLoader) {
         self.loader = loader
@@ -29,8 +30,22 @@ public class ListViewController: UITableViewController {
     
     @objc private func load() {
         refreshControl?.beginRefreshing()
-        loader.load { [weak self] _ in
+        loader.load { [weak self] result in
+            self?.items = (try? result.get()) ?? []
+            self?.tableView.reloadData()
             self?.refreshControl?.endRefreshing()
         }
+    }
+    
+    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = items[indexPath.row]
+        let cell = FeedImageCell()
+        cell.titleLabel.text = item.title
+        cell.overviewLabel.text = item.overview
+        return cell
     }
 }
