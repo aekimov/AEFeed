@@ -55,6 +55,18 @@ class ListViewControllerTests: XCTestCase {
         assertThat(sut, isRendering: [image0, image1])
     }
     
+    func test_loadFeedCompletion_doesNotAlterCurrentRenderingStateOnError() {
+        let image0 = makeImage()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading(with: [image0], at: 0)
+        assertThat(sut, isRendering: [image0])
+        
+        sut.simulateUserInitiatedFeedReload()
+        loader.completeFeedLoadingWithError(at: 1)
+        assertThat(sut, isRendering: [image0])
+    }
     
     
     //MARK: - Helpers
@@ -89,7 +101,7 @@ class ListViewControllerTests: XCTestCase {
         XCTAssertEqual(cell.overviewText, image.overview, "Expected description text to be \(String(describing: image.overview)) for image view at index (\(index)", file: file, line: line)
     }
 
-    private func makeImage(title: String, imagePath: String, overview: String) -> FeedImage {
+    private func makeImage(title: String = "title", imagePath: String = "path1", overview: String = "overview") -> FeedImage {
         return FeedImage(id: UUID().hashValue, title: title, imagePath: imagePath, overview:overview)
     }
     
@@ -106,6 +118,11 @@ class ListViewControllerTests: XCTestCase {
         
         func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
             completions[index](.success(feed))
+        }
+        
+        func completeFeedLoadingWithError(at index: Int = 0) {
+            let error = NSError(domain: "an error", code: 0)
+            completions[index](.failure(error))
         }
     }
     

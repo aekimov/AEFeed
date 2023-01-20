@@ -31,8 +31,10 @@ public class ListViewController: UITableViewController {
     @objc private func load() {
         refreshControl?.beginRefreshing()
         loader.load { [weak self] result in
-            self?.items = (try? result.get()) ?? []
-            self?.tableView.reloadData()
+            if let feed = try? result.get() {
+                self?.items = feed
+                self?.tableView.reloadData()
+            }
             self?.refreshControl?.endRefreshing()
         }
     }
