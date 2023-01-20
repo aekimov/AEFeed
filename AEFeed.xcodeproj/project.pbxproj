@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF025559297A497E000CA0E9 /* AEFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF025551297A497D000CA0E9 /* AEFeediOS.framework */; };
 		FF1EB9AF297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9AE297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift */; };
 		FF1EB9B1297424BD00CA9321 /* FeedCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9B0297424BD00CA9321 /* FeedCacheTestHelpers.swift */; };
 		FF1EB9B3297507F200CA9321 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */; };
@@ -45,6 +46,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		FF02555A297A497E000CA0E9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FFB4D3EA290D87CF00FC6F96 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FF025550297A497D000CA0E9;
+			remoteInfo = AEFeediOS;
+		};
 		FF2AB6CA29785D7A00A659BE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FFB4D3EA290D87CF00FC6F96 /* Project object */;
@@ -69,6 +77,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FF025551297A497D000CA0E9 /* AEFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AEFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF025558297A497D000CA0E9 /* AEFeediOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AEFeediOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF1EB9AE297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateFeedCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		FF1EB9B0297424BD00CA9321 /* FeedCacheTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCacheTestHelpers.swift; sourceTree = "<group>"; };
 		FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
@@ -105,6 +115,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FF02554E297A497D000CA0E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FF025555297A497D000CA0E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF025559297A497E000CA0E9 /* AEFeediOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FF2AB6C229785D7A00A659BE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -139,6 +164,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FF025552297A497D000CA0E9 /* AEFeediOS */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AEFeediOS;
+			sourceTree = "<group>";
+		};
+		FF02555C297A497E000CA0E9 /* AEFeediOSTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AEFeediOSTests;
+			sourceTree = "<group>";
+		};
 		FF2A0653290E37330085559D /* Feed Feature */ = {
 			isa = PBXGroup;
 			children = (
@@ -247,6 +286,8 @@
 				FFB4D3FF290D87CF00FC6F96 /* AEFeedTests */,
 				FFAE5F962910200100D78CF8 /* AEFeedAPIEndToEndTest */,
 				FF2AB6C629785D7A00A659BE /* AEFeedCacheIntegrationTests */,
+				FF025552297A497D000CA0E9 /* AEFeediOS */,
+				FF02555C297A497E000CA0E9 /* AEFeediOSTests */,
 				FFB4D3F4290D87CF00FC6F96 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -258,6 +299,8 @@
 				FFB4D3FB290D87CF00FC6F96 /* AEFeedTests.xctest */,
 				FFAE5F952910200100D78CF8 /* AEFeedAPIEndToEndTest.xctest */,
 				FF2AB6C529785D7A00A659BE /* AEFeedCacheIntegrationTests.xctest */,
+				FF025551297A497D000CA0E9 /* AEFeediOS.framework */,
+				FF025558297A497D000CA0E9 /* AEFeediOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -285,6 +328,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		FF02554C297A497D000CA0E9 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFB4D3EE290D87CF00FC6F96 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -295,6 +345,42 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		FF025550297A497D000CA0E9 /* AEFeediOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF025560297A497E000CA0E9 /* Build configuration list for PBXNativeTarget "AEFeediOS" */;
+			buildPhases = (
+				FF02554C297A497D000CA0E9 /* Headers */,
+				FF02554D297A497D000CA0E9 /* Sources */,
+				FF02554E297A497D000CA0E9 /* Frameworks */,
+				FF02554F297A497D000CA0E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AEFeediOS;
+			productName = AEFeediOS;
+			productReference = FF025551297A497D000CA0E9 /* AEFeediOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FF025557297A497D000CA0E9 /* AEFeediOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF025563297A497E000CA0E9 /* Build configuration list for PBXNativeTarget "AEFeediOSTests" */;
+			buildPhases = (
+				FF025554297A497D000CA0E9 /* Sources */,
+				FF025555297A497D000CA0E9 /* Frameworks */,
+				FF025556297A497D000CA0E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FF02555B297A497E000CA0E9 /* PBXTargetDependency */,
+			);
+			name = AEFeediOSTests;
+			productName = AEFeediOSTests;
+			productReference = FF025558297A497D000CA0E9 /* AEFeediOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FF2AB6C429785D7A00A659BE /* AEFeedCacheIntegrationTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FF2AB6CC29785D7A00A659BE /* Build configuration list for PBXNativeTarget "AEFeedCacheIntegrationTests" */;
@@ -377,6 +463,12 @@
 				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1410;
 				TargetAttributes = {
+					FF025550297A497D000CA0E9 = {
+						CreatedOnToolsVersion = 14.1;
+					};
+					FF025557297A497D000CA0E9 = {
+						CreatedOnToolsVersion = 14.1;
+					};
 					FF2AB6C429785D7A00A659BE = {
 						CreatedOnToolsVersion = 14.1;
 					};
@@ -409,11 +501,27 @@
 				FFB4D3FA290D87CF00FC6F96 /* AEFeedTests */,
 				FFAE5F942910200100D78CF8 /* AEFeedAPIEndToEndTest */,
 				FF2AB6C429785D7A00A659BE /* AEFeedCacheIntegrationTests */,
+				FF025550297A497D000CA0E9 /* AEFeediOS */,
+				FF025557297A497D000CA0E9 /* AEFeediOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FF02554F297A497D000CA0E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FF025556297A497D000CA0E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FF2AB6C329785D7A00A659BE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -445,6 +553,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FF02554D297A497D000CA0E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FF025554297A497D000CA0E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FF2AB6C129785D7A00A659BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -508,6 +630,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		FF02555B297A497E000CA0E9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FF025550297A497D000CA0E9 /* AEFeediOS */;
+			targetProxy = FF02555A297A497E000CA0E9 /* PBXContainerItemProxy */;
+		};
 		FF2AB6CB29785D7A00A659BE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FFB4D3F2290D87CF00FC6F96 /* AEFeed */;
@@ -526,6 +653,108 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		FF025561297A497E000CA0E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3285BMFMRD;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artemekimov.AEFeediOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FF025562297A497E000CA0E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 3285BMFMRD;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artemekimov.AEFeediOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FF025564297A497E000CA0E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3285BMFMRD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artemekimov.AEFeediOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FF025565297A497E000CA0E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3285BMFMRD;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.artemekimov.AEFeediOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		FF2AB6CD29785D7A00A659BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -823,6 +1052,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FF025560297A497E000CA0E9 /* Build configuration list for PBXNativeTarget "AEFeediOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF025561297A497E000CA0E9 /* Debug */,
+				FF025562297A497E000CA0E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF025563297A497E000CA0E9 /* Build configuration list for PBXNativeTarget "AEFeediOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FF025564297A497E000CA0E9 /* Debug */,
+				FF025565297A497E000CA0E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FF2AB6CC29785D7A00A659BE /* Build configuration list for PBXNativeTarget "AEFeedCacheIntegrationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
