@@ -13,7 +13,8 @@ public protocol FeedImageDataLoaderTask {
 }
 
 public protocol FeedImageDataLoader {
-    func loadImageData(from path: String) -> FeedImageDataLoaderTask
+    typealias Result = Swift.Result<Data, Error>
+    func loadImageData(from path: String, completion: @escaping (Result) -> Void) -> FeedImageDataLoaderTask
 }
 
 public class ListViewController: UITableViewController {
@@ -60,7 +61,10 @@ public class ListViewController: UITableViewController {
         let cell = FeedImageCell()
         cell.titleLabel.text = item.title
         cell.overviewLabel.text = item.overview
-        tasks[indexPath] = imageLoader.loadImageData(from: item.imagePath)
+        cell.feedImageView.startShimmering()
+        tasks[indexPath] = imageLoader.loadImageData(from: item.imagePath) { [weak self] result in
+            cell.feedImageView.stopShimmering()
+        }
         return cell
     }
     

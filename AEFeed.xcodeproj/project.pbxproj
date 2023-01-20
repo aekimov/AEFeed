@@ -46,6 +46,7 @@
 		FFB4D40C290D87DC00FC6F96 /* FeedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB4D40B290D87DC00FC6F96 /* FeedImage.swift */; };
 		FFBF5DB5297AEAA900C66EB4 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBF5DB4297AEAA900C66EB4 /* ListViewController.swift */; };
 		FFBF5DB7297AEE5600C66EB4 /* FeedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBF5DB6297AEE5600C66EB4 /* FeedImageCell.swift */; };
+		FFBF5DB9297AFEA200C66EB4 /* UIView+Shimmering.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBF5DB8297AFEA200C66EB4 /* UIView+Shimmering.swift */; };
 		FFE3D7352976CC190046B611 /* CoreDataFeedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3D7342976CC190046B611 /* CoreDataFeedStoreTests.swift */; };
 		FFE3D7372976CC810046B611 /* CoreDataFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3D7362976CC810046B611 /* CoreDataFeedStore.swift */; };
 		FFE3D73A2976CF210046B611 /* FeedStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FFE3D7382976CF210046B611 /* FeedStore.xcdatamodeld */; };
@@ -139,6 +140,7 @@
 		FFB4D40B290D87DC00FC6F96 /* FeedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImage.swift; sourceTree = "<group>"; };
 		FFBF5DB4297AEAA900C66EB4 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		FFBF5DB6297AEE5600C66EB4 /* FeedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCell.swift; sourceTree = "<group>"; };
+		FFBF5DB8297AFEA200C66EB4 /* UIView+Shimmering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmering.swift"; sourceTree = "<group>"; };
 		FFE3D7342976CC190046B611 /* CoreDataFeedStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedStoreTests.swift; sourceTree = "<group>"; };
 		FFE3D7362976CC810046B611 /* CoreDataFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedStore.swift; sourceTree = "<group>"; };
 		FFE3D7392976CF210046B611 /* FeedStore.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FeedStore.xcdatamodel; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			children = (
 				FFBF5DB4297AEAA900C66EB4 /* ListViewController.swift */,
 				FFBF5DB6297AEE5600C66EB4 /* FeedImageCell.swift */,
+				FFBF5DB8297AFEA200C66EB4 /* UIView+Shimmering.swift */,
 			);
 			path = AEFeediOS;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFBF5DB9297AFEA200C66EB4 /* UIView+Shimmering.swift in Sources */,
 				FFBF5DB5297AEAA900C66EB4 /* ListViewController.swift in Sources */,
 				FFBF5DB7297AEE5600C66EB4 /* FeedImageCell.swift in Sources */,
 			);
