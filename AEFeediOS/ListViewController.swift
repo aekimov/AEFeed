@@ -8,10 +8,13 @@
 import UIKit
 import AEFeed
 
-public protocol FeedImageDataLoader {
-    func loadImageData(from path: String)
+public protocol FeedImageDataLoaderTask {
+    func cancel()
 }
 
+public protocol FeedImageDataLoader {
+    func loadImageData(from path: String) -> FeedImageDataLoaderTask
+}
 
 public class ListViewController: UITableViewController {
     private let feedLoader: FeedLoader
@@ -28,7 +31,8 @@ public class ListViewController: UITableViewController {
     }
     
     private var items: [FeedImage] = []
-    
+    private var tasks: [IndexPath: FeedImageDataLoaderTask] = [:]
+
     public override func viewDidLoad() {
         super.viewDidLoad()
         refreshControl = UIRefreshControl()
@@ -56,7 +60,11 @@ public class ListViewController: UITableViewController {
         let cell = FeedImageCell()
         cell.titleLabel.text = item.title
         cell.overviewLabel.text = item.overview
-        imageLoader.loadImageData(from: item.imagePath)
+        tasks[indexPath] = imageLoader.loadImageData(from: item.imagePath)
         return cell
+    }
+    
+    public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        tasks[indexPath]?.cancel()
     }
 }

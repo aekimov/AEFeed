@@ -88,6 +88,22 @@ class ListViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath], "Expected second image URL request once second view also becomes visible")
     }
     
+    func test_feedImageView_cancelsImageLoadingWhenNotVisibleAnymore() {
+        let image0 = makeImage(imagePath: "path1")
+        let image1 = makeImage(imagePath: "path2")
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading(with: [image0, image1])
+        XCTAssertEqual(loader.cancelledImagePaths, [], "Expected no cancelled image URL requests until image is not visible")
+        
+        sut.simulateFeedImageViewNotVisible(at: 0)
+        XCTAssertEqual(loader.cancelledImagePaths, [image0.imagePath], "Expected one cancelled image URL request once first image is not visible anymore")
+        
+        sut.simulateFeedImageViewNotVisible(at: 1)
+        XCTAssertEqual(loader.cancelledImagePaths, [image0.imagePath, image1.imagePath], "Expected two cancelled image URL requests once second image is also not visible anymore")
+    }
+    
     
     //MARK: - Helpers
     
@@ -146,13 +162,24 @@ class ListViewControllerTests: XCTestCase {
         }
         
         
-        private(set) var loadedImagePaths = [String]()
+        private struct TaskSpy: FeedImageDataLoaderTask {
+            let callback: () -> Void
+            
+            func cancel() {
+                callback()
+            }
+        }
         
-        func loadImageData(from path: String) {
+        private(set) var loadedImagePaths = [String]()
+        private(set) var cancelledImagePaths = [String]()
+        
+        func loadImageData(from path: String) -> FeedImageDataLoaderTask {
             loadedImagePaths.append(path)
+            return TaskSpy { [weak self] in
+                self?.cancelledImagePaths.append(path)
+            }
         }
     }
-    
 }
 
 private extension ListViewController {
@@ -160,8 +187,17 @@ private extension ListViewController {
         refreshControl?.simulatePullToRefresh()
     }
     
-    func simulateFeedImageViewVisible(at index: Int) {
-        _ = feedImageView(at: index)
+    @discardableResult
+    func simulateFeedImageViewVisible(at index: Int) -> FeedImageCell? {
+        return feedImageView(at: index) as? FeedImageCell
+    }
+    
+    func simulateFeedImageViewNotVisible(at row: Int) {
+        let view = simulateFeedImageViewVisible(at: row)
+        
+        let delegate = tableView.delegate
+        let index = IndexPath(row: row, section: feedImagesSection)
+        delegate?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
     }
     
     var isShowingLoadingIndicator: Bool {
