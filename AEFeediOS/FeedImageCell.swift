@@ -46,7 +46,17 @@ public final class FeedImageCell: UITableViewCell {
         return imageView
     }()
     
-    public let feedImageRetryButton = UIButton()
+    private(set) public lazy var feedImageRetryButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    var onRetry: (() -> Void)?
+    
+    @objc private func retryButtonTapped() {
+        onRetry?()
+    }
         
     private func configureUI() {
         let container = UIStackView(axis: .vertical, spacing: 8, subviews: [feedImageView, titleLabel, overviewLabel])

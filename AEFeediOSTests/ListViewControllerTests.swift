@@ -180,7 +180,29 @@ class ListViewControllerTests: XCTestCase {
         loader.completeImageLoading(with: invalidImageData, at: 0)
         XCTAssertEqual(view?.isShowingRetryAction, true, "Expected retry action once image loading completes with invalid image data")
     }
+    
+    func test_feedImageViewRetryAction_retriesImageLoad() {
+        let image0 = makeImage(imagePath: "path1")
+        let image1 = makeImage(imagePath: "path2")
+        let (sut, loader) = makeSUT()
 
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading(with: [image0, image1])
+
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath], "Expected two image URL request for the two visible views")
+
+        loader.completeImageLoadingWithError(at: 0)
+        loader.completeImageLoadingWithError(at: 1)
+        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath], "Expected only two image URL requests before retry action")
+
+        view0?.simulateRetryAction()
+        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath, image0.imagePath], "Expected third imageURL request after first view retry action")
+
+        view1?.simulateRetryAction()
+        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath, image0.imagePath, image1.imagePath], "Expected fourth imageURL request after second view retry action")
+    }
     
     //MARK: - Helpers
     
@@ -329,6 +351,21 @@ private extension FeedImageCell {
     
     var isShowingRetryAction: Bool {
         return !feedImageRetryButton.isHidden
+    }
+    
+    func simulateRetryAction() {
+        feedImageRetryButton.simulateTap()
+    }
+    
+}
+
+private extension UIButton {
+    func simulateTap() {
+        allTargets.forEach { target in
+            actions(forTarget: target, forControlEvent: .touchUpInside)?.forEach {
+                (target as NSObject).perform(Selector($0))
+            }
+        }
     }
 }
 
