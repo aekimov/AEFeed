@@ -37,6 +37,9 @@ class ListViewControllerTests: XCTestCase {
         
         loader.completeFeedLoading(at: 1)
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "Expected no loading indicator once user initiated loading is completed")
+        
+        loader.completeFeedLoadingWithError(at: 0)
+        XCTAssertEqual(sut.isShowingLoadingIndicator, false, "Expected no loading indicator once user initiated loading is completed with error")
     }
     
     func test_loadFeedCompletion_rendersSuccessfullyLoadedFeed() {
