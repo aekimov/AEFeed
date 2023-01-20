@@ -61,9 +61,13 @@ public class ListViewController: UITableViewController {
         let cell = FeedImageCell()
         cell.titleLabel.text = item.title
         cell.overviewLabel.text = item.overview
+        cell.feedImageView.image = nil
         cell.feedImageView.startShimmering()
-        tasks[indexPath] = imageLoader.loadImageData(from: item.imagePath) { [weak self] result in
-            cell.feedImageView.stopShimmering()
+        tasks[indexPath] = imageLoader.loadImageData(from: item.imagePath) { [weak cell] result in
+            let data = try? result.get()
+            let image = data.map(UIImage.init) ?? nil
+            cell?.feedImageView.image = image
+            cell?.feedImageView.stopShimmering()
         }
         return cell
     }
