@@ -68,7 +68,7 @@ public class ListViewController: UITableViewController {
             let data = try? result.get()
             let image = data.map(UIImage.init) ?? nil
             cell?.feedImageView.image = image
-            cell?.feedImageRetryButton.isHidden = data != nil
+            cell?.feedImageRetryButton.isHidden = image != nil
             cell?.feedImageView.stopShimmering()
         }
         return cell
