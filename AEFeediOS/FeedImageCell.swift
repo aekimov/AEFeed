@@ -45,6 +45,8 @@ public final class FeedImageCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
+    
+    public let feedImageRetryButton = UIButton()
         
     private func configureUI() {
         let container = UIStackView(axis: .vertical, spacing: 8, subviews: [feedImageView, titleLabel, overviewLabel])

@@ -62,11 +62,13 @@ public class ListViewController: UITableViewController {
         cell.titleLabel.text = item.title
         cell.overviewLabel.text = item.overview
         cell.feedImageView.image = nil
+        cell.feedImageRetryButton.isHidden = true
         cell.feedImageView.startShimmering()
         tasks[indexPath] = imageLoader.loadImageData(from: item.imagePath) { [weak cell] result in
             let data = try? result.get()
             let image = data.map(UIImage.init) ?? nil
             cell?.feedImageView.image = image
+            cell?.feedImageRetryButton.isHidden = data != nil
             cell?.feedImageView.stopShimmering()
         }
         return cell

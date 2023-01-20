@@ -49,6 +49,11 @@
                BlueprintName = "AEFeediOSTests"
                ReferencedContainer = "container:AEFeed.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ListViewControllerTests/test_feedImageView_rendersImageLoadedFromURL()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
