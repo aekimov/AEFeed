@@ -71,11 +71,8 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
             
             self.tasks[indexPath] = self.imageLoader.loadImageData(from: item.imagePath) { [weak cell] result in
                 let data = try? result.get()
-                print("data1", String(decoding: data!, as: UTF8.self))
                 let image = data.map(UIImage.init) ?? nil
                 cell?.feedImageView.image = image
-                let data2 = cell?.feedImageView.image?.pngData()
-                print("data2", String(decoding: data2!, as: UTF8.self))
                 cell?.feedImageRetryButton.isHidden = (image != nil)
                 cell?.feedImageView.stopShimmering()
             }
@@ -88,13 +85,22 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
     }
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        tasks[indexPath]?.cancel()
+        cancelTask(forRowAt: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { indexPath in
             let item = items[indexPath.row]
-            _ = imageLoader.loadImageData(from: item.imagePath) { _ in }
+            tasks[indexPath] = imageLoader.loadImageData(from: item.imagePath) { _ in }
         }
+    }
+    
+    public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach(cancelTask)
+    }
+    
+    private func cancelTask(forRowAt indexPath: IndexPath) {
+        tasks[indexPath]?.cancel()
+        tasks[indexPath] = nil
     }
 }
