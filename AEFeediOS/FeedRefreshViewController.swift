@@ -5,7 +5,6 @@
 //  Created by Artem Ekimov on 1/21/23.
 //
 
-import AEFeed
 import UIKit
 
 public final class FeedRefreshViewController: NSObject {
@@ -17,8 +16,6 @@ public final class FeedRefreshViewController: NSObject {
         self.viewModel = viewModel
     }
     
-    public var onRefresh: (([FeedImage]) -> Void)?
-    
     @objc func refresh() {
         viewModel.loadFeed()
     }
@@ -29,10 +26,6 @@ public final class FeedRefreshViewController: NSObject {
                 self?.view.beginRefreshing()
             } else {
                 self?.view.endRefreshing()
-            }
-            
-            if let feed = viewModel.feed {
-                self?.onRefresh?(feed)
             }
         }
         view.addTarget(self, action: #selector(refresh), for: .valueChanged)
