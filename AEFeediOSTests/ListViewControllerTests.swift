@@ -204,6 +204,22 @@ class ListViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath, image0.imagePath, image1.imagePath], "Expected fourth imageURL request after second view retry action")
     }
     
+    func test_feedImageView_preloadsImageURLWhenNearVisible() {
+        let image0 = makeImage(imagePath: "path1")
+        let image1 = makeImage(imagePath: "path2")
+        let (sut, loader) = makeSUT()
+
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading(with: [image0, image1])
+        XCTAssertEqual(loader.loadedImagePaths, [], "Expected no image URL requests until image is near visible")
+
+        sut.simulateFeedImageViewNearVisible(at: 0)
+        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath], "Expected first image URL request once first image is near visible")
+
+        sut.simulateFeedImageViewNearVisible(at: 1)
+        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath], "Expected second image URL request once second image is near visible")
+    }
+    
     //MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
@@ -311,6 +327,12 @@ private extension ListViewController {
         let delegate = tableView.delegate
         let index = IndexPath(row: row, section: feedImagesSection)
         delegate?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
+    }
+    
+    func simulateFeedImageViewNearVisible(at row: Int) {
+        let ds = tableView.prefetchDataSource
+        let index = IndexPath(row: row, section: feedImagesSection)
+        ds?.tableView(tableView, prefetchRowsAt: [index])
     }
     
     var isShowingLoadingIndicator: Bool {

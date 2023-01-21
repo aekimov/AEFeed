@@ -17,7 +17,7 @@ public protocol FeedImageDataLoader {
     func loadImageData(from path: String, completion: @escaping (Result) -> Void) -> FeedImageDataLoaderTask
 }
 
-public class ListViewController: UITableViewController {
+public class ListViewController: UITableViewController, UITableViewDataSourcePrefetching {
     private let feedLoader: FeedLoader
     private let imageLoader: FeedImageDataLoader
     
@@ -36,6 +36,7 @@ public class ListViewController: UITableViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.prefetchDataSource = self
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
         load()
@@ -70,8 +71,11 @@ public class ListViewController: UITableViewController {
             
             self.tasks[indexPath] = self.imageLoader.loadImageData(from: item.imagePath) { [weak cell] result in
                 let data = try? result.get()
+                print("data1", String(decoding: data!, as: UTF8.self))
                 let image = data.map(UIImage.init) ?? nil
                 cell?.feedImageView.image = image
+                let data2 = cell?.feedImageView.image?.pngData()
+                print("data2", String(decoding: data2!, as: UTF8.self))
                 cell?.feedImageRetryButton.isHidden = (image != nil)
                 cell?.feedImageView.stopShimmering()
             }
@@ -85,5 +89,12 @@ public class ListViewController: UITableViewController {
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tasks[indexPath]?.cancel()
+    }
+    
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach { indexPath in
+            let item = items[indexPath.row]
+            _ = imageLoader.loadImageData(from: item.imagePath) { _ in }
+        }
     }
 }
