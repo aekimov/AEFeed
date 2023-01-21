@@ -8,21 +8,12 @@
 import UIKit
 import AEFeed
 
-public protocol FeedImageDataLoaderTask {
-    func cancel()
-}
-
-public protocol FeedImageDataLoader {
-    typealias Result = Swift.Result<Data, Error>
-    func loadImageData(from path: String, completion: @escaping (Result) -> Void) -> FeedImageDataLoaderTask
-}
-
 public class ListViewController: UITableViewController, UITableViewDataSourcePrefetching {
-    private let feedLoader: FeedLoader
+    private let refreshController: FeedRefreshViewController
     private let imageLoader: FeedImageDataLoader
     
-    public init(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) {
-        self.feedLoader = feedLoader
+    public init(refreshController: FeedRefreshViewController, imageLoader: FeedImageDataLoader) {
+        self.refreshController = refreshController
         self.imageLoader = imageLoader
         super.init(nibName: nil, bundle: nil)
     }
@@ -31,26 +22,22 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var items: [FeedImage] = []
+    private var items: [FeedImage] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     private var tasks: [IndexPath: FeedImageDataLoaderTask] = [:]
 
     public override func viewDidLoad() {
         super.viewDidLoad()
         tableView.prefetchDataSource = self
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
-        load()
-    }
-    
-    @objc private func load() {
-        refreshControl?.beginRefreshing()
-        feedLoader.load { [weak self] result in
-            if let feed = try? result.get() {
-                self?.items = feed
-                self?.tableView.reloadData()
-            }
-            self?.refreshControl?.endRefreshing()
+        tableView.refreshControl = refreshController.view
+        refreshController.onRefresh = { [weak self] feed in
+            self?.items = feed
         }
+        refreshController.refresh()
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
