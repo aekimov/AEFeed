@@ -5,8 +5,8 @@
 //  Created by Artem Ekimov on 1/21/23.
 //
 
-import UIKit
 import AEFeed
+import UIKit
 
 public final class FeedRefreshViewController: NSObject {
     private(set) lazy var view: UIRefreshControl = {
