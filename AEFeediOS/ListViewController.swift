@@ -5,16 +5,13 @@
 //  Created by Artem Ekimov on 1/20/23.
 //
 
-import AEFeed
 import UIKit
 
 public class ListViewController: UITableViewController, UITableViewDataSourcePrefetching {
     private let refreshController: FeedRefreshViewController
-    private let imageLoader: FeedImageDataLoader
     
-    public init(refreshController: FeedRefreshViewController, imageLoader: FeedImageDataLoader) {
+    public init(refreshController: FeedRefreshViewController) {
         self.refreshController = refreshController
-        self.imageLoader = imageLoader
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -22,21 +19,16 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
         fatalError("init(coder:) has not been implemented")
     }
     
-    private var models: [FeedImage] = [] {
+    var models: [FeedImageCellController] = [] {
         didSet {
             tableView.reloadData()
         }
     }
-    
-    private var cellControllers: [IndexPath: FeedImageCellController] = [:]
-    
+        
     public override func viewDidLoad() {
         super.viewDidLoad()
         tableView.prefetchDataSource = self
         tableView.refreshControl = refreshController.view
-        refreshController.onRefresh = { [weak self] feed in
-            self?.models = feed
-        }
         refreshController.refresh()
     }
     
@@ -49,7 +41,7 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
     }
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        removeCellController(forRowAt: indexPath)
+        cancelCellControllerLoad(forRowAt: indexPath)
     }
     
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
@@ -59,17 +51,14 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
     }
     
     public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-        indexPaths.forEach(removeCellController)
+        indexPaths.forEach(cancelCellControllerLoad)
     }
     
     private func cellController(forRowAt indexPath: IndexPath) -> FeedImageCellController {
-        let model = models[indexPath.row]
-        let cellController = FeedImageCellController(model: model, imageLoader: imageLoader)
-        cellControllers[indexPath] = cellController
-        return cellController
+        return models[indexPath.row]
     }
     
-    private func removeCellController(forRowAt indexPath: IndexPath) {
-        cellControllers[indexPath] = nil
+    private func cancelCellControllerLoad(forRowAt indexPath: IndexPath) {
+        cellController(forRowAt: indexPath).cancelLoad()
     }
 }
