@@ -21,6 +21,7 @@ final class FeedImageCellController: FeedImageView {
     }
     
     func view(in tableView: UITableView) -> UITableViewCell {
+        tableView.register(FeedImageCell.self)
         cell = tableView.dequeueReusableCell()
         delegate.didRequestImage()
         return cell!
@@ -40,6 +41,11 @@ final class FeedImageCellController: FeedImageView {
     }
     
     func cancelLoad() {
+        releaseCellForReuse()
         delegate.didCancelImageRequest()
+    }
+    
+    private func releaseCellForReuse() {
+        cell = nil
     }
 }
