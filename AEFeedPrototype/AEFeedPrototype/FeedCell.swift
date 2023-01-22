@@ -44,25 +44,61 @@ public final class FeedCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
-        
+    
+    private(set) public lazy var feedImageRetryButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
+        button.setTitle("↺", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 40, weight: .bold)
+        return button
+    }()
+    
+    private(set) public lazy var imageViewContainer: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    var onRetry: (() -> Void)?
+    
+    @objc private func retryButtonTapped() {
+        onRetry?()
+    }
+    
     private func configureUI() {
-        let container = UIStackView(axis: .vertical, spacing: 8, subviews: [feedImageView, titleLabel, overviewLabel])
-        container.setCustomSpacing(24, after: feedImageView)
+        let container = UIStackView(axis: .vertical, spacing: 8, subviews: [imageViewContainer, titleLabel, overviewLabel])
+        imageViewContainer.addSubview(feedImageRetryButton)
+        imageViewContainer.addSubview(feedImageView)
+        container.setCustomSpacing(24, after: imageViewContainer)
         contentView.addSubview(container)
         
         let bottomAnchorConstraint = contentView.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: 16)
-        bottomAnchorConstraint.priority = .defaultLow
-
+        bottomAnchorConstraint.priority = .defaultLow - 1
+        
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             container.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             contentView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: 24),
-            feedImageView.widthAnchor.constraint(equalTo: container.widthAnchor),
-            feedImageView.heightAnchor.constraint(equalTo: container.widthAnchor),
-            bottomAnchorConstraint
+            bottomAnchorConstraint,
+            
+            feedImageView.heightAnchor.constraint(equalToConstant: 300),
+            imageViewContainer.widthAnchor.constraint(equalTo: container.widthAnchor),
+
+            feedImageView.topAnchor.constraint(equalTo: imageViewContainer.topAnchor),
+            feedImageView.leadingAnchor.constraint(equalTo: imageViewContainer.leadingAnchor),
+            imageViewContainer.bottomAnchor.constraint(equalTo: feedImageView.bottomAnchor),
+            imageViewContainer.trailingAnchor.constraint(equalTo: feedImageView.trailingAnchor),
+            
+            feedImageRetryButton.topAnchor.constraint(equalTo: imageViewContainer.topAnchor),
+            feedImageRetryButton.leadingAnchor.constraint(equalTo: imageViewContainer.leadingAnchor),
+            imageViewContainer.bottomAnchor.constraint(equalTo: feedImageRetryButton.bottomAnchor),
+            imageViewContainer.trailingAnchor.constraint(equalTo: feedImageRetryButton.trailingAnchor),
         ])
     }
-    
+
     func configure(_ item: FeedImage) {
         titleLabel.text = item.title
         overviewLabel.text = item.overview
