@@ -12,53 +12,37 @@ public class FeedUIComposer {
     private init() {}
     
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> ListViewController {
-        let presenter = FeedPresenter()
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader, presenter: presenter)
-        let refreshController = FeedRefreshViewController(loadFeed: presentationAdapter.loadFeed)
+        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader)
+        let refreshController = FeedRefreshViewController(delegate: presentationAdapter)
         let viewController = ListViewController(refreshController: refreshController)
-        presenter.loadingView = WeakRefVirtualProxy(refreshController)
-        presenter.feedView = FeedViewAdapter(controller: viewController, imageLoader: imageLoader)
+        let presenter = FeedPresenter(feedView: FeedViewAdapter(controller: viewController, imageLoader: imageLoader),
+                                      loadingView: WeakRefVirtualProxy(refreshController))
         
+        presentationAdapter.presenter = presenter
         return viewController
     }
 
 }
 
-final class FeedLoaderPresentationAdapter {
+final class FeedLoaderPresentationAdapter: FeedRefreshViewControllerDelegate {
     private let feedLoader: FeedLoader
-    private let presenter: FeedPresenter
+    var presenter: FeedPresenter?
 
-    init(feedLoader: FeedLoader, presenter: FeedPresenter) {
+    init(feedLoader: FeedLoader) {
         self.feedLoader = feedLoader
-        self.presenter = presenter
     }
     
-    func loadFeed() {
-        presenter.didStartLoadingFeed()
+    func didRequestFeedRefresh() {
+        presenter?.didStartLoadingFeed()
         
         feedLoader.load { [weak self] result in
             switch result {
             case .success(let feed):
-                self?.presenter.didFinishLoadingFeed(with: feed)
+                self?.presenter?.didFinishLoadingFeed(with: feed)
             case .failure(let error):
-                self?.presenter.didFinishLoading(with: error)
+                self?.presenter?.didFinishLoading(with: error)
             }
         }
-    }
-
-}
-
-private final class WeakRefVirtualProxy<T: AnyObject> {
-    private weak var object: T?
-
-    init(_ object: T) {
-        self.object = object
-    }
-}
-
-extension WeakRefVirtualProxy: FeedLoadingView where T: FeedLoadingView {
-    func display(_ viewModel: FeedLoadingViewModel) {
-        object?.display(viewModel)
     }
 }
 
@@ -76,5 +60,20 @@ private final class FeedViewAdapter: FeedView {
             let viewModel = FeedImageViewModel(model: model, imageLoader: imageLoader, imageTransformer: UIImage.init)
             return FeedImageCellController(viewModel: viewModel)
         }
+    }
+}
+
+
+private final class WeakRefVirtualProxy<T: AnyObject> {
+    private weak var object: T?
+
+    init(_ object: T) {
+        self.object = object
+    }
+}
+
+extension WeakRefVirtualProxy: FeedLoadingView where T: FeedLoadingView {
+    func display(_ viewModel: FeedLoadingViewModel) {
+        object?.display(viewModel)
     }
 }
