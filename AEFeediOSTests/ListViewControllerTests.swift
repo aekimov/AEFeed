@@ -247,6 +247,14 @@ class ListViewControllerTests: XCTestCase {
         XCTAssertNil(view?.renderedImage, "Expected no rendered image when an image load finishes after the view is not visible anymore")
     }
     
+    func test_feedView_hasTitle() {
+        let (sut, _) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(sut.title, "Upcoming Movies")
+    }
+    
     //MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {

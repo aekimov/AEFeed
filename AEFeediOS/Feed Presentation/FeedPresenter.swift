@@ -32,6 +32,10 @@ final class FeedPresenter {
         self.loadingView = loadingView
     }
     
+    static var title: String {
+        return "Upcoming Movies"
+    }
+    
     func didStartLoadingFeed() {
         loadingView.display(FeedLoadingViewModel(isLoading: true))
     }
