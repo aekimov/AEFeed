@@ -22,8 +22,8 @@
 		FF183341297D5C4F0068E048 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183340297D5C4F0068E048 /* UIStackView+Extension.swift */; };
 		FF183343297D5C640068E048 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183342297D5C640068E048 /* UIFont+Extension.swift */; };
 		FF183345297D5D000068E048 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183344297D5D000068E048 /* UITableView+Extension.swift */; };
-		FF183347297D9CEC0068E048 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF183346297D9CEC0068E048 /* Feed.strings */; };
 		FF18334A297D9F5D0068E048 /* ListViewControllerTests+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183349297D9F5D0068E048 /* ListViewControllerTests+Localization.swift */; };
+		FF18334B297DA0600068E048 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF18334D297DA0600068E048 /* Feed.strings */; };
 		FF1EB9AF297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9AE297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift */; };
 		FF1EB9B1297424BD00CA9321 /* FeedCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9B0297424BD00CA9321 /* FeedCacheTestHelpers.swift */; };
 		FF1EB9B3297507F200CA9321 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */; };
@@ -130,8 +130,9 @@
 		FF183340297D5C4F0068E048 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		FF183342297D5C640068E048 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		FF183344297D5D000068E048 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
-		FF183346297D9CEC0068E048 /* Feed.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Feed.strings; sourceTree = "<group>"; };
 		FF183349297D9F5D0068E048 /* ListViewControllerTests+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListViewControllerTests+Localization.swift"; sourceTree = "<group>"; };
+		FF18334C297DA0600068E048 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Feed.strings; sourceTree = "<group>"; };
+		FF18334E297DA0E00068E048 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Feed.strings; sourceTree = "<group>"; };
 		FF1EB9AE297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateFeedCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		FF1EB9B0297424BD00CA9321 /* FeedCacheTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCacheTestHelpers.swift; sourceTree = "<group>"; };
 		FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
@@ -301,7 +302,7 @@
 				FF18333C297CF4340068E048 /* FeedPresenter.swift */,
 				FF18333E297D16C70068E048 /* FeedImagePresenter.swift */,
 				FF18333A297CEDDC0068E048 /* FeedImageViewModel.swift */,
-				FF183346297D9CEC0068E048 /* Feed.strings */,
+				FF18334D297DA0600068E048 /* Feed.strings */,
 			);
 			path = "Feed Presentation";
 			sourceTree = "<group>";
@@ -632,6 +633,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = FFB4D3E9290D87CF00FC6F96;
 			productRefGroup = FFB4D3F4290D87CF00FC6F96 /* Products */;
@@ -653,7 +655,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF183347297D9CEC0068E048 /* Feed.strings in Resources */,
+				FF18334B297DA0600068E048 /* Feed.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -815,6 +817,18 @@
 			targetProxy = FFB4D3FD290D87CF00FC6F96 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FF18334D297DA0600068E048 /* Feed.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FF18334C297DA0600068E048 /* en */,
+				FF18334E297DA0E00068E048 /* de */,
+			);
+			name = Feed.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		FF025561297A497E000CA0E9 /* Debug */ = {
@@ -1013,6 +1027,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -1078,6 +1093,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
