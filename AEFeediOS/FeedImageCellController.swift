@@ -7,44 +7,38 @@
 
 import UIKit
 
-final class FeedImageCellController {
-    private let viewModel: FeedImageViewModel<UIImage>
+protocol FeedImageCellControllerDelegate {
+    func didRequestImage()
+    func didCancelImageRequest()
+}
+
+final class FeedImageCellController: FeedImageView {
+    private let delegate: FeedImageCellControllerDelegate
+    private lazy var cell = FeedImageCell()
     
-    init(viewModel: FeedImageViewModel<UIImage>) {
-        self.viewModel = viewModel
+    init(delegate: FeedImageCellControllerDelegate) {
+        self.delegate = delegate
     }
     
     func view() -> UITableViewCell {
-        let cell = bind(FeedImageCell())
-        viewModel.loadImageData()
+        delegate.didRequestImage()
         return cell
     }
     
-    private func bind(_ cell: FeedImageCell) -> FeedImageCell {
-        cell.titleLabel.text = viewModel.title
-        cell.overviewLabel.text = viewModel.overview
-        cell.onRetry = viewModel.loadImageData
-        
-        viewModel.onImageLoad = { [weak cell] image in
-            cell?.feedImageView.image = image
-        }
-        
-        viewModel.onImageLoadingStateChange = { [weak cell] isLoading in
-            cell?.feedImageView.isShimmering = isLoading
-        }
-        
-        viewModel.onShouldRetryImageLoadStateChange = { [weak cell] shouldRetry in
-            cell?.feedImageRetryButton.isHidden = !shouldRetry
-        }
-        
-        return cell
+    func display(_ model: FeedImageViewModel<UIImage>) {
+        cell.titleLabel.text = model.title
+        cell.overviewLabel.text = model.overview
+        cell.feedImageView.image = model.image
+        cell.feedImageView.isShimmering = model.isLoading
+        cell.feedImageRetryButton.isHidden = !model.shouldRetry
+        cell.onRetry = delegate.didRequestImage
     }
     
     func preload() {
-        viewModel.loadImageData()
+        delegate.didRequestImage()
     }
     
     func cancelLoad() {
-        viewModel.cancelImageDataLoad()
+        delegate.didCancelImageRequest()
     }
 }
