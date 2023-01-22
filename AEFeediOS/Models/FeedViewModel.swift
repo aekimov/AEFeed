@@ -8,14 +8,16 @@
 import AEFeed
 
 final class FeedViewModel {
+    typealias Observer<T> = (T) -> Void
+    
     private let feedLoader: FeedLoader
     
     public init(feedLoader: FeedLoader) {
         self.feedLoader = feedLoader
     }
     
-    var onLoadingStateChange: ((Bool) -> Void)?
-    var onFeedLoad: (([FeedImage]) -> Void)?
+    var onLoadingStateChange: Observer<Bool>?
+    var onFeedLoad: Observer<[FeedImage]>?
 
     func loadFeed() {
         onLoadingStateChange?(true)
