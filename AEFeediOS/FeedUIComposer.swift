@@ -17,7 +17,8 @@ public class FeedUIComposer {
         let viewController = ListViewController(refreshController: refreshController)
         let presenter = FeedPresenter(feedView: FeedViewAdapter(controller: viewController,
                                                                 imageLoader: MainQueueDispatchDecorator(decoratee: imageLoader)),
-                                      loadingView: WeakRefVirtualProxy(refreshController))
+                                      loadingView: WeakRefVirtualProxy(refreshController),
+                                      errorView: WeakRefVirtualProxy(viewController))
         viewController.title = FeedPresenter.title
         presentationAdapter.presenter = presenter
         return viewController

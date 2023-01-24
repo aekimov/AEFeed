@@ -7,7 +7,8 @@
 
 import UIKit
 
-public class ListViewController: UITableViewController, UITableViewDataSourcePrefetching {
+public class ListViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedErrorView {
+
     private let refreshController: FeedRefreshViewController
     
     public init(refreshController: FeedRefreshViewController) {
@@ -32,6 +33,10 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
         tableView.prefetchDataSource = self
         tableView.refreshControl = refreshController.view
         refreshController.refresh()
+    }
+    
+    func display(_ viewModel: FeedErrorViewModel) {
+        errorView.message = viewModel.message
     }
     
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
