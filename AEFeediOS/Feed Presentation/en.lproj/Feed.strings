@@ -1,2 +1,2 @@
 "FEED_VIEW_TITLE" = "Upcoming Movies";
-
+"FEED_VIEW_CONNECTION_ERROR" = "Couldn't connect to server";

@@ -19,6 +19,8 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
         fatalError("init(coder:) has not been implemented")
     }
     
+    public let errorView = ErrorView()
+    
     var models: [FeedImageCellController] = [] {
         didSet {
             tableView.reloadData()
