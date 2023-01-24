@@ -28,6 +28,7 @@
 		FF183353297E6F6A0068E048 /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183352297E6F6A0068E048 /* MainQueueDispatchDecorator.swift */; };
 		FF183355297E6FB20068E048 /* WeakRefVirtualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183354297E6FB20068E048 /* WeakRefVirtualProxy.swift */; };
 		FF18335F297F8B130068E048 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF18335E297F8B130068E048 /* ErrorView.swift */; };
+		FF183362297F93A40068E048 /* UIRefreshControl+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183361297F93A40068E048 /* UIRefreshControl+Helpers.swift */; };
 		FF1EB9AF297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9AE297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift */; };
 		FF1EB9B1297424BD00CA9321 /* FeedCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9B0297424BD00CA9321 /* FeedCacheTestHelpers.swift */; };
 		FF1EB9B3297507F200CA9321 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */; };
@@ -141,6 +142,7 @@
 		FF183352297E6F6A0068E048 /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
 		FF183354297E6FB20068E048 /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
 		FF18335E297F8B130068E048 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		FF183361297F93A40068E048 /* UIRefreshControl+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRefreshControl+Helpers.swift"; sourceTree = "<group>"; };
 		FF1EB9AE297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateFeedCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		FF1EB9B0297424BD00CA9321 /* FeedCacheTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCacheTestHelpers.swift; sourceTree = "<group>"; };
 		FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
@@ -260,12 +262,9 @@
 		FF18332A297BA9EE0068E048 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FF183360297F93900068E048 /* Helpers */,
 				FFBF5DB6297AEE5600C66EB4 /* FeedImageCell.swift */,
 				FF18335E297F8B130068E048 /* ErrorView.swift */,
-				FFBF5DB8297AFEA200C66EB4 /* UIView+Shimmering.swift */,
-				FF183340297D5C4F0068E048 /* UIStackView+Extension.swift */,
-				FF183342297D5C640068E048 /* UIFont+Extension.swift */,
-				FF183344297D5D000068E048 /* UITableView+Extension.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -333,6 +332,18 @@
 				FF183350297DA1AC0068E048 /* FeedLocalizationTests.swift */,
 			);
 			path = "Feed Presentation";
+			sourceTree = "<group>";
+		};
+		FF183360297F93900068E048 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FFBF5DB8297AFEA200C66EB4 /* UIView+Shimmering.swift */,
+				FF183361297F93A40068E048 /* UIRefreshControl+Helpers.swift */,
+				FF183340297D5C4F0068E048 /* UIStackView+Extension.swift */,
+				FF183342297D5C640068E048 /* UIFont+Extension.swift */,
+				FF183344297D5D000068E048 /* UITableView+Extension.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		FF2A0653290E37330085559D /* Feed Feature */ = {
@@ -725,6 +736,7 @@
 				FF18332F297BAA610068E048 /* FeedImageDataLoader.swift in Sources */,
 				FF183331297BACED0068E048 /* FeedRefreshViewController.swift in Sources */,
 				FFBF5DB9297AFEA200C66EB4 /* UIView+Shimmering.swift in Sources */,
+				FF183362297F93A40068E048 /* UIRefreshControl+Helpers.swift in Sources */,
 				FF18333F297D16C70068E048 /* FeedImagePresenter.swift in Sources */,
 				FFBF5DB5297AEAA900C66EB4 /* ListViewController.swift in Sources */,
 				FF183343297D5C640068E048 /* UIFont+Extension.swift in Sources */,
