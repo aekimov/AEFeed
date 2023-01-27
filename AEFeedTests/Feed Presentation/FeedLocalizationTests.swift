@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import AEFeediOS
+import AEFeed
 
 final class FeedLocalizationTests: XCTestCase {
 

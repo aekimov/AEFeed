@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AEFeed
 
 public class ListViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedErrorView {
 
@@ -35,7 +36,7 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
         refreshController.refresh()
     }
     
-    func display(_ viewModel: FeedErrorViewModel) {
+    public func display(_ viewModel: FeedErrorViewModel) {
         errorView.message = viewModel.message
     }
     
