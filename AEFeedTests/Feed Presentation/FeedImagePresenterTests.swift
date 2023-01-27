@@ -8,43 +8,6 @@
 import XCTest
 import AEFeed
 
-struct FeedImageViewModel<Image> {
-    let title: String
-    let overview: String
-    let image: Image?
-    let isLoading: Bool
-    let shouldRetry: Bool
-}
-
-protocol FeedImageView {
-    associatedtype Image
-
-    func display(_ model: FeedImageViewModel<Image>)
-}
-
-final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == Image {
-    private let view: View
-    private let imageTransformer: (Data) -> Image?
-    
-    init(view: View, imageTransformer: @escaping (Data) -> Image?) {
-        self.view = view
-        self.imageTransformer = imageTransformer
-    }
-    
-    func didStartLoadingImageData(for model: FeedImage) {
-        view.display(FeedImageViewModel(title: model.title, overview: model.overview, image: nil, isLoading: true, shouldRetry: false))
-    }
-    
-    func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
-        let image = imageTransformer(data)
-        view.display(FeedImageViewModel(title: model.title, overview: model.overview, image: image, isLoading: false, shouldRetry: image == nil))
-    }
-    
-    func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
-        view.display(FeedImageViewModel(title: model.title, overview: model.overview, image: nil, isLoading: false, shouldRetry: true))
-    }
-}
-
 class FeedImagePresenterTests: XCTestCase {
     
     func test_init_doesNotSendMessagesToView() {

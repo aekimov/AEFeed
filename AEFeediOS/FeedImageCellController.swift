@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AEFeed
 
 protocol FeedImageCellControllerDelegate {
     func didRequestImage()
