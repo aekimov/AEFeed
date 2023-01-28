@@ -51,19 +51,21 @@ private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, 
     private var task: FeedImageDataLoaderTask?
     private let model: FeedImage
     private let imageLoader: FeedImageDataLoader
+    private let imageBaseURL: URL
     
     var imagePresenter: FeedImagePresenter<View, Image>?
 
-    init(model: FeedImage, imageLoader: FeedImageDataLoader) {
+    init(model: FeedImage, imageLoader: FeedImageDataLoader, imageBaseURL: URL) {
         self.model = model
         self.imageLoader = imageLoader
+        self.imageBaseURL = imageBaseURL
     }
     
     func didRequestImage() {
         imagePresenter?.didStartLoadingImageData(for: model)
         let model = self.model
         
-        task = imageLoader.loadImageData(from: model.imagePath) { [weak self] result in
+        task = imageLoader.loadImageData(from: composeURL(for: model)) { [weak self] result in
             switch result {
             case .success(let data):
                 self?.imagePresenter?.didFinishLoadingImageData(with: data, for: model)
@@ -77,6 +79,11 @@ private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, 
         task?.cancel()
         task = nil
     }
+    
+    private func composeURL(for model: FeedImage) -> URL {
+        return imageBaseURL.appendingPathComponent(model.imagePath)
+    }
+
 }
 
 private final class FeedViewAdapter: FeedView {
@@ -88,9 +95,11 @@ private final class FeedViewAdapter: FeedView {
         self.imageLoader = imageLoader
     }
     
+    private let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500/")!
+    
     func display(_ viewModel: FeedViewModel) {
         controller?.models = viewModel.feed.map { model in
-            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader)
+            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader, imageBaseURL: imageBaseURL)
             let view = FeedImageCellController(delegate: adapter)
             
             adapter.imagePresenter = FeedImagePresenter(view: WeakRefVirtualProxy(view),

@@ -79,13 +79,13 @@ class ListViewControllerTests: XCTestCase {
         sut.loadViewIfNeeded()
         loader.completeFeedLoading(with: [image0, image1])
 
-        XCTAssertEqual(loader.loadedImagePaths, [], "Expected no image URL requests until views become visible")
+        XCTAssertEqual(loader.loadedImageURLs, [], "Expected no image URL requests until views become visible")
 
         sut.simulateFeedImageViewVisible(at: 0)
-        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath], "Expected first image URL request once first view becomes visible")
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url], "Expected first image URL request once first view becomes visible")
 
         sut.simulateFeedImageViewVisible(at: 1)
-        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath], "Expected second image URL request once second view also becomes visible")
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url], "Expected second image URL request once second view also becomes visible")
     }
     
     func test_feedImageView_cancelsImageLoadingWhenNotVisibleAnymore() {
@@ -95,13 +95,13 @@ class ListViewControllerTests: XCTestCase {
         
         sut.loadViewIfNeeded()
         loader.completeFeedLoading(with: [image0, image1])
-        XCTAssertEqual(loader.cancelledImagePaths, [], "Expected no cancelled image URL requests until image is not visible")
+        XCTAssertEqual(loader.cancelledImageURLs, [], "Expected no cancelled image URL requests until image is not visible")
         
         sut.simulateFeedImageViewNotVisible(at: 0)
-        XCTAssertEqual(loader.cancelledImagePaths, [image0.imagePath], "Expected one cancelled image URL request once first image is not visible anymore")
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.url], "Expected one cancelled image URL request once first image is not visible anymore")
         
         sut.simulateFeedImageViewNotVisible(at: 1)
-        XCTAssertEqual(loader.cancelledImagePaths, [image0.imagePath, image1.imagePath], "Expected two cancelled image URL requests once second image is also not visible anymore")
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.url, image1.url], "Expected two cancelled image URL requests once second image is also not visible anymore")
     }
     
     func test_feedImageViewLoadingIndicator_isVisibleWhileLoadingImage() {
@@ -191,17 +191,17 @@ class ListViewControllerTests: XCTestCase {
 
         let view0 = sut.simulateFeedImageViewVisible(at: 0)
         let view1 = sut.simulateFeedImageViewVisible(at: 1)
-        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath], "Expected two image URL request for the two visible views")
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url], "Expected two image URL request for the two visible views")
 
         loader.completeImageLoadingWithError(at: 0)
         loader.completeImageLoadingWithError(at: 1)
-        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath], "Expected only two image URL requests before retry action")
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url], "Expected only two image URL requests before retry action")
 
         view0?.simulateRetryAction()
-        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath, image0.imagePath], "Expected third imageURL request after first view retry action")
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url, image0.url], "Expected third imageURL request after first view retry action")
 
         view1?.simulateRetryAction()
-        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath, image0.imagePath, image1.imagePath], "Expected fourth imageURL request after second view retry action")
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url, image0.url, image1.url], "Expected fourth imageURL request after second view retry action")
     }
     
     func test_feedImageView_preloadsImageURLWhenNearVisible() {
@@ -211,13 +211,13 @@ class ListViewControllerTests: XCTestCase {
 
         sut.loadViewIfNeeded()
         loader.completeFeedLoading(with: [image0, image1])
-        XCTAssertEqual(loader.loadedImagePaths, [], "Expected no image URL requests until image is near visible")
+        XCTAssertEqual(loader.loadedImageURLs, [], "Expected no image URL requests until image is near visible")
 
         sut.simulateFeedImageViewNearVisible(at: 0)
-        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath], "Expected first image URL request once first image is near visible")
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url], "Expected first image URL request once first image is near visible")
 
         sut.simulateFeedImageViewNearVisible(at: 1)
-        XCTAssertEqual(loader.loadedImagePaths, [image0.imagePath, image1.imagePath], "Expected second image URL request once second image is near visible")
+        XCTAssertEqual(loader.loadedImageURLs, [image0.url, image1.url], "Expected second image URL request once second image is near visible")
     }
     
     func test_feedImageView_cancelsImageURLPreloadingWhenNotNearVisibleAnymore() {
@@ -227,13 +227,13 @@ class ListViewControllerTests: XCTestCase {
         
         sut.loadViewIfNeeded()
         loader.completeFeedLoading(with: [image0, image1])
-        XCTAssertEqual(loader.cancelledImagePaths, [], "Expected no cancelled image URL requests until image is not near visible")
+        XCTAssertEqual(loader.cancelledImageURLs, [], "Expected no cancelled image URL requests until image is not near visible")
         
         sut.simulateFeedImageViewNotNearVisible(at: 0)
-        XCTAssertEqual(loader.cancelledImagePaths, [image0.imagePath], "Expected first cancelled image URL request once first image is not near visible anymore")
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.url], "Expected first cancelled image URL request once first image is not near visible anymore")
         
         sut.simulateFeedImageViewNotNearVisible(at: 1)
-        XCTAssertEqual(loader.cancelledImagePaths, [image0.imagePath, image1.imagePath], "Expected second cancelled image URL request once second image is not near visible anymore")
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.url, image1.url], "Expected second cancelled image URL request once second image is not near visible anymore")
     }
 
     func test_feedImageView_doesNotRenderLoadedImageWhenNotVisibleAnymore() {
@@ -384,18 +384,18 @@ class ListViewControllerTests: XCTestCase {
             }
         }
         
-        private(set) var cancelledImagePaths = [String]()
+        private(set) var cancelledImageURLs: [URL] = []
         
-        private var imageRequests = [(imagePath: String, completion: (FeedImageDataLoader.Result) -> Void)]()
+        private var imageRequests = [(url: URL, completion: (FeedImageDataLoader.Result) -> Void)]()
 
-        var loadedImagePaths: [String] {
-            return imageRequests.map { $0.imagePath }
+        var loadedImageURLs: [URL] {
+            return imageRequests.map { $0.url }
         }
         
-        func loadImageData(from path: String, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
-            imageRequests.append((path, completion))
+        func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
+            imageRequests.append((url, completion))
             return TaskSpy { [weak self] in
-                self?.cancelledImagePaths.append(path)
+                self?.cancelledImageURLs.append(url)
             }
         }
         
@@ -407,6 +407,12 @@ class ListViewControllerTests: XCTestCase {
             let error = NSError(domain: "an error", code: 0)
             imageRequests[index].completion(.failure(error))
         }
+    }
+}
+
+private extension FeedImage {
+    var url: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500/")!.appendingPathComponent(imagePath)
     }
 }
 
