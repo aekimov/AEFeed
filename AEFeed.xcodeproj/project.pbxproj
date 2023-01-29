@@ -395,9 +395,9 @@
 			isa = PBXGroup;
 			children = (
 				FFE3D7362976CC810046B611 /* CoreDataFeedStore.swift */,
+				FFD294742986436B0047E30D /* CoreDataFeedStore+FeedImageDataLoader.swift */,
 				FF2AB6BD29785C7000A659BE /* ManagedCache.swift */,
 				FF2AB6BF29785C8100A659BE /* ManagedFeedImage.swift */,
-				FFD294742986436B0047E30D /* CoreDataFeedStore+FeedImageDataLoader.swift */,
 				FFE3D7382976CF210046B611 /* FeedStore.xcdatamodeld */,
 			);
 			path = Infrastructure;

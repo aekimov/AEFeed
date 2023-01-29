@@ -18,12 +18,22 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
 
     func test_retrieveImageData_deliversNotFoundWhenStoredDataURLDoesNotMatch() {
         let sut = makeSUT()
-        let url = URL(string: "http://a-url.com")!
-        let nonMatchingURL = URL(string: "http://another-url.com")!
+        let url = anyURLWithPath()
+        let nonMatchingURL = anyURLWithPath()
 
         insert(anyData(), for: url, into: sut)
 
         expect(sut, toCompleteRetrievalWith: notFound(), for: nonMatchingURL)
+    }
+    
+    func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() {
+        let sut = makeSUT()
+        let storedData = anyData()
+        let matchingURL = anyURLWithPath()
+        
+        insert(storedData, for: matchingURL, into: sut)
+
+        expect(sut, toCompleteRetrievalWith: found(storedData), for: matchingURL)
     }
     
     
@@ -39,6 +49,14 @@ class CoreDataFeedImageDataStoreTests: XCTestCase {
 
     private func notFound() -> FeedImageDataStore.RetrievalResult {
         return .success(.none)
+    }
+    
+    private func found(_ data: Data) -> FeedImageDataStore.RetrievalResult {
+        return .success(data)
+    }
+    
+    private func anyURLWithPath() -> URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500/\(UUID().hashValue).jpg")!
     }
     
     private func localImage(url: URL) -> LocalFeedImage {
