@@ -410,12 +410,6 @@ class ListViewControllerTests: XCTestCase {
     }
 }
 
-private extension FeedImage {
-    var url: URL {
-        return URL(string: "https://image.tmdb.org/t/p/w500/")!.appendingPathComponent(imagePath)
-    }
-}
-
 private extension ListViewController {
     func simulateUserInitiatedFeedReload() {
         refreshControl?.simulatePullToRefresh()

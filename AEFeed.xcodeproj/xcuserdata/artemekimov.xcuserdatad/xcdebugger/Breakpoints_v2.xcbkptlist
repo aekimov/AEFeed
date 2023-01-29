@@ -3,4 +3,134 @@
    uuid = "B1137102-C0B5-4B50-92DF-47BC73491002"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "855883D1-774B-40E9-BBEA-9206229878F8"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AEFeed/Feed Cache/LocalFeedLoader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "39"
+            endingLineNumber = "39"
+            landmarkName = "cache(_:with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ACDCD8FE-0451-48BC-8AE4-33AF9B8E82FA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AEFeed/Feed Cache/Infrastructure/CoreDataFeedStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "perform(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8C925F1A-BA9D-428F-946F-D35A16FC0037"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AEFeed/Feed Cache/Infrastructure/CoreDataFeedStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "perform(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8C925F1A-BA9D-428F-946F-D35A16FC0037 - 9954702405b7a2c6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AEFeed.CoreDataFeedStore.perform((__C.NSManagedObjectContext) -&gt; ()) -&gt; ()"
+                  moduleName = "AEFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemekimov/Desktop/Development/AEFeed/AEFeed/Feed%20Cache/Infrastructure/CoreDataFeedStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "166">
+               </Location>
+               <Location
+                  uuid = "8C925F1A-BA9D-428F-946F-D35A16FC0037 - f91ad966aa8f3fe3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in AEFeed.CoreDataFeedStore.perform((__C.NSManagedObjectContext) -&gt; ()) -&gt; ()"
+                  moduleName = "AEFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemekimov/Desktop/Development/AEFeed/AEFeed/Feed%20Cache/Infrastructure/CoreDataFeedStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "06C16D40-A410-41C2-BF94-A238A0735699"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AEFeed/Feed Cache/Infrastructure/CoreDataFeedStore+FeedStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "insert(_:timestamp:completion:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "06C16D40-A410-41C2-BF94-A238A0735699 - b7817f1a45eca8f9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AEFeed.CoreDataFeedStore.insert(_: Swift.Array&lt;AEFeed.LocalFeedImage&gt;, timestamp: Foundation.Date, completion: (Swift.Result&lt;(), Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "AEFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemekimov/Desktop/Development/AEFeed/AEFeed/Feed%20Cache/Infrastructure/CoreDataFeedStore+FeedStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "326">
+               </Location>
+               <Location
+                  uuid = "06C16D40-A410-41C2-BF94-A238A0735699 - a8968768840f2506"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.NSManagedObjectContext) -&gt; () in AEFeed.CoreDataFeedStore.insert(_: Swift.Array&lt;AEFeed.LocalFeedImage&gt;, timestamp: Foundation.Date, completion: (Swift.Result&lt;(), Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "AEFeed"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemekimov/Desktop/Development/AEFeed/AEFeed/Feed%20Cache/Infrastructure/CoreDataFeedStore+FeedStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "194">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

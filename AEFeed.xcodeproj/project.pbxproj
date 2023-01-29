@@ -81,6 +81,8 @@
 		FFD2947229863EAA0047E30D /* CoreDataFeedImageDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD2947129863EAA0047E30D /* CoreDataFeedImageDataStoreTests.swift */; };
 		FFD294752986436B0047E30D /* CoreDataFeedStore+FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD294742986436B0047E30D /* CoreDataFeedStore+FeedImageDataLoader.swift */; };
 		FFD2947729865CCB0047E30D /* CoreDataFeedStore+FeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD2947629865CCB0047E30D /* CoreDataFeedStore+FeedStore.swift */; };
+		FFD2947829866E590047E30D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62C4BF290ED5E700AD1D28 /* Helpers.swift */; };
+		FFD2947929866F690047E30D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF62C4BF290ED5E700AD1D28 /* Helpers.swift */; };
 		FFE3D7352976CC190046B611 /* CoreDataFeedStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3D7342976CC190046B611 /* CoreDataFeedStoreTests.swift */; };
 		FFE3D7372976CC810046B611 /* CoreDataFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFE3D7362976CC810046B611 /* CoreDataFeedStore.swift */; };
 		FFE3D73A2976CF210046B611 /* FeedStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FFE3D7382976CF210046B611 /* FeedStore.xcdatamodeld */; };
@@ -823,6 +825,7 @@
 				FF025567297A4C34000CA0E9 /* ListViewControllerTests.swift in Sources */,
 				FF02556E297A50BE000CA0E9 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				FF18334A297D9F5D0068E048 /* ListViewControllerTests+Localization.swift in Sources */,
+				FFD2947929866F690047E30D /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,6 +836,7 @@
 				FF2AB6C829785D7A00A659BE /* AEFeedCacheIntegrationTests.swift in Sources */,
 				FF417AFA2978607900C26F3A /* FeedCacheTestHelpers.swift in Sources */,
 				FF2AB6CF29785F1100A659BE /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+				FFD2947829866E590047E30D /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

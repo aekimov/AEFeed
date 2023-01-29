@@ -9,7 +9,7 @@ import Foundation
 import AEFeed
 
 func uniqueImage() -> FeedImage {
-    return FeedImage(id: UUID().hashValue, title: "any", imagePath: "/any-path", overview: "any overview")
+    return FeedImage(id: UUID().hashValue, title: "any", imagePath: "\(UUID().hashValue)", overview: "any overview")
 }
 
 func uniqueImageFeed() -> (models: [FeedImage], local: [LocalFeedImage]) {
