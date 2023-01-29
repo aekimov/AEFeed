@@ -8,18 +8,6 @@
 import XCTest
 import AEFeed
 
-extension CoreDataFeedStore: FeedImageDataStore {
-
-    public func insert(_ data: Data, for url: URL, completion: @escaping (FeedImageDataStore.InsertionResult) -> Void) {
-
-    }
-
-    public func retrieve(dataFor url: URL, completion: @escaping (FeedImageDataStore.RetrievalResult) -> Void) {
-        completion(.success(.none))
-    }
-
-}
-
 class CoreDataFeedImageDataStoreTests: XCTestCase {
 
     func test_retrieveImageData_deliversNotFoundWhenEmpty() {

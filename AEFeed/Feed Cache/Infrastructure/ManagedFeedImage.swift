@@ -13,6 +13,7 @@ class ManagedFeedImage: NSManagedObject {
     @NSManaged var title: String
     @NSManaged var imagePath: String
     @NSManaged var overview: String
+    @NSManaged var data: Data?
     @NSManaged var cache: ManagedCache
     
     static func images(from localFeed: [LocalFeedImage], in context: NSManagedObjectContext) -> NSOrderedSet {
