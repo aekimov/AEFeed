@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FF15E8342987827E00F47DF7 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15E8332987827E00F47DF7 /* FeedLoaderWithFallbackCompositeTests.swift */; };
 		FFD294C3298692110047E30D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD294C2298692110047E30D /* AppDelegate.swift */; };
 		FFD294C5298692110047E30D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD294C4298692110047E30D /* SceneDelegate.swift */; };
 		FFD294C7298692110047E30D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD294C6298692110047E30D /* ViewController.swift */; };
-		FFD294CA298692110047E30D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFD294C8298692110047E30D /* Main.storyboard */; };
 		FFD294CC298692150047E30D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFD294CB298692150047E30D /* Assets.xcassets */; };
 		FFD294CF298692150047E30D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FFD294CD298692150047E30D /* LaunchScreen.storyboard */; };
-		FFD294DA298692150047E30D /* AEFeedAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD294D9298692150047E30D /* AEFeedAppTests.swift */; };
 		FFD294F52986CD8C0047E30D /* AEFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD294F32986CD8C0047E30D /* AEFeed.framework */; };
 		FFD294F62986CD8C0047E30D /* AEFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFD294F32986CD8C0047E30D /* AEFeed.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FFD294F72986CD8C0047E30D /* AEFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD294F42986CD8C0047E30D /* AEFeediOS.framework */; };
@@ -46,16 +45,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FF15E8332987827E00F47DF7 /* FeedLoaderWithFallbackCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackCompositeTests.swift; sourceTree = "<group>"; };
 		FFD294BF298692110047E30D /* AEFeedApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AEFeedApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD294C2298692110047E30D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FFD294C4298692110047E30D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FFD294C6298692110047E30D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		FFD294C9298692110047E30D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FFD294CB298692150047E30D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FFD294CE298692150047E30D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FFD294D0298692150047E30D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFD294D5298692150047E30D /* AEFeedAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AEFeedAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FFD294D9298692150047E30D /* AEFeedAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEFeedAppTests.swift; sourceTree = "<group>"; };
 		FFD294F32986CD8C0047E30D /* AEFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD294F42986CD8C0047E30D /* AEFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -105,7 +103,6 @@
 				FFD294C2298692110047E30D /* AppDelegate.swift */,
 				FFD294C4298692110047E30D /* SceneDelegate.swift */,
 				FFD294C6298692110047E30D /* ViewController.swift */,
-				FFD294C8298692110047E30D /* Main.storyboard */,
 				FFD294CB298692150047E30D /* Assets.xcassets */,
 				FFD294CD298692150047E30D /* LaunchScreen.storyboard */,
 				FFD294D0298692150047E30D /* Info.plist */,
@@ -116,7 +113,7 @@
 		FFD294D8298692150047E30D /* AEFeedAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				FFD294D9298692150047E30D /* AEFeedAppTests.swift */,
+				FF15E8332987827E00F47DF7 /* FeedLoaderWithFallbackCompositeTests.swift */,
 			);
 			path = AEFeedAppTests;
 			sourceTree = "<group>";
@@ -184,6 +181,7 @@
 					};
 					FFD294D4298692150047E30D = {
 						CreatedOnToolsVersion = 14.1;
+						LastSwiftMigration = 1410;
 						TestTargetID = FFD294BE298692110047E30D;
 					};
 				};
@@ -214,7 +212,6 @@
 			files = (
 				FFD294CF298692150047E30D /* LaunchScreen.storyboard in Resources */,
 				FFD294CC298692150047E30D /* Assets.xcassets in Resources */,
-				FFD294CA298692110047E30D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,7 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFD294DA298692150047E30D /* AEFeedAppTests.swift in Sources */,
+				FF15E8342987827E00F47DF7 /* FeedLoaderWithFallbackCompositeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,14 +254,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		FFD294C8298692110047E30D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FFD294C9298692110047E30D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FFD294CD298692150047E30D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -402,7 +391,7 @@
 				INFOPLIST_FILE = AEFeedApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -430,7 +419,7 @@
 				INFOPLIST_FILE = AEFeedApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -451,15 +440,22 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3285BMFMRD;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.artemekimov.AEFeedAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AEFeedApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AEFeedApp";
@@ -471,11 +467,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3285BMFMRD;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.artemekimov.AEFeedAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
