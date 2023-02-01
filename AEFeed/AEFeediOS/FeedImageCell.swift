@@ -11,6 +11,7 @@ public final class FeedImageCell: UITableViewCell {
     
     public override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        accessibilityIdentifier = "feed-image-cell"
         configureUI()
     }
     
@@ -42,6 +43,7 @@ public final class FeedImageCell: UITableViewCell {
         let imageView = UIImageView(frame: .zero)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
+        imageView.accessibilityIdentifier = "feed-image-view"
         return imageView
     }()
     
