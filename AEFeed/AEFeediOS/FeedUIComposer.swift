@@ -95,7 +95,7 @@ private final class FeedViewAdapter: FeedView {
         self.imageLoader = imageLoader
     }
     
-    private let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500/")!
+    private let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500")!
     
     func display(_ viewModel: FeedViewModel) {
         controller?.models = viewModel.feed.map { model in

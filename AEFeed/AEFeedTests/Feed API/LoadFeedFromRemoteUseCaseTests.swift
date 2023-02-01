@@ -76,8 +76,8 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let(sut, client) = makeSUT()
         
-        let item1 = makeItem(id: UUID().hashValue, title: "item1", imagePath: "/path1", overview: "overview1")
-        let item2 = makeItem(id: UUID().hashValue, title: "item2", imagePath: "/path2", overview: "overview2")
+        let item1 = makeItem(id: UUID().hashValue, title: "item1", imagePath: "path1", overview: "overview1")
+        let item2 = makeItem(id: UUID().hashValue, title: "item2", imagePath: "path2", overview: "overview2")
         let items = [item1.model, item2.model]
         
         expect(sut, toCompleteWith: .success(items)) {

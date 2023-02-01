@@ -85,11 +85,11 @@ class AEFeedAPIEndToEndTest: XCTestCase {
     
     private func imagePath(at index: Int) -> String {
         return [
-            "/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
-            "/xId9zoiv5WPQOuxqykUDrlpmrUz.jpg",
-            "/2g9ZBjUfF1X53EinykJqiBieUaO.jpg",
-            "/sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
-            "/2wj5iUJ2B5AQ1lFctJgUrHHsp9B.jpg"
+            "9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg",
+            "xId9zoiv5WPQOuxqykUDrlpmrUz.jpg",
+            "2g9ZBjUfF1X53EinykJqiBieUaO.jpg",
+            "sv1xJUazXeYqALzczSZ3O6nkH75.jpg",
+            "2wj5iUJ2B5AQ1lFctJgUrHHsp9B.jpg"
         ][index]
     }
     

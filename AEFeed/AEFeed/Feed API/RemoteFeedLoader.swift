@@ -47,6 +47,16 @@ public final class RemoteFeedLoader: FeedLoader {
 
 extension Array where Element == RemoteItem {
     func toModels() -> [FeedImage] {
-        return map { FeedImage(id: $0.id, title: $0.title, imagePath: $0.poster_path ?? "", overview: $0.overview) }
+        return map { FeedImage(id: $0.id, title: $0.title, imagePath: $0.poster_path?.removeSlash ?? "", overview: $0.overview) }
+    }
+}
+
+private extension String {
+    var removeSlash: String {
+        var string = self
+        if string.first == "/" {
+            string.removeFirst()
+        }
+        return string
     }
 }
