@@ -3,11 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>SchemeUserState</key>
+	<dict/>
+	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>AEFeedApp.xcscheme_^#shared#^_</key>
+		<key>FF1A1069298A92D1003BA094</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FFD294BE298692110047E30D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FFD294D4298692150047E30D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
