@@ -61,6 +61,7 @@
 		FF78D4F3290E9DD400C4E37D /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78D4F1290E9B8400C4E37D /* XCTestCase+MemoryLeakTracking.swift */; };
 		FF78D4F6290ED26300C4E37D /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78D4F5290ED26300C4E37D /* URLSessionHTTPClientTests.swift */; };
 		FFAC069029898ABF001A1018 /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC068F29898ABF001A1018 /* FeedCache.swift */; };
+		FFAC069C298A25CB001A1018 /* FeedImageDataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC069B298A25CB001A1018 /* FeedImageDataCache.swift */; };
 		FFAE5F90291017FC00D78CF8 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE5F8F291017FC00D78CF8 /* URLSessionHTTPClient.swift */; };
 		FFAE5F982910200100D78CF8 /* AEFeedAPIEndToEndTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE5F972910200100D78CF8 /* AEFeedAPIEndToEndTest.swift */; };
 		FFAE5F992910200100D78CF8 /* AEFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFB4D3F3290D87CF00FC6F96 /* AEFeed.framework */; };
@@ -192,6 +193,7 @@
 		FF78D4F1290E9B8400C4E37D /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		FF78D4F5290ED26300C4E37D /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		FFAC068F29898ABF001A1018 /* FeedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCache.swift; sourceTree = "<group>"; };
+		FFAC069B298A25CB001A1018 /* FeedImageDataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataCache.swift; sourceTree = "<group>"; };
 		FFAE5F8F291017FC00D78CF8 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		FFAE5F952910200100D78CF8 /* AEFeedAPIEndToEndTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AEFeedAPIEndToEndTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFAE5F972910200100D78CF8 /* AEFeedAPIEndToEndTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEFeedAPIEndToEndTest.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				FF2A0651290E35550085559D /* FeedLoader.swift */,
 				FF18332E297BAA610068E048 /* FeedImageDataLoader.swift */,
 				FFAC068F29898ABF001A1018 /* FeedCache.swift */,
+				FFAC069B298A25CB001A1018 /* FeedImageDataCache.swift */,
 			);
 			path = "Feed Feature";
 			sourceTree = "<group>";
@@ -427,6 +430,7 @@
 				FFD2946B298636700047E30D /* FeedImageDataStore.swift */,
 				FF4FCE2B2914FC6A004DA00E /* LocalFeedLoader.swift */,
 				FF4FCE2F29156FB7004DA00E /* LocalFeedImage.swift */,
+				FFD29469298636470047E30D /* LocalFeedImageDataLoader.swift */,
 				FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */,
 			);
 			path = "Feed Cache";
@@ -447,7 +451,6 @@
 				FFD2946229850FC40047E30D /* Helpers */,
 				FF78D4EA290E40B600C4E37D /* RemoteFeedLoader.swift */,
 				FFD294602985011A0047E30D /* RemoteFeedImageDataLoader.swift */,
-				FFD29469298636470047E30D /* LocalFeedImageDataLoader.swift */,
 				FF78D4EC290E8E6B00C4E37D /* FeedItemsMapper.swift */,
 				FF78D4EE290E99A200C4E37D /* HTTPClient.swift */,
 				FFAE5F8F291017FC00D78CF8 /* URLSessionHTTPClient.swift */,
@@ -878,6 +881,7 @@
 				FF183384298441360068E048 /* FeedImageViewModel.swift in Sources */,
 				FF1833822984411E0068E048 /* FeedImagePresenter.swift in Sources */,
 				FFB4D40C290D87DC00FC6F96 /* FeedImage.swift in Sources */,
+				FFAC069C298A25CB001A1018 /* FeedImageDataCache.swift in Sources */,
 				FF78D4ED290E8E6B00C4E37D /* FeedItemsMapper.swift in Sources */,
 				FFD294612985011A0047E30D /* RemoteFeedImageDataLoader.swift in Sources */,
 				FF18337B298432BF0068E048 /* FeedErrorViewModel.swift in Sources */,
