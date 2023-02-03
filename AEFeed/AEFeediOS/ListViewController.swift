@@ -23,10 +23,14 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
     
     public let errorView = ErrorView()
     
-    var models: [FeedImageCellController] = [] {
+    private var models: [FeedImageCellController] = [] {
         didSet {
             tableView.reloadData()
         }
+    }
+    
+    public func display(_ cellControllers: [FeedImageCellController]) {
+        self.models = cellControllers
     }
         
     public override func viewDidLoad() {

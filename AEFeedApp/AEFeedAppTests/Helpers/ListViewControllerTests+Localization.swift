@@ -1,5 +1,5 @@
 //
-//  ListViewControllerTests+Localization.swift
+//  ListUIIntegrationTests+Localization.swift
 //  AEFeediOSTests
 //
 //  Created by Artem Ekimov on 1/22/23.
@@ -9,7 +9,7 @@ import Foundation
 import XCTest
 import AEFeed
 
-extension ListViewControllerTests {
+extension ListUIIntegrationTests {
     func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
         let table = "Feed"
         let bundle = Bundle(for: FeedPresenter.self)

@@ -7,6 +7,7 @@
 
 import UIKit
 import AEFeed
+import AEFeediOS
 
 public class FeedUIComposer {
     private init() {}
@@ -98,7 +99,7 @@ private final class FeedViewAdapter: FeedView {
     private let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500")!
     
     func display(_ viewModel: FeedViewModel) {
-        controller?.models = viewModel.feed.map { model in
+        controller?.display(viewModel.feed.map { model in
             let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader, imageBaseURL: imageBaseURL)
             let view = FeedImageCellController(delegate: adapter)
             
@@ -106,6 +107,6 @@ private final class FeedViewAdapter: FeedView {
                                                         imageTransformer: UIImage.init)
             
             return view
-        }
+        })
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 import AEFeed
 
-protocol FeedRefreshViewControllerDelegate {
+public protocol FeedRefreshViewControllerDelegate {
     func didRequestFeedRefresh()
 }
 
@@ -17,7 +17,7 @@ public final class FeedRefreshViewController: NSObject, FeedLoadingView {
     
     private let delegate: FeedRefreshViewControllerDelegate
     
-    init(delegate: FeedRefreshViewControllerDelegate) {
+    public init(delegate: FeedRefreshViewControllerDelegate) {
         self.delegate = delegate
     }
     

@@ -6,6 +6,7 @@
 //
 
 import AEFeed
+import AEFeediOS
 import Foundation
 import UIKit
 

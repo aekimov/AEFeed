@@ -8,16 +8,16 @@
 import UIKit
 import AEFeed
 
-protocol FeedImageCellControllerDelegate {
+public protocol FeedImageCellControllerDelegate {
     func didRequestImage()
     func didCancelImageRequest()
 }
 
-final class FeedImageCellController: FeedImageView {
+public final class FeedImageCellController: FeedImageView {
     private let delegate: FeedImageCellControllerDelegate
     private var cell: FeedImageCell?
     
-    init(delegate: FeedImageCellControllerDelegate) {
+    public init(delegate: FeedImageCellControllerDelegate) {
         self.delegate = delegate
     }
     
@@ -28,7 +28,7 @@ final class FeedImageCellController: FeedImageView {
         return cell!
     }
     
-    func display(_ model: FeedImageViewModel<UIImage>) {
+    public func display(_ model: FeedImageViewModel<UIImage>) {
         cell?.titleLabel.text = model.title
         cell?.overviewLabel.text = model.overview
         cell?.feedImageView.image = model.image

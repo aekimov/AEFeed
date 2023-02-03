@@ -1,5 +1,5 @@
 //
-//  ListViewControllerTests.swift
+//  ListUIIntegrationTests.swift
 //  AEFeediOSTests
 //
 //  Created by Artem Ekimov on 1/20/23.
@@ -8,9 +8,10 @@
 import XCTest
 import UIKit
 import AEFeed
+import AEFeedApp
 import AEFeediOS
 
-class ListViewControllerTests: XCTestCase {
+class ListUIIntegrationTests: XCTestCase {
     func test_loadActions_requestFeedFromLoader() {
         let (sut, loader) = makeSUT()
         
@@ -406,124 +407,6 @@ class ListViewControllerTests: XCTestCase {
         func completeImageLoadingWithError(at index: Int = 0) {
             let error = NSError(domain: "an error", code: 0)
             imageRequests[index].completion(.failure(error))
-        }
-    }
-}
-
-private extension ListViewController {
-    func simulateUserInitiatedFeedReload() {
-        refreshControl?.simulatePullToRefresh()
-    }
-    
-    @discardableResult
-    func simulateFeedImageViewVisible(at index: Int) -> FeedImageCell? {
-        return feedImageView(at: index) as? FeedImageCell
-    }
-    
-    @discardableResult
-    func simulateFeedImageViewNotVisible(at row: Int) -> FeedImageCell? {
-        let view = simulateFeedImageViewVisible(at: row)
-        
-        let delegate = tableView.delegate
-        let index = IndexPath(row: row, section: feedImagesSection)
-        delegate?.tableView?(tableView, didEndDisplaying: view!, forRowAt: index)
-        
-        return view
-    }
-    
-    func simulateFeedImageViewNearVisible(at row: Int) {
-        let ds = tableView.prefetchDataSource
-        let index = IndexPath(row: row, section: feedImagesSection)
-        ds?.tableView(tableView, prefetchRowsAt: [index])
-    }
-    
-    func simulateFeedImageViewNotNearVisible(at row: Int) {
-        simulateFeedImageViewNearVisible(at: row)
-        
-        let ds = tableView.prefetchDataSource
-        let index = IndexPath(row: row, section: feedImagesSection)
-        ds?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
-    }
-    
-    var isShowingLoadingIndicator: Bool {
-        return refreshControl?.isRefreshing == true
-    }
-    
-    func numberOfRenderedFeedImageViews() -> Int {
-        return tableView.numberOfRows(inSection: feedImagesSection)
-    }
-    
-    func feedImageView(at row: Int) -> UITableViewCell? {
-        let ds = tableView.dataSource
-        let index = IndexPath(row: row, section: feedImagesSection)
-        return ds?.tableView(tableView, cellForRowAt: index)
-    }
-    
-    private var feedImagesSection: Int {
-        return 0
-    }
-    
-    var errorMessage: String? {
-        return errorView.message
-    }
-}
-
-private extension FeedImageCell {
-    var titleText: String? {
-        return titleLabel.text
-    }
-
-    var overviewText: String? {
-        return overviewLabel.text
-    }
-    
-    var isShowingImageLoadingIndicator: Bool {
-        return feedImageView.isShimmering
-    }
-    
-    var renderedImage: Data? {
-        return feedImageView.image?.pngData()
-    }
-    
-    var isShowingRetryAction: Bool {
-        return !feedImageRetryButton.isHidden
-    }
-    
-    func simulateRetryAction() {
-        feedImageRetryButton.simulateTap()
-    }
-    
-}
-
-private extension UIButton {
-    func simulateTap() {
-        allTargets.forEach { target in
-            actions(forTarget: target, forControlEvent: .touchUpInside)?.forEach {
-                (target as NSObject).perform(Selector($0))
-            }
-        }
-    }
-}
-
-private extension UIRefreshControl {
-    func simulatePullToRefresh() {
-        allTargets.forEach { target in
-            actions(forTarget: target, forControlEvent: .valueChanged)?.forEach {
-                (target as NSObject).perform(Selector($0))
-            }
-        }
-    }
-}
-
-private extension UIImage {
-    static func make(withColor color: UIColor) -> UIImage {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        let format = UIGraphicsImageRendererFormat()
-        format.scale = 1
-        
-        return UIGraphicsImageRenderer(size: rect.size, format: format).image { rendererContext in
-            color.setFill()
-            rendererContext.fill(rect)
         }
     }
 }

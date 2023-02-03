@@ -25,6 +25,13 @@ func uniqueFeed() -> [FeedImage] {
     return [FeedImage(id: UUID().hashValue, title: "any", imagePath: "\(UUID().hashValue)", overview: "any overview")]
 }
 
+extension FeedImage {
+    var url: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500/")!.appendingPathComponent(imagePath)
+    }
+}
+
+
 extension XCTestCase {
     func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
         addTeardownBlock { [weak instance] in
