@@ -24,6 +24,8 @@
 		FF773558298C2F31005A807D /* UIRefreshControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF77354B298C2A2C005A807D /* UIRefreshControl+TestHelpers.swift */; };
 		FF773559298C2F31005A807D /* UIButton+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF77354A298C2A2C005A807D /* UIButton+TestHelpers.swift */; };
 		FF77355C298CC350005A807D /* ListAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF77355B298CC350005A807D /* ListAcceptanceTests.swift */; };
+		FF77355E298CE5D6005A807D /* HTTPClientStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF77355D298CE5D6005A807D /* HTTPClientStub.swift */; };
+		FF773560298CE605005A807D /* InMemoryFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF77355F298CE605005A807D /* InMemoryFeedStore.swift */; };
 		FFAC068A29898241001A1018 /* FeedLoaderCacheDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC068929898241001A1018 /* FeedLoaderCacheDecoratorTests.swift */; };
 		FFAC068C298984B3001A1018 /* FeedLoaderStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC068B298984B3001A1018 /* FeedLoaderStub.swift */; };
 		FFAC068E2989857C001A1018 /* XCTestCase+FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAC068D2989857C001A1018 /* XCTestCase+FeedLoader.swift */; };
@@ -85,6 +87,8 @@
 		FF77354C298C2A2C005A807D /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
 		FF773552298C2CCD005A807D /* ListUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListUIIntegrationTests.swift; sourceTree = "<group>"; };
 		FF77355B298CC350005A807D /* ListAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListAcceptanceTests.swift; sourceTree = "<group>"; };
+		FF77355D298CE5D6005A807D /* HTTPClientStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientStub.swift; sourceTree = "<group>"; };
+		FF77355F298CE605005A807D /* InMemoryFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryFeedStore.swift; sourceTree = "<group>"; };
 		FFAC068929898241001A1018 /* FeedLoaderCacheDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderCacheDecoratorTests.swift; sourceTree = "<group>"; };
 		FFAC068B298984B3001A1018 /* FeedLoaderStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderStub.swift; sourceTree = "<group>"; };
 		FFAC068D2989857C001A1018 /* XCTestCase+FeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedLoader.swift"; sourceTree = "<group>"; };
@@ -130,14 +134,16 @@
 				FF15E83A29879AF300F47DF7 /* Helpers.swift */,
 				FFAC068B298984B3001A1018 /* FeedLoaderStub.swift */,
 				FFAC0697298A1FD1001A1018 /* FeedImageDataLoaderSpy.swift */,
-				FFAC068D2989857C001A1018 /* XCTestCase+FeedLoader.swift */,
-				FFAC0699298A207A001A1018 /* XCTestCase+FeedImageDataLoader.swift */,
+				FF77355D298CE5D6005A807D /* HTTPClientStub.swift */,
+				FF77355F298CE605005A807D /* InMemoryFeedStore.swift */,
 				FF773548298C2A2B005A807D /* FeedViewCell+TestHelpers.swift */,
 				FF773549298C2A2B005A807D /* ListViewController+TestHelpers.swift */,
 				FF77353C298C2855005A807D /* ListViewControllerTests+Localization.swift */,
 				FF77354A298C2A2C005A807D /* UIButton+TestHelpers.swift */,
 				FF77354B298C2A2C005A807D /* UIRefreshControl+TestHelpers.swift */,
 				FF77354C298C2A2C005A807D /* UIImage+TestHelpers.swift */,
+				FFAC068D2989857C001A1018 /* XCTestCase+FeedLoader.swift */,
+				FFAC0699298A207A001A1018 /* XCTestCase+FeedImageDataLoader.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -338,8 +344,10 @@
 				FFAC068A29898241001A1018 /* FeedLoaderCacheDecoratorTests.swift in Sources */,
 				FF773558298C2F31005A807D /* UIRefreshControl+TestHelpers.swift in Sources */,
 				FF773535298C1E00005A807D /* SceneDelegateTests.swift in Sources */,
+				FF77355E298CE5D6005A807D /* HTTPClientStub.swift in Sources */,
 				FF773559298C2F31005A807D /* UIButton+TestHelpers.swift in Sources */,
 				FF773554298C2CE7005A807D /* ListViewControllerTests+Localization.swift in Sources */,
+				FF773560298CE605005A807D /* InMemoryFeedStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
