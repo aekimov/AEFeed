@@ -16,7 +16,7 @@ final class FeedSnapshotTests: XCTestCase {
 
         sut.display(emptyFeed())
         
-        record(snapshot: sut.snapshot(for: .iPhone14()), named: "EMPTY_FEED")
+        record(snapshot: sut.snapshot(for: .iPhone13()), named: "EMPTY_FEED")
     }
     
     func test_feedWithContent() {
@@ -24,7 +24,15 @@ final class FeedSnapshotTests: XCTestCase {
 
         sut.display(feedWithContent())
 
-        record(snapshot: sut.snapshot(for: .iPhone14()), named: "FEED_WITH_CONTENT")
+        record(snapshot: sut.snapshot(for: .iPhone13()), named: "FEED_WITH_CONTENT")
+    }
+    
+    func test_feedWithErrorMessage() {
+        let sut = makeSUT()
+
+        sut.display(.error(message: "This is a\nmulti-line\nerror message"))
+
+        record(snapshot: sut.snapshot(for: .iPhone13()), named: "FEED_WITH_ERROR_MESSAGE")
     }
 
     
@@ -85,13 +93,13 @@ extension UIViewController {
 struct SnapshotConfiguration {
     let size: CGSize
     
-    static func iPhone14() -> SnapshotConfiguration {
+    static func iPhone13() -> SnapshotConfiguration {
         return SnapshotConfiguration(size: CGSize(width: 390, height: 844))
     }
 }
 
 private final class SnapshotWindow: UIWindow {
-    private var configuration: SnapshotConfiguration = .iPhone14()
+    private var configuration: SnapshotConfiguration = .iPhone13()
     
     convenience init(configuration: SnapshotConfiguration, root: UIViewController) {
         self.init(frame: CGRect(origin: .zero, size: configuration.size))

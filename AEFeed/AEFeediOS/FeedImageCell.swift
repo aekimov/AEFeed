@@ -97,7 +97,7 @@ public final class FeedImageCell: UITableViewCell {
             feedImageRetryButton.topAnchor.constraint(equalTo: imageViewContainer.topAnchor),
             feedImageRetryButton.leadingAnchor.constraint(equalTo: imageViewContainer.leadingAnchor),
             imageViewContainer.bottomAnchor.constraint(equalTo: feedImageRetryButton.bottomAnchor),
-            imageViewContainer.trailingAnchor.constraint(equalTo: feedImageRetryButton.trailingAnchor),
+            imageViewContainer.trailingAnchor.constraint(equalTo: feedImageRetryButton.trailingAnchor)
         ])
     }
 }
