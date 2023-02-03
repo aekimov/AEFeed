@@ -7,6 +7,7 @@
 
 import XCTest
 import AEFeediOS
+@testable import AEFeed
 
 final class FeedSnapshotTests: XCTestCase {
 
@@ -17,9 +18,18 @@ final class FeedSnapshotTests: XCTestCase {
         
         record(snapshot: sut.snapshot(for: .iPhone14()), named: "EMPTY_FEED")
     }
-
-    // MARK: - Helpers
     
+    func test_feedWithContent() {
+        let sut = makeSUT()
+
+        sut.display(feedWithContent())
+
+        record(snapshot: sut.snapshot(for: .iPhone14()), named: "FEED_WITH_CONTENT")
+    }
+
+    
+    
+    // MARK: - Helpers
     
     private func makeSUT() -> ListViewController {
         let refresh = FeedRefreshViewController(delegate: DelegateStub())
@@ -34,6 +44,15 @@ final class FeedSnapshotTests: XCTestCase {
     
     private func emptyFeed() -> [FeedImageCellController] {
         return []
+    }
+    
+    private func feedWithContent() -> [ImageStub] {
+        return [ImageStub(title: "Titanic",
+                          overview: "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later. A young Rose boards the ship with her mother and fiancé. Meanwhile, Jack Dawson and Fabrizio De Rossi win third-class tickets aboard the ship. Rose tells the whole story from Titanic's departure through to its death—on its first and last voyage—on April 15, 1912.",
+                          image: UIImage.make(withColor: .red)),
+                ImageStub(title: "The Fabelmans",
+                          overview: "Growing up in post-World War II era Arizona, young Sammy Fabelman aspires to become a filmmaker as he reaches adolescence, but soon discovers a shattering family secret and explores how the power of films can help him see the truth.",
+                          image: UIImage.make(withColor: .green))]
     }
 
     private func record(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {
@@ -88,3 +107,31 @@ private final class SnapshotWindow: UIWindow {
         }
     }
 }
+
+private extension ListViewController {
+    func display(_ stubs: [ImageStub]) {
+        let cells: [FeedImageCellController] = stubs.map { stub in
+            let cellController = FeedImageCellController(delegate: stub)
+            stub.controller = cellController
+            return cellController
+        }
+
+        display(cells)
+    }
+}
+
+private class ImageStub: FeedImageCellControllerDelegate {
+    let viewModel: FeedImageViewModel<UIImage>
+    weak var controller: FeedImageCellController?
+
+    init(title: String, overview: String, image: UIImage?) {
+        viewModel = FeedImageViewModel(title: title, overview: overview, image: image, isLoading: false, shouldRetry: image == nil)
+    }
+
+    func didRequestImage() {
+        controller?.display(viewModel)
+    }
+
+    func didCancelImageRequest() {}
+}
+
