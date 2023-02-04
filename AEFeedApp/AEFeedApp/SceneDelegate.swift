@@ -45,7 +45,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let remoteFeedLoader = RemoteFeedLoader(url: remoteURL, client: httpClient)
         let remoteImageLoader = RemoteFeedImageDataLoader(client: httpClient)
-        
         let localImageLoader = LocalFeedImageDataLoader(store: store)
         
         let feedViewController = FeedUIComposer.feedComposedWith(

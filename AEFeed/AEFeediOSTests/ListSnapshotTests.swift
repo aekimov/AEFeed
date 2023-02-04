@@ -34,6 +34,14 @@ final class FeedSnapshotTests: XCTestCase {
 
         record(snapshot: sut.snapshot(for: .iPhone13()), named: "FEED_WITH_ERROR_MESSAGE")
     }
+    
+    func test_feedWithFailedImageLoading() {
+        let sut = makeSUT()
+
+        sut.display(feedWithFailedImageLoading())
+
+        record(snapshot: sut.snapshot(for: .iPhone13()), named: "FEED_WITH_FAILED_IMAGE_LOADING")
+    }
 
     
     
@@ -61,6 +69,15 @@ final class FeedSnapshotTests: XCTestCase {
                 ImageStub(title: "The Fabelmans",
                           overview: "Growing up in post-World War II era Arizona, young Sammy Fabelman aspires to become a filmmaker as he reaches adolescence, but soon discovers a shattering family secret and explores how the power of films can help him see the truth.",
                           image: UIImage.make(withColor: .green))]
+    }
+    
+    private func feedWithFailedImageLoading() -> [ImageStub] {
+        return [ImageStub(title: "Titanic",
+                          overview: "101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later. A young Rose boards the ship with her mother and fiancé. Meanwhile, Jack Dawson and Fabrizio De Rossi win third-class tickets aboard the ship. Rose tells the whole story from Titanic's departure through to its death—on its first and last voyage—on April 15, 1912.",
+                          image: nil),
+                ImageStub(title: "The Fabelmans",
+                          overview: "Growing up in post-World War II era Arizona, young Sammy Fabelman aspires to become a filmmaker as he reaches adolescence, but soon discovers a shattering family secret and explores how the power of films can help him see the truth.",
+                          image: nil)]
     }
 
     private func record(snapshot: UIImage, named name: String, file: StaticString = #file, line: UInt = #line) {

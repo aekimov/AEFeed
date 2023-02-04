@@ -52,8 +52,9 @@ public final class FeedImageCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(retryButtonTapped), for: .touchUpInside)
         button.setTitle("↺", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.gray, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 40, weight: .bold)
+        button.backgroundColor = UIColor(red: 237/255, green: 239/255, blue: 242/255, alpha: 0.6)
         return button
     }()
     
@@ -63,7 +64,7 @@ public final class FeedImageCell: UITableViewCell {
         view.backgroundColor = .clear
         return view
     }()
-    
+
     var onRetry: (() -> Void)?
     
     @objc private func retryButtonTapped() {
