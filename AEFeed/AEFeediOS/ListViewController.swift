@@ -23,6 +23,8 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
     
     public let errorView = ErrorView()
     
+    private var loadingControllers: [IndexPath: FeedImageCellController] = [:]
+    
     private var models: [FeedImageCellController] = [] {
         didSet {
             tableView.reloadData()
@@ -30,6 +32,7 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
     }
     
     public func display(_ cellControllers: [FeedImageCellController]) {
+        loadingControllers = [:]
         self.models = cellControllers
     }
         
@@ -74,10 +77,13 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
     }
     
     private func cellController(forRowAt indexPath: IndexPath) -> FeedImageCellController {
-        return models[indexPath.row]
+        let controller = models[indexPath.row]
+        loadingControllers[indexPath] = controller
+        return controller
     }
     
     private func cancelCellControllerLoad(forRowAt indexPath: IndexPath) {
-        cellController(forRowAt: indexPath).cancelLoad()
+        loadingControllers[indexPath]?.cancelLoad()
+        loadingControllers[indexPath] = nil
     }
 }

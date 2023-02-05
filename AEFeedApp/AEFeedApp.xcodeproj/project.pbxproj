@@ -42,6 +42,7 @@
 		FFD294F62986CD8C0047E30D /* AEFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFD294F32986CD8C0047E30D /* AEFeed.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FFD294F72986CD8C0047E30D /* AEFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFD294F42986CD8C0047E30D /* AEFeediOS.framework */; };
 		FFD294F82986CD8C0047E30D /* AEFeediOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FFD294F42986CD8C0047E30D /* AEFeediOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		FFDF57E5298FA57C004DA872 /* UIView+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDF57E4298FA57C004DA872 /* UIView+TestHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		FFD294D5298692150047E30D /* AEFeedAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AEFeedAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD294F32986CD8C0047E30D /* AEFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FFD294F42986CD8C0047E30D /* AEFeediOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AEFeediOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFDF57E4298FA57C004DA872 /* UIView+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+TestHelpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				FF77354A298C2A2C005A807D /* UIButton+TestHelpers.swift */,
 				FF77354B298C2A2C005A807D /* UIRefreshControl+TestHelpers.swift */,
 				FF77354C298C2A2C005A807D /* UIImage+TestHelpers.swift */,
+				FFDF57E4298FA57C004DA872 /* UIView+TestHelpers.swift */,
 				FFAC068D2989857C001A1018 /* XCTestCase+FeedLoader.swift */,
 				FFAC0699298A207A001A1018 /* XCTestCase+FeedImageDataLoader.swift */,
 			);
@@ -329,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF15E838298799B300F47DF7 /* FeedImageDataLoaderWithFallbackCompositeTests.swift in Sources */,
+				FFDF57E5298FA57C004DA872 /* UIView+TestHelpers.swift in Sources */,
 				FFAC0696298A1DE0001A1018 /* FeedImageDataLoaderCacheDecoratorTests.swift in Sources */,
 				FFAC068C298984B3001A1018 /* FeedLoaderStub.swift in Sources */,
 				FF773556298C2F31005A807D /* UIImage+TestHelpers.swift in Sources */,

@@ -323,6 +323,20 @@ class ListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.errorMessage, nil)
     }
     
+    func test_loadFeedCompletion_rendersSuccessfullyLoadedEmptyFeedAfterNonEmptyFeed() {
+         let image0 = makeImage()
+         let image1 = makeImage()
+         let (sut, loader) = makeSUT()
+
+         sut.loadViewIfNeeded()
+         loader.completeFeedLoading(with: [image0, image1], at: 0)
+         assertThat(sut, isRendering: [image0, image1])
+
+         sut.simulateUserInitiatedFeedReload()
+         loader.completeFeedLoading(with: [], at: 1)
+         assertThat(sut, isRendering: [])
+     }
+    
     
     //MARK: - Helpers
     
@@ -339,6 +353,8 @@ class ListUIIntegrationTests: XCTestCase {
     }
 
     private func assertThat(_ sut: ListViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line) {
+        sut.tableView.enforceLayoutUpdate()
+        
         guard sut.numberOfRenderedFeedImageViews() == feed.count else {
             return XCTFail("Expected \(feed.count) images, got \(sut.numberOfRenderedFeedImageViews()) instead.", file: file, line: line)
         }
