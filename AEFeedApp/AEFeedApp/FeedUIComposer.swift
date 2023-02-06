@@ -8,12 +8,14 @@
 import UIKit
 import AEFeed
 import AEFeediOS
+import Combine
 
 public class FeedUIComposer {
     private init() {}
     
-    public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> ListViewController {
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
+    public static func feedComposedWith(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> ListViewController {
+        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: { feedLoader().dispatchOnMainQueue() })
+        
         let refreshController = FeedRefreshViewController(delegate: presentationAdapter)
         let viewController = ListViewController(refreshController: refreshController)
         let presenter = FeedPresenter(feedView: FeedViewAdapter(controller: viewController,
@@ -27,24 +29,26 @@ public class FeedUIComposer {
 }
 
 final class FeedLoaderPresentationAdapter: FeedRefreshViewControllerDelegate {
-    private let feedLoader: FeedLoader
+    private let feedLoader: () -> FeedLoader.Publisher
+    private var cancellable: Cancellable?
     var presenter: FeedPresenter?
 
-    init(feedLoader: FeedLoader) {
+    init(feedLoader: @escaping () -> FeedLoader.Publisher) {
         self.feedLoader = feedLoader
     }
     
     func didRequestFeedRefresh() {
         presenter?.didStartLoadingFeed()
-        
-        feedLoader.load { [weak self] result in
-            switch result {
-            case .success(let feed):
-                self?.presenter?.didFinishLoadingFeed(with: feed)
+
+        cancellable = feedLoader().sink(receiveCompletion: { [weak self] completion in
+            switch completion {
+            case .finished: break
             case .failure(let error):
                 self?.presenter?.didFinishLoading(with: error)
             }
-        }
+        }, receiveValue: { [weak self] feed in
+            self?.presenter?.didFinishLoadingFeed(with: feed)
+        })
     }
 }
 
