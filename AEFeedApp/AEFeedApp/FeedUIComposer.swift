@@ -9,17 +9,18 @@ import UIKit
 import AEFeed
 import AEFeediOS
 import Combine
+import Foundation
 
 public class FeedUIComposer {
     private init() {}
     
-    public static func feedComposedWith(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: FeedImageDataLoader) -> ListViewController {
+    public static func feedComposedWith(feedLoader: @escaping () -> FeedLoader.Publisher, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
         let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: { feedLoader().dispatchOnMainQueue() })
         
         let refreshController = FeedRefreshViewController(delegate: presentationAdapter)
         let viewController = ListViewController(refreshController: refreshController)
         let presenter = FeedPresenter(feedView: FeedViewAdapter(controller: viewController,
-                                                                imageLoader: MainQueueDispatchDecorator(decoratee: imageLoader)),
+                                                                imageLoader: { imageLoader($0).dispatchOnMainQueue() }),
                                       loadingView: WeakRefVirtualProxy(refreshController),
                                       errorView: WeakRefVirtualProxy(viewController))
         viewController.title = FeedPresenter.title
@@ -53,14 +54,14 @@ final class FeedLoaderPresentationAdapter: FeedRefreshViewControllerDelegate {
 }
 
 private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where Image == View.Image {
-    private var task: FeedImageDataLoaderTask?
     private let model: FeedImage
-    private let imageLoader: FeedImageDataLoader
+    private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
     private let imageBaseURL: URL
+    private var cancellable: Cancellable?
     
     var imagePresenter: FeedImagePresenter<View, Image>?
 
-    init(model: FeedImage, imageLoader: FeedImageDataLoader, imageBaseURL: URL) {
+    init(model: FeedImage, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher, imageBaseURL: URL) {
         self.model = model
         self.imageLoader = imageLoader
         self.imageBaseURL = imageBaseURL
@@ -70,19 +71,19 @@ private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, 
         imagePresenter?.didStartLoadingImageData(for: model)
         let model = self.model
         
-        task = imageLoader.loadImageData(from: composeURL(for: model)) { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.imagePresenter?.didFinishLoadingImageData(with: data, for: model)
+        cancellable = imageLoader(composeURL(for: model)).sink(receiveCompletion: { [weak self] completion in
+            switch completion {
+            case .finished: break
             case .failure(let error):
                 self?.imagePresenter?.didFinishLoadingImageData(with: error, for: model)
             }
-        }
+        }, receiveValue: { [weak self] data in
+            self?.imagePresenter?.didFinishLoadingImageData(with: data, for: model)
+        })
     }
     
     func didCancelImageRequest() {
-        task?.cancel()
-        task = nil
+        cancellable?.cancel()
     }
     
     private func composeURL(for model: FeedImage) -> URL {
@@ -93,9 +94,9 @@ private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, 
 
 private final class FeedViewAdapter: FeedView {
     private weak var controller: ListViewController?
-    private let imageLoader: FeedImageDataLoader
+    private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
     
-    init(controller: ListViewController, imageLoader: FeedImageDataLoader) {
+    init(controller: ListViewController, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) {
         self.controller = controller
         self.imageLoader = imageLoader
     }
