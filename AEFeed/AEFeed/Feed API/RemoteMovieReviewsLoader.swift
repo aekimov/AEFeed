@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class RemoteMovieReviewsLoader: FeedLoader {
+public final class RemoteMovieReviewsLoader {
     private let url: URL
     private let client: HTTPClient
     
@@ -16,14 +16,14 @@ public final class RemoteMovieReviewsLoader: FeedLoader {
         self.client = client
     }
     
-    public typealias Result = FeedLoader.Result
+    public typealias Result = Swift.Result<[MovieReview], Swift.Error>
     
     public enum Error: Swift.Error {
         case connectivity
         case invalidData
     }
     
-    public func load(completion: @escaping (FeedLoader.Result) -> Void) {
+    public func load(completion: @escaping (Result) -> Void) {
         client.get(from: url) { [weak self] result in
             guard self != nil else { return }
             switch result {
@@ -35,10 +35,10 @@ public final class RemoteMovieReviewsLoader: FeedLoader {
         }
     }
     
-    private static func map(_ data: Data, from response: HTTPURLResponse) -> FeedLoader.Result {
+    private static func map(_ data: Data, from response: HTTPURLResponse) -> Result {
         do {
             let items = try MovieReviewMapper.map(data, response)
-            return .success(items.toModels())
+            return .success(items)
         } catch {
             return .failure(error)
         }

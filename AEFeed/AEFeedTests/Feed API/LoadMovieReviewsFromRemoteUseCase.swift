@@ -76,8 +76,19 @@ class LoadMovieReviewsFromRemoteUseCase: XCTestCase {
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let(sut, client) = makeSUT()
         
-        let item1 = makeItem(id: UUID().hashValue, title: "item1", imagePath: "path1", overview: "overview1")
-        let item2 = makeItem(id: UUID().hashValue, title: "item2", imagePath: "path2", overview: "overview2")
+        let item1 = makeItem(
+            id: "\(UUID().hashValue)",
+            author: "an author",
+            content: "any content",
+            createdAt: (date: Date(timeIntervalSince1970: 1675740020), iso8601String: "2023-02-07T03:20:20.000Z")
+        )
+        
+        let item2 = makeItem(
+            id: "\(UUID().hashValue)",
+            author: "another author",
+            content: "any other content",
+            createdAt: (date: Date(timeIntervalSince1970: 1675683997), iso8601String: "2023-02-06T11:46:37.000Z")
+        )
         let items = [item1.model, item2.model]
         
         expect(sut, toCompleteWith: .success(items)) {
@@ -130,14 +141,14 @@ class LoadMovieReviewsFromRemoteUseCase: XCTestCase {
         return (model, json.compactMapValues { $0 })
     }
     
-    private func makeItem(id: Int, title: String, imagePath: String? = nil, overview: String) -> (model: FeedImage, json: [String: Any]) {
-        let item = FeedImage(id: id, title: title, imagePath: imagePath ?? "", overview: overview)
+    private func makeItem(id: String, author: String, content: String, createdAt: (date: Date, iso8601String: String)) -> (model: MovieReview, json: [String: Any]) {
+        let item = MovieReview(id: id, author: author, content: content, createdAt: createdAt.date)
         
         let json: [String: Any] = [
-            "id": item.id,
-            "title": item.title,
-            "poster_path": item.imagePath,
-            "overview": item.overview
+            "id": id,
+            "author": author,
+            "content": content,
+            "created_at": createdAt.iso8601String
         ]
         
         return (item, json)
