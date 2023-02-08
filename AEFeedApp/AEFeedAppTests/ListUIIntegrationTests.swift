@@ -10,6 +10,7 @@ import UIKit
 import AEFeed
 import AEFeedApp
 import AEFeediOS
+import Combine
 
 class ListUIIntegrationTests: XCTestCase {
     func test_loadActions_requestFeedFromLoader() {
@@ -380,24 +381,26 @@ class ListUIIntegrationTests: XCTestCase {
         return FeedImage(id: UUID().hashValue, title: title, imagePath: imagePath, overview:overview)
     }
     
-    class LoaderSpy: FeedLoader, FeedImageDataLoader {
-        private var completions: [(FeedLoader.Result) -> Void] = []
+    class LoaderSpy: FeedImageDataLoader {
+        private var completions: [PassthroughSubject<[FeedImage], Error>] = []
         
         var loadCallCount: Int {
             return completions.count
         }
-        
-        func load(completion: @escaping (FeedLoader.Result) -> Void) {
-            completions.append(completion)
+
+        func loadPublisher() -> AnyPublisher<[FeedImage], Error> {
+            let publisher = PassthroughSubject<[FeedImage], Error>()
+            completions.append(publisher)
+            return publisher.eraseToAnyPublisher()
         }
         
         func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
-            completions[index](.success(feed))
+            completions[index].send(feed)
         }
         
         func completeFeedLoadingWithError(at index: Int = 0) {
             let error = NSError(domain: "an error", code: 0)
-            completions[index](.failure(error))
+            completions[index].send(completion: .failure(error))
         }
         
         

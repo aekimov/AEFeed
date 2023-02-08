@@ -50,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
     
-    private func makeRemoteFeedLoaderWithFallback() -> FeedLoader.Publisher {
+    private func makeRemoteFeedLoaderWithFallback() -> AnyPublisher<[FeedImage], Error> {
         let remoteURL = URL(string: "https://raw.githubusercontent.com/aekimov/TestServerJSON/main/server.json")!
 
         return httpClient

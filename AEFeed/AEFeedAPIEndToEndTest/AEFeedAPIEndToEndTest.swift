@@ -43,13 +43,13 @@ class AEFeedAPIEndToEndTest: XCTestCase {
     
     // MARK: - Helpers
     
-    private func getFeedResult(file: StaticString = #file, line: UInt = #line) -> FeedLoader.Result? {
+    private func getFeedResult(file: StaticString = #file, line: UInt = #line) -> Swift.Result<[FeedImage], Error>? {
         let testServerURL = URL(string: "https://raw.githubusercontent.com/aekimov/TestServerJSON/main/server.json")!
         let client = URLSessionHTTPClient(session: .init(configuration: .ephemeral))
         trackForMemoryLeaks(client, file: file, line: line)
         let exp = expectation(description: "Wait for load completion")
         
-        var receivedResult: FeedLoader.Result?
+        var receivedResult: Swift.Result<[FeedImage], Error>?
         
         let _ = client.get(from: testServerURL) { result in
             receivedResult = result.flatMap { (data, response) in
