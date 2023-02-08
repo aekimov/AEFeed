@@ -415,6 +415,46 @@
 			path = "Moview Reviews Feature";
 			sourceTree = "<group>";
 		};
+		FF309073299354D50044213F /* Shared API */ = {
+			isa = PBXGroup;
+			children = (
+				FF78D4EE290E99A200C4E37D /* HTTPClient.swift */,
+			);
+			path = "Shared API";
+			sourceTree = "<group>";
+		};
+		FF309074299354EA0044213F /* Shared API Infra */ = {
+			isa = PBXGroup;
+			children = (
+				FFAE5F8F291017FC00D78CF8 /* URLSessionHTTPClient.swift */,
+			);
+			path = "Shared API Infra";
+			sourceTree = "<group>";
+		};
+		FF3090752993551D0044213F /* Shared API */ = {
+			isa = PBXGroup;
+			children = (
+				FF309076299355300044213F /* Helpers */,
+			);
+			path = "Shared API";
+			sourceTree = "<group>";
+		};
+		FF309076299355300044213F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FFD2945D2984FFCE0047E30D /* HTTPClientSpy.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		FF309077299355640044213F /* Shared API Infra */ = {
+			isa = PBXGroup;
+			children = (
+				FF78D4F5290ED26300C4E37D /* URLSessionHTTPClientTests.swift */,
+			);
+			path = "Shared API Infra";
+			sourceTree = "<group>";
+		};
 		FF4FCE2A2914FC59004DA00E /* Feed Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,8 +495,6 @@
 				FF78D4EA290E40B600C4E37D /* RemoteFeedLoader.swift */,
 				FFD294602985011A0047E30D /* RemoteFeedImageDataLoader.swift */,
 				FF78D4EC290E8E6B00C4E37D /* FeedItemsMapper.swift */,
-				FF78D4EE290E99A200C4E37D /* HTTPClient.swift */,
-				FFAE5F8F291017FC00D78CF8 /* URLSessionHTTPClient.swift */,
 				FF4FCE3129156FC5004DA00E /* RemoteFeedItem.swift */,
 				FF30906C299205590044213F /* RemoteMovieReviewsLoader.swift */,
 				FF30906E2992064C0044213F /* MovieReviewMapper.swift */,
@@ -479,7 +517,6 @@
 				FFD2945F2984FFD50047E30D /* Helpers */,
 				FF2A0654290E383B0085559D /* LoadFeedFromRemoteUseCaseTests.swift */,
 				FF30906A299204710044213F /* LoadMovieReviewsFromRemoteUseCase.swift */,
-				FF78D4F5290ED26300C4E37D /* URLSessionHTTPClientTests.swift */,
 				FFD2945B2984D8EF0047E30D /* LoadFeedImageDataFromRemoteUseCaseTests.swift */,
 				FFD2946729862F340047E30D /* LoadFeedImageDataFromCacheUseCaseTests.swift */,
 				FFD2946F29863B580047E30D /* CacheFeedImageDataUseCaseTests.swift */,
@@ -540,6 +577,8 @@
 		FFB4D3F5290D87CF00FC6F96 /* AEFeed */ = {
 			isa = PBXGroup;
 			children = (
+				FF309073299354D50044213F /* Shared API */,
+				FF309074299354EA0044213F /* Shared API Infra */,
 				FF30907029920B9F0044213F /* Moview Reviews Feature */,
 				FF18337229842ED90068E048 /* Feed Presentation */,
 				FF2A0653290E37330085559D /* Feed Feature */,
@@ -552,10 +591,12 @@
 		FFB4D3FF290D87CF00FC6F96 /* AEFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				FF183363297F94A00068E048 /* Feed Presentation */,
 				FF78D4F0290E9B6D00C4E37D /* Helpers */,
+				FF3090752993551D0044213F /* Shared API */,
+				FF309077299355640044213F /* Shared API Infra */,
 				FF78D4F4290EA0F500C4E37D /* Feed API */,
 				FFAE5FA22910D57600D78CF8 /* Feed Cache */,
+				FF183363297F94A00068E048 /* Feed Presentation */,
 			);
 			path = AEFeedTests;
 			sourceTree = "<group>";
@@ -563,7 +604,6 @@
 		FFD2945F2984FFD50047E30D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				FFD2945D2984FFCE0047E30D /* HTTPClientSpy.swift */,
 				FFD2946D29863AE20047E30D /* FeedImageDataStoreSpy.swift */,
 			);
 			path = Helpers;
