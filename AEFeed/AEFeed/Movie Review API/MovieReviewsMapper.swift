@@ -24,6 +24,10 @@ public final class MovieReviewsMapper {
         }
     }
     
+    public enum Error: Swift.Error {
+        case invalidData
+    }
+    
     public static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [MovieReview] {
         let decoder = JSONDecoder()
         let formatter = ISO8601DateFormatter()
@@ -36,11 +40,11 @@ public final class MovieReviewsMapper {
             if let date = formatter.date(from: dateString) {
                 return date
             }
-            throw RemoteMovieReviewsLoader.Error.invalidData
+            throw Error.invalidData
         })
         
         guard response.isOK, let root = try? decoder.decode(Root.self, from: data) else {
-            throw RemoteMovieReviewsLoader.Error.invalidData
+            throw Error.invalidData
         }
         return root.reviews
     }

@@ -42,7 +42,6 @@
 		FF2AB6C929785D7A00A659BE /* AEFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFB4D3F3290D87CF00FC6F96 /* AEFeed.framework */; };
 		FF2AB6CF29785F1100A659BE /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78D4F1290E9B8400C4E37D /* XCTestCase+MemoryLeakTracking.swift */; };
 		FF30906B299204710044213F /* MovieReviewsMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF30906A299204710044213F /* MovieReviewsMapperTests.swift */; };
-		FF30906D299205590044213F /* RemoteMovieReviewsLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF30906C299205590044213F /* RemoteMovieReviewsLoader.swift */; };
 		FF30906F2992064C0044213F /* MovieReviewsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF30906E2992064C0044213F /* MovieReviewsMapper.swift */; };
 		FF30907229920BC50044213F /* MovieReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF30907129920BC50044213F /* MovieReview.swift */; };
 		FF30907D299359870044213F /* RemoteLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF30907C299359870044213F /* RemoteLoaderTests.swift */; };
@@ -59,7 +58,6 @@
 		FF773562298CE693005A807D /* ListSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF773561298CE693005A807D /* ListSnapshotTests.swift */; };
 		FF773567298D6982005A807D /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF773566298D6982005A807D /* UIImage+TestHelpers.swift */; };
 		FF77356B298D735A005A807D /* UITableView+HeaderSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF77356A298D735A005A807D /* UITableView+HeaderSizing.swift */; };
-		FF78D4EB290E40B600C4E37D /* RemoteFeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78D4EA290E40B600C4E37D /* RemoteFeedLoader.swift */; };
 		FF78D4ED290E8E6B00C4E37D /* FeedItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78D4EC290E8E6B00C4E37D /* FeedItemsMapper.swift */; };
 		FF78D4EF290E99A200C4E37D /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78D4EE290E99A200C4E37D /* HTTPClient.swift */; };
 		FF78D4F3290E9DD400C4E37D /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78D4F1290E9B8400C4E37D /* XCTestCase+MemoryLeakTracking.swift */; };
@@ -183,7 +181,6 @@
 		FF2AB6C529785D7A00A659BE /* AEFeedCacheIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AEFeedCacheIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF2AB6C729785D7A00A659BE /* AEFeedCacheIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AEFeedCacheIntegrationTests.swift; sourceTree = "<group>"; };
 		FF30906A299204710044213F /* MovieReviewsMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieReviewsMapperTests.swift; sourceTree = "<group>"; };
-		FF30906C299205590044213F /* RemoteMovieReviewsLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteMovieReviewsLoader.swift; sourceTree = "<group>"; };
 		FF30906E2992064C0044213F /* MovieReviewsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieReviewsMapper.swift; sourceTree = "<group>"; };
 		FF30907129920BC50044213F /* MovieReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieReview.swift; sourceTree = "<group>"; };
 		FF30907C299359870044213F /* RemoteLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteLoaderTests.swift; sourceTree = "<group>"; };
@@ -198,7 +195,6 @@
 		FF773561298CE693005A807D /* ListSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSnapshotTests.swift; sourceTree = "<group>"; };
 		FF773566298D6982005A807D /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
 		FF77356A298D735A005A807D /* UITableView+HeaderSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+HeaderSizing.swift"; sourceTree = "<group>"; };
-		FF78D4EA290E40B600C4E37D /* RemoteFeedLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedLoader.swift; sourceTree = "<group>"; };
 		FF78D4EC290E8E6B00C4E37D /* FeedItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsMapper.swift; sourceTree = "<group>"; };
 		FF78D4EE290E99A200C4E37D /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		FF78D4F1290E9B8400C4E37D /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
@@ -464,7 +460,6 @@
 		FF3090782993565A0044213F /* Movie Review API */ = {
 			isa = PBXGroup;
 			children = (
-				FF30906C299205590044213F /* RemoteMovieReviewsLoader.swift */,
 				FF30906E2992064C0044213F /* MovieReviewsMapper.swift */,
 			);
 			path = "Movie Review API";
@@ -515,7 +510,6 @@
 			isa = PBXGroup;
 			children = (
 				FFD2946229850FC40047E30D /* Helpers */,
-				FF78D4EA290E40B600C4E37D /* RemoteFeedLoader.swift */,
 				FF78D4EC290E8E6B00C4E37D /* FeedItemsMapper.swift */,
 				FF4FCE3129156FC5004DA00E /* RemoteFeedItem.swift */,
 				FFD294602985011A0047E30D /* RemoteFeedImageDataLoader.swift */,
@@ -933,7 +927,6 @@
 				FF1833772984328F0068E048 /* FeedViewModel.swift in Sources */,
 				FF2A0652290E35550085559D /* FeedLoader.swift in Sources */,
 				FF78D4EF290E99A200C4E37D /* HTTPClient.swift in Sources */,
-				FF78D4EB290E40B600C4E37D /* RemoteFeedLoader.swift in Sources */,
 				FFD294752986436B0047E30D /* CoreDataFeedStore+FeedImageDataLoader.swift in Sources */,
 				FFAC069029898ABF001A1018 /* FeedCache.swift in Sources */,
 				FF1EB9B3297507F200CA9321 /* FeedCachePolicy.swift in Sources */,
@@ -961,7 +954,6 @@
 				FFAE5F90291017FC00D78CF8 /* URLSessionHTTPClient.swift in Sources */,
 				FF183385298442C40068E048 /* FeedImageDataLoader.swift in Sources */,
 				FFD2946429850FD20047E30D /* HTTPURLResponse+StatusCode.swift in Sources */,
-				FF30906D299205590044213F /* RemoteMovieReviewsLoader.swift in Sources */,
 				FFE3D7372976CC810046B611 /* CoreDataFeedStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
