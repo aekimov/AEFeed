@@ -407,12 +407,12 @@
 			path = AEFeedCacheIntegrationTests;
 			sourceTree = "<group>";
 		};
-		FF30907029920B9F0044213F /* Moview Reviews Feature */ = {
+		FF30907029920B9F0044213F /* Movie Reviews Feature */ = {
 			isa = PBXGroup;
 			children = (
 				FF30907129920BC50044213F /* MovieReview.swift */,
 			);
-			path = "Moview Reviews Feature";
+			path = "Movie Reviews Feature";
 			sourceTree = "<group>";
 		};
 		FF309073299354D50044213F /* Shared API */ = {
@@ -453,6 +453,23 @@
 				FF78D4F5290ED26300C4E37D /* URLSessionHTTPClientTests.swift */,
 			);
 			path = "Shared API Infra";
+			sourceTree = "<group>";
+		};
+		FF3090782993565A0044213F /* Movie Review API */ = {
+			isa = PBXGroup;
+			children = (
+				FF30906C299205590044213F /* RemoteMovieReviewsLoader.swift */,
+				FF30906E2992064C0044213F /* MovieReviewMapper.swift */,
+			);
+			path = "Movie Review API";
+			sourceTree = "<group>";
+		};
+		FF309079299356950044213F /* Movie Review API */ = {
+			isa = PBXGroup;
+			children = (
+				FF30906A299204710044213F /* LoadMovieReviewsFromRemoteUseCase.swift */,
+			);
+			path = "Movie Review API";
 			sourceTree = "<group>";
 		};
 		FF4FCE2A2914FC59004DA00E /* Feed Cache */ = {
@@ -496,8 +513,6 @@
 				FFD294602985011A0047E30D /* RemoteFeedImageDataLoader.swift */,
 				FF78D4EC290E8E6B00C4E37D /* FeedItemsMapper.swift */,
 				FF4FCE3129156FC5004DA00E /* RemoteFeedItem.swift */,
-				FF30906C299205590044213F /* RemoteMovieReviewsLoader.swift */,
-				FF30906E2992064C0044213F /* MovieReviewMapper.swift */,
 			);
 			path = "Feed API";
 			sourceTree = "<group>";
@@ -516,7 +531,6 @@
 			children = (
 				FFD2945F2984FFD50047E30D /* Helpers */,
 				FF2A0654290E383B0085559D /* LoadFeedFromRemoteUseCaseTests.swift */,
-				FF30906A299204710044213F /* LoadMovieReviewsFromRemoteUseCase.swift */,
 				FFD2945B2984D8EF0047E30D /* LoadFeedImageDataFromRemoteUseCaseTests.swift */,
 				FFD2946729862F340047E30D /* LoadFeedImageDataFromCacheUseCaseTests.swift */,
 				FFD2946F29863B580047E30D /* CacheFeedImageDataUseCaseTests.swift */,
@@ -577,9 +591,10 @@
 		FFB4D3F5290D87CF00FC6F96 /* AEFeed */ = {
 			isa = PBXGroup;
 			children = (
+				FF3090782993565A0044213F /* Movie Review API */,
 				FF309073299354D50044213F /* Shared API */,
 				FF309074299354EA0044213F /* Shared API Infra */,
-				FF30907029920B9F0044213F /* Moview Reviews Feature */,
+				FF30907029920B9F0044213F /* Movie Reviews Feature */,
 				FF18337229842ED90068E048 /* Feed Presentation */,
 				FF2A0653290E37330085559D /* Feed Feature */,
 				FF78D4E9290E40A600C4E37D /* Feed API */,
@@ -591,6 +606,7 @@
 		FFB4D3FF290D87CF00FC6F96 /* AEFeedTests */ = {
 			isa = PBXGroup;
 			children = (
+				FF309079299356950044213F /* Movie Review API */,
 				FF78D4F0290E9B6D00C4E37D /* Helpers */,
 				FF3090752993551D0044213F /* Shared API */,
 				FF309077299355640044213F /* Shared API Infra */,
