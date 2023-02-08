@@ -8,7 +8,7 @@
 import UIKit
 import AEFeed
 
-public class ListViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedErrorView {
+public class ListViewController: UITableViewController, UITableViewDataSourcePrefetching, ResourceErrorView {
 
     private let refreshController: FeedRefreshViewController
     
@@ -50,7 +50,7 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
         tableView.sizeTableHeaderToFit()
     }
     
-    public func display(_ viewModel: FeedErrorViewModel) {
+    public func display(_ viewModel: ResourceErrorViewModel) {
         errorView.message = viewModel.message
     }
     
