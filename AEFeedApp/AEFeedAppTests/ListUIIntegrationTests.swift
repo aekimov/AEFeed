@@ -262,7 +262,7 @@ class ListUIIntegrationTests: XCTestCase {
         
         sut.loadViewIfNeeded()
 
-        XCTAssertEqual(sut.title, localized("FEED_VIEW_TITLE"))
+        XCTAssertEqual(sut.title, feedTitle)
     }
     
     func test_loadFeedCompletion_dispatchesFromBackgroundToMainThread() {
@@ -308,7 +308,7 @@ class ListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.errorMessage, nil)
 
         loader.completeFeedLoadingWithError(at: 0)
-        XCTAssertEqual(sut.errorMessage, localized("FEED_VIEW_CONNECTION_ERROR"))
+        XCTAssertEqual(sut.errorMessage, loadError)
     }
     
     func test_loadFeedCompletion_rendersErrorMessageOnErrorUntilNextReload() {
@@ -318,7 +318,7 @@ class ListUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.errorMessage, nil)
         
         loader.completeFeedLoadingWithError(at: 0)
-        XCTAssertEqual(sut.errorMessage, localized("FEED_VIEW_CONNECTION_ERROR"))
+        XCTAssertEqual(sut.errorMessage, loadError)
         
         sut.simulateUserInitiatedFeedReload()
         XCTAssertEqual(sut.errorMessage, nil)
