@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		FF15E83B29879AF300F47DF7 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF15E83A29879AF300F47DF7 /* Helpers.swift */; };
+		FF309081299386500044213F /* CombineHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF309080299386500044213F /* CombineHelpers.swift */; };
 		FF773535298C1E00005A807D /* SceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF773534298C1DFF005A807D /* SceneDelegateTests.swift */; };
 		FF773539298C282C005A807D /* FeedUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF773537298C282C005A807D /* FeedUIComposer.swift */; };
 		FF77353A298C282C005A807D /* WeakRefVirtualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF773536298C282C005A807D /* WeakRefVirtualProxy.swift */; };
@@ -63,6 +64,7 @@
 
 /* Begin PBXFileReference section */
 		FF15E83A29879AF300F47DF7 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		FF309080299386500044213F /* CombineHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineHelpers.swift; sourceTree = "<group>"; };
 		FF773534298C1DFF005A807D /* SceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegateTests.swift; sourceTree = "<group>"; };
 		FF773536298C282C005A807D /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
 		FF773537298C282C005A807D /* FeedUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIComposer.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				FFD294C4298692110047E30D /* SceneDelegate.swift */,
 				FF773537298C282C005A807D /* FeedUIComposer.swift */,
 				FF773536298C282C005A807D /* WeakRefVirtualProxy.swift */,
+				FF309080299386500044213F /* CombineHelpers.swift */,
 				FFD294CB298692150047E30D /* Assets.xcassets */,
 				FFD294CD298692150047E30D /* LaunchScreen.storyboard */,
 				FFD294D0298692150047E30D /* Info.plist */,
@@ -291,6 +294,7 @@
 				FFD294C3298692110047E30D /* AppDelegate.swift in Sources */,
 				FF773539298C282C005A807D /* FeedUIComposer.swift in Sources */,
 				FFD294C5298692110047E30D /* SceneDelegate.swift in Sources */,
+				FF309081299386500044213F /* CombineHelpers.swift in Sources */,
 				FF77353A298C282C005A807D /* WeakRefVirtualProxy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
