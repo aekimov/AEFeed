@@ -46,14 +46,19 @@ class AEFeedAPIEndToEndTest: XCTestCase {
     private func getFeedResult(file: StaticString = #file, line: UInt = #line) -> FeedLoader.Result? {
         let testServerURL = URL(string: "https://raw.githubusercontent.com/aekimov/TestServerJSON/main/server.json")!
         let client = URLSessionHTTPClient(session: .init(configuration: .ephemeral))
-        let loader = RemoteLoader(url: testServerURL, client: client, mapper: FeedItemsMapper.map)
         trackForMemoryLeaks(client, file: file, line: line)
-        trackForMemoryLeaks(loader, file: file, line: line)
         let exp = expectation(description: "Wait for load completion")
         
         var receivedResult: FeedLoader.Result?
-        loader.load { result in
-            receivedResult = result
+        
+        let _ = client.get(from: testServerURL) { result in
+            receivedResult = result.flatMap { (data, response) in
+                do {
+                    return .success(try FeedItemsMapper.map(data, response))
+                } catch {
+                    return .failure(error)
+                }
+            }
             exp.fulfill()
         }
         wait(for: [exp], timeout: 3.0)
