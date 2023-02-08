@@ -98,31 +98,7 @@ class RemoteLoaderTests: XCTestCase {
         let json = ["results": items]
         return try! JSONSerialization.data(withJSONObject: json)
     }
-    
-    
-    private func makeFeed(items: [(model: FeedImage, json: [String : Any])] = []) -> (model: [FeedImage], json: [String: Any]) {
-        let model = items.map { $0.model }
 
-        let json: [String: Any] = [
-            "results": items.map { $0.json }
-        ]
-
-        return (model, json.compactMapValues { $0 })
-    }
-    
-    private func makeItem(id: Int, title: String, imagePath: String? = nil, overview: String) -> (model: FeedImage, json: [String: Any]) {
-        let item = FeedImage(id: id, title: title, imagePath: imagePath ?? "", overview: overview)
-        
-        let json: [String: Any] = [
-            "id": item.id,
-            "title": item.title,
-            "poster_path": item.imagePath,
-            "overview": item.overview
-        ]
-        
-        return (item, json)
-    }
-    
     private func expect(_ sut: RemoteLoader<String>, toCompleteWith expectedResult: RemoteLoader<String>.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
         
         let exp = expectation(description: "Wait for load completion")

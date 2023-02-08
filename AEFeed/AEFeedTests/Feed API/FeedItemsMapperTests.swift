@@ -10,7 +10,7 @@ import AEFeed
 
 class FeedItemsMapperTests: XCTestCase {
     
-    func test_load_throwsErrorOnNon200HTTPResponse() throws {
+    func test_map_throwsErrorOnNon200HTTPResponse() throws {
         let samples = [199, 201, 300, 400, 500]
         let json = makeItemsJSON([])
         
@@ -47,12 +47,9 @@ class FeedItemsMapperTests: XCTestCase {
         XCTAssertEqual(result, [item1.model, item2.model])
     }
     
+    
     //MARK:- Helpers
 
-    private func failure(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result {
-        return .failure(error)
-    }
-    
     private func makeItemsJSON(_ items: [[String: Any]]) -> Data {
         let json = ["results": items]
         return try! JSONSerialization.data(withJSONObject: json)
@@ -80,11 +77,5 @@ class FeedItemsMapperTests: XCTestCase {
         ]
         
         return (item, json)
-    }
-}
-
-private extension HTTPURLResponse {
-    convenience init(statusCode: Int) {
-        self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!
     }
 }

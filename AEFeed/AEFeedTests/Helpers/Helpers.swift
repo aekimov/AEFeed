@@ -25,3 +25,9 @@ public extension FeedImage {
         return URL(string: "https://image.tmdb.org/t/p/w500/")!.appendingPathComponent(imagePath)
     }
 }
+
+public extension HTTPURLResponse {
+    convenience init(statusCode: Int) {
+        self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!
+    }
+}

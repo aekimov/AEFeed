@@ -11,6 +11,6 @@ public typealias RemoteMovieReviewsLoader = RemoteLoader<[MovieReview]>
 
 public extension RemoteMovieReviewsLoader {
     convenience init(url: URL, client: HTTPClient) {
-        self.init(url: url, client: client, mapper: MovieReviewMapper.map)
+        self.init(url: url, client: client, mapper: MovieReviewsMapper.map)
     }
 }

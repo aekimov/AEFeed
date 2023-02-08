@@ -1,5 +1,5 @@
 //
-//  MovieReviewMapper.swift
+//  MovieReviewsMapper.swift
 //  AEFeed
 //
 //  Created by Artem Ekimov on 2/7/23.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class MovieReviewMapper {
+public final class MovieReviewsMapper {
     
     private struct Root: Decodable {
         private let results: [Item]
@@ -24,7 +24,7 @@ final class MovieReviewMapper {
         }
     }
     
-    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [MovieReview] {
+    public static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [MovieReview] {
         let decoder = JSONDecoder()
         let formatter = ISO8601DateFormatter()
         formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
