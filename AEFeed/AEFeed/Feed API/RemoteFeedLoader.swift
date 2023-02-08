@@ -38,25 +38,10 @@ public final class RemoteFeedLoader: FeedLoader {
     private static func map(_ data: Data, from response: HTTPURLResponse) -> FeedLoader.Result {
         do {
             let items = try FeedItemsMapper.map(data, response)
-            return .success(items.toModels())
+            return .success(items)
         } catch {
             return .failure(error)
         }
     }
 }
 
-extension Array where Element == RemoteItem {
-    func toModels() -> [FeedImage] {
-        return map { FeedImage(id: $0.id, title: $0.title, imagePath: $0.poster_path?.removeSlash ?? "", overview: $0.overview) }
-    }
-}
-
-private extension String {
-    var removeSlash: String {
-        var string = self
-        if string.first == "/" {
-            string.removeFirst()
-        }
-        return string
-    }
-}
