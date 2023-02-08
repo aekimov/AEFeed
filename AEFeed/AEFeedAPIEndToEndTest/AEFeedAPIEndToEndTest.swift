@@ -51,7 +51,7 @@ class AEFeedAPIEndToEndTest: XCTestCase {
         
         var receivedResult: Swift.Result<[FeedImage], Error>?
         
-        let _ = client.get(from: testServerURL) { result in
+        _ = client.get(from: testServerURL) { result in
             receivedResult = result.flatMap { (data, response) in
                 do {
                     return .success(try FeedItemsMapper.map(data, response))
@@ -111,15 +111,19 @@ class AEFeedAPIEndToEndTest: XCTestCase {
     private func getFeedImageDataResult(file: StaticString = #file, line: UInt = #line) -> FeedImageDataLoader.Result? {
         let testServerURL = URL(string: "https://github.com/aekimov/TestServerJSON/blob/main/test-image.png")!
         let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
-        let loader = RemoteFeedImageDataLoader(client: client)
         trackForMemoryLeaks(client, file: file, line: line)
-        trackForMemoryLeaks(loader, file: file, line: line)
         
         let exp = expectation(description: "Wait for load completion")
         
         var receivedResult: FeedImageDataLoader.Result?
-        _ = loader.loadImageData(from: testServerURL) { result in
-            receivedResult = result
+        _ = client.get(from: testServerURL) { result in
+            receivedResult = result.flatMap { (data, response) in
+                do {
+                    return .success(try FeedImageDataMapper.map(data, from: response))
+                } catch {
+                    return .failure(error)
+                }
+            }
             exp.fulfill()
         }
         wait(for: [exp], timeout: 5.0)
