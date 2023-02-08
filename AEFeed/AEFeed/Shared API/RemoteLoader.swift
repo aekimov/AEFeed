@@ -11,13 +11,13 @@ public final class RemoteLoader<Resource> {
     private let url: URL
     private let client: HTTPClient
     private let mapper: Mapper
-    
+
     public init(url: URL, client: HTTPClient, mapper: @escaping Mapper) {
         self.url = url
         self.client = client
         self.mapper = mapper
     }
-    
+
     public typealias Result = Swift.Result<Resource, Swift.Error>
     public typealias Mapper = (_ data: Data, _ response: HTTPURLResponse) throws -> Resource
 
@@ -29,7 +29,7 @@ public final class RemoteLoader<Resource> {
     public func load(completion: @escaping (Result) -> Void) {
         client.get(from: url) { [weak self] result in
             guard let self = self else { return }
-            
+
             switch result {
             case let .success((data, response)):
                 completion(self.map(data, from: response))
@@ -38,7 +38,7 @@ public final class RemoteLoader<Resource> {
             }
         }
     }
-    
+
     private func map(_ data: Data, from response: HTTPURLResponse) -> Result {
         do {
             return .success(try mapper(data, response))

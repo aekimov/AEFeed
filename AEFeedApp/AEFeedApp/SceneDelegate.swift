@@ -50,12 +50,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
     
-    private func makeRemoteFeedLoaderWithFallback() -> RemoteFeedLoader.Publisher {
+    private func makeRemoteFeedLoaderWithFallback() -> FeedLoader.Publisher {
         let remoteURL = URL(string: "https://raw.githubusercontent.com/aekimov/TestServerJSON/main/server.json")!
-        let remoteFeedLoader = RemoteLoader(url: remoteURL, client: httpClient, mapper: FeedItemsMapper.map)
-        
-        return remoteFeedLoader
-            .loadPublisher()
+
+        return httpClient
+            .getPublisher(url: remoteURL)
+            .tryMap(FeedItemsMapper.map)
             .caching(to: localFeedLoader)
             .fallback(to: localFeedLoader.loadPublisher)
     }
@@ -77,14 +77,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         localFeedLoader.validateCache { _ in }
     }
 
-}
-
-extension RemoteLoader: FeedLoader where Resource == [FeedImage] {}
-
-public typealias RemoteFeedLoader = RemoteLoader<[FeedImage]>
-
-public extension RemoteFeedLoader {
-    convenience init(url: URL, client: HTTPClient) {
-        self.init(url: url, client: client, mapper: FeedItemsMapper.map)
-    }
 }
