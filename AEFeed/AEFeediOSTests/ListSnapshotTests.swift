@@ -90,15 +90,23 @@ final class FeedSnapshotTests: XCTestCase {
 
 
 private class ImageStub: FeedImageCellControllerDelegate {
-    let viewModel: FeedImageViewModel<UIImage>
+    let viewModel: FeedImageViewModel
+    let image: UIImage?
     weak var controller: FeedImageCellController?
 
     init(title: String, overview: String, image: UIImage?) {
-        viewModel = FeedImageViewModel(title: title, overview: overview, image: image, isLoading: false, shouldRetry: image == nil)
+        self.viewModel = FeedImageViewModel(title: title, overview: overview)
+        self.image = image
     }
 
     func didRequestImage() {
-        controller?.display(viewModel)
+        controller?.display(ResourceLoadingViewModel(isLoading: false))
+        if let image = image {
+            controller?.display(image)
+            controller?.display(ResourceErrorViewModel(message: nil))
+        } else {
+            controller?.display(ResourceErrorViewModel(message: "error"))
+        }
     }
 
     func didCancelImageRequest() {}
@@ -108,7 +116,7 @@ private class ImageStub: FeedImageCellControllerDelegate {
 private extension ListViewController {
     func display(_ stubs: [ImageStub]) {
         let cells: [FeedImageCellController] = stubs.map { stub in
-            let cellController = FeedImageCellController(delegate: stub)
+            let cellController = FeedImageCellController(viewModel: stub.viewModel, delegate: stub)
             stub.controller = cellController
             return cellController
         }

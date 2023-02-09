@@ -97,7 +97,7 @@ final class FeedViewAdapter: ResourceView {
                 })
             
             let view = FeedImageCellController(
-                viewModel: FeedImagePresenter<FeedImageCellController, UIImage>.map(model),
+                viewModel: FeedImagePresenter.map(model),
                 delegate: adapter)
             
             adapter.presenter = LoadResourcePresenter(
@@ -112,52 +112,6 @@ final class FeedViewAdapter: ResourceView {
             return view
         })
     }
-    
-    private func composeURL(for model: FeedImage) -> URL {
-        return imageBaseURL.appendingPathComponent(model.imagePath)
-    }
 }
 
 private struct InvalidImageData: Error {}
-
-final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where Image == View.Image {
-    private let model: FeedImage
-    private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
-    private let imageBaseURL: URL
-    private var cancellable: Cancellable?
-    
-    var imagePresenter: FeedImagePresenter<View, Image>?
-
-    init(model: FeedImage, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher, imageBaseURL: URL) {
-        self.model = model
-        self.imageLoader = imageLoader
-        self.imageBaseURL = imageBaseURL
-    }
-    
-    func didRequestImage() {
-        imagePresenter?.didStartLoadingImageData(for: model)
-        let model = self.model
-        
-        cancellable = imageLoader(composeURL(for: model))
-            .dispatchOnMainQueue()
-            .sink(receiveCompletion: { [weak self] completion in
-                switch completion {
-                case .finished: break
-                case .failure(let error):
-                    self?.imagePresenter?.didFinishLoadingImageData(with: error, for: model)
-                }
-            }, receiveValue: { [weak self] data in
-                self?.imagePresenter?.didFinishLoadingImageData(with: data, for: model)
-            })
-    }
-    
-    func didCancelImageRequest() {
-        cancellable?.cancel()
-        cancellable = nil
-    }
-    
-    private func composeURL(for model: FeedImage) -> URL {
-        return imageBaseURL.appendingPathComponent(model.imagePath)
-    }
-
-}
