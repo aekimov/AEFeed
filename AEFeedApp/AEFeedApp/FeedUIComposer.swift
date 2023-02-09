@@ -15,7 +15,7 @@ public class FeedUIComposer {
     private init() {}
     
     public static func feedComposedWith(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
-        let presentationAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader)
+        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: feedLoader)
         
         let refreshController = FeedRefreshViewController(delegate: presentationAdapter)
         let viewController = ListViewController(refreshController: refreshController)
@@ -32,19 +32,19 @@ public class FeedUIComposer {
     }
 }
 
-final class FeedLoaderPresentationAdapter: FeedRefreshViewControllerDelegate {
-    private let feedLoader: () -> AnyPublisher<[FeedImage], Error>
+final class LoadResourcePresentationAdapter<Resource, View: ResourceView> {
+    private let loader: () -> AnyPublisher<Resource, Error>
     private var cancellable: Cancellable?
-    var presenter: LoadResourcePresenter<[FeedImage], FeedViewAdapter>?
+    var presenter: LoadResourcePresenter<Resource, View>?
 
-    init(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>) {
-        self.feedLoader = feedLoader
+    init(loader: @escaping () -> AnyPublisher<Resource, Error>) {
+        self.loader = loader
     }
     
-    func didRequestFeedRefresh() {
+    func loadResource() {
         presenter?.didStartLoading()
         
-        cancellable = feedLoader()
+        cancellable = loader()
             .dispatchOnMainQueue()
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
@@ -52,9 +52,39 @@ final class FeedLoaderPresentationAdapter: FeedRefreshViewControllerDelegate {
                 case .failure(let error):
                     self?.presenter?.didFinishLoading(with: error)
                 }
-            }, receiveValue: { [weak self] feed in
-                self?.presenter?.didFinishLoading(with: feed)
+            }, receiveValue: { [weak self] resource in
+                self?.presenter?.didFinishLoading(with: resource)
             })
+    }
+}
+
+extension LoadResourcePresentationAdapter: FeedRefreshViewControllerDelegate {
+    func didRequestFeedRefresh() {
+        loadResource()
+    }
+}
+
+final class FeedViewAdapter: ResourceView {
+    private weak var controller: ListViewController?
+    private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
+    
+    init(controller: ListViewController, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) {
+        self.controller = controller
+        self.imageLoader = imageLoader
+    }
+    
+    private let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500")!
+    
+    func display(_ viewModel: FeedViewModel) {
+        controller?.display(viewModel.feed.map { model in
+            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader, imageBaseURL: imageBaseURL)
+            let view = FeedImageCellController(delegate: adapter)
+            
+            adapter.imagePresenter = FeedImagePresenter(view: WeakRefVirtualProxy(view),
+                                                        imageTransformer: UIImage.init)
+            
+            return view
+        })
     }
 }
 
@@ -97,28 +127,4 @@ final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: 
         return imageBaseURL.appendingPathComponent(model.imagePath)
     }
 
-}
-
-final class FeedViewAdapter: ResourceView {
-    private weak var controller: ListViewController?
-    private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
-    
-    init(controller: ListViewController, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) {
-        self.controller = controller
-        self.imageLoader = imageLoader
-    }
-    
-    private let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500")!
-    
-    func display(_ viewModel: FeedViewModel) {
-        controller?.display(viewModel.feed.map { model in
-            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader, imageBaseURL: imageBaseURL)
-            let view = FeedImageCellController(delegate: adapter)
-            
-            adapter.imagePresenter = FeedImagePresenter(view: WeakRefVirtualProxy(view),
-                                                        imageTransformer: UIImage.init)
-            
-            return view
-        })
-    }
 }
