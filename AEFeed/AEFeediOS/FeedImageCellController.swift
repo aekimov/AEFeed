@@ -13,29 +13,41 @@ public protocol FeedImageCellControllerDelegate {
     func didCancelImageRequest()
 }
 
-public final class FeedImageCellController: FeedImageView {
+public final class FeedImageCellController: FeedImageView, ResourceView, ResourceLoadingView, ResourceErrorView {
+    public typealias ResourceViewModel = UIImage
+    
+    private let viewModel: FeedImageViewModel<UIImage>
     private let delegate: FeedImageCellControllerDelegate
     private var cell: FeedImageCell?
     
-    public init(delegate: FeedImageCellControllerDelegate) {
+    public init(viewModel: FeedImageViewModel<UIImage>, delegate: FeedImageCellControllerDelegate) {
+        self.viewModel = viewModel
         self.delegate = delegate
     }
     
     func view(in tableView: UITableView) -> UITableViewCell {
         tableView.register(FeedImageCell.self)
         cell = tableView.dequeueReusableCell()
+        cell?.titleLabel.text = viewModel.title
+        cell?.overviewLabel.text = viewModel.overview
+        cell?.onRetry = delegate.didRequestImage
         delegate.didRequestImage()
         return cell!
     }
     
-    public func display(_ model: FeedImageViewModel<UIImage>) {
-        cell?.titleLabel.text = model.title
-        cell?.overviewLabel.text = model.overview
-        cell?.feedImageView.image = model.image
-        cell?.feedImageView.setImageAnimated(model.image)
-        cell?.imageViewContainer.isShimmering = model.isLoading
-        cell?.feedImageRetryButton.isHidden = !model.shouldRetry
-        cell?.onRetry = delegate.didRequestImage
+    public func display(_ viewModel: FeedImageViewModel<UIImage>) {
+    }
+    
+    public func display(_ viewModel: UIImage) {
+        cell?.feedImageView.setImageAnimated(viewModel)
+    }
+    
+    public func display(_ viewModel: AEFeed.ResourceLoadingViewModel) {
+        cell?.imageViewContainer.isShimmering = viewModel.isLoading
+    }
+    
+    public func display(_ viewModel: AEFeed.ResourceErrorViewModel) {
+        cell?.feedImageRetryButton.isHidden = viewModel.message == nil
     }
     
     func preload() {

@@ -64,6 +64,17 @@ extension LoadResourcePresentationAdapter: FeedRefreshViewControllerDelegate {
     }
 }
 
+extension LoadResourcePresentationAdapter: FeedImageCellControllerDelegate {
+    func didRequestImage() {
+        loadResource()
+    }
+    
+    func didCancelImageRequest() {
+        cancellable?.cancel()
+        cancellable = nil
+    }
+}
+
 final class FeedViewAdapter: ResourceView {
     private weak var controller: ListViewController?
     private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
@@ -77,15 +88,37 @@ final class FeedViewAdapter: ResourceView {
     
     func display(_ viewModel: FeedViewModel) {
         controller?.display(viewModel.feed.map { model in
-            let adapter = FeedImageDataLoaderPresentationAdapter<WeakRefVirtualProxy<FeedImageCellController>, UIImage>(model: model, imageLoader: imageLoader, imageBaseURL: imageBaseURL)
-            let view = FeedImageCellController(delegate: adapter)
+            let imageBaseURL = self.imageBaseURL
             
-            adapter.imagePresenter = FeedImagePresenter(view: WeakRefVirtualProxy(view), imageTransformer: UIImage.init)
+            let adapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>(
+                loader: { [imageLoader] in
+                    let url = imageBaseURL.appendingPathComponent(model.imagePath)
+                    return imageLoader(url)
+                })
+            
+            let view = FeedImageCellController(
+                viewModel: FeedImagePresenter<FeedImageCellController, UIImage>.map(model),
+                delegate: adapter)
+            
+            adapter.presenter = LoadResourcePresenter(
+                resourceView: WeakRefVirtualProxy(view),
+                loadingView: WeakRefVirtualProxy(view),
+                errorView: WeakRefVirtualProxy(view),
+                mapper: { data in
+                    guard let image = UIImage(data: data) else { throw InvalidImageData() }
+                    return image
+                })
             
             return view
         })
     }
+    
+    private func composeURL(for model: FeedImage) -> URL {
+        return imageBaseURL.appendingPathComponent(model.imagePath)
+    }
 }
+
+private struct InvalidImageData: Error {}
 
 final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where Image == View.Image {
     private let model: FeedImage
@@ -120,6 +153,7 @@ final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: 
     
     func didCancelImageRequest() {
         cancellable?.cancel()
+        cancellable = nil
     }
     
     private func composeURL(for model: FeedImage) -> URL {
