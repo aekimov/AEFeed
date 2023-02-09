@@ -9,6 +9,15 @@ import XCTest
 import AEFeed
 
 class FeedImagePresenterTests: XCTestCase {
+    func test_map_createsViewModel() {
+        let image = uniqueImage()
+        
+        let viewModel = FeedImagePresenter<ViewSpy, AnyImage>.map(image)
+        
+        XCTAssertEqual(viewModel.title, image.title)
+        XCTAssertEqual(viewModel.overview, image.overview)
+
+    }
     
     func test_init_doesNotSendMessagesToView() {
         let (_, view) = makeSUT()
