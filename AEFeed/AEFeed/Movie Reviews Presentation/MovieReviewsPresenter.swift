@@ -13,11 +13,13 @@ public final class MovieReviewsPresenter {
         return NSLocalizedString("MOVIE_REVIEWS_VIEW_TITLE", tableName: "MovieReviews", bundle: Bundle(for: MovieReviewsPresenter.self), comment: "Title for movie reviews")
     }
     
-    public static func map(_ reviews: [MovieReview]) -> MovieReviewsViewModel {
+    public static func map(_ reviews: [MovieReview], currentDate: Date = Date(), calendar: Calendar = .current, locale: Locale = .current) -> MovieReviewsViewModel {
         let formatter = RelativeDateTimeFormatter()
+        formatter.calendar = calendar
+        formatter.locale = locale
         
         return MovieReviewsViewModel(reviews: reviews.map {
-            MovieReviewViewModel(author: $0.author, content: $0.content, date: formatter.localizedString(for: $0.createdAt, relativeTo: Date()))
+            MovieReviewViewModel(author: $0.author, content: $0.content, date: formatter.localizedString(for: $0.createdAt, relativeTo: currentDate))
         })
     }
 

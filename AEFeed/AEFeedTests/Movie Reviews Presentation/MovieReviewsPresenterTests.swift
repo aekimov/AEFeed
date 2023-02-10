@@ -15,13 +15,15 @@ final class MovieReviewsPresenterTests: XCTestCase {
   
     func test_map_createsViewModels() {
         let now = Date()
+        let calendar = Calendar(identifier: .gregorian)
+        let locale = Locale(identifier: "en_US_POSIX")
         
         let comments = [
-            MovieReview(id: "\(UUID().hashValue)", author: "an author", content: "any content", createdAt: now.adding(minutes: -10)),
-            MovieReview(id: "\(UUID().hashValue)", author: "another author", content: "another content", createdAt: now.adding(days: -2)),
+            MovieReview(id: "\(UUID().hashValue)", author: "an author", content: "any content", createdAt: now.adding(minutes: -10, calendar: calendar)),
+            MovieReview(id: "\(UUID().hashValue)", author: "another author", content: "another content", createdAt: now.adding(days: -2, calendar: calendar))
         ]
         
-        let viewModel = MovieReviewsPresenter.map(comments)
+        let viewModel = MovieReviewsPresenter.map(comments, currentDate: now, calendar: calendar, locale: locale)
         
         XCTAssertEqual(viewModel.reviews, [
             MovieReviewViewModel(author: "an author", content: "any content", date: "10 minutes ago"),
