@@ -13,6 +13,21 @@ final class MovieReviewsPresenterTests: XCTestCase {
         XCTAssertEqual(MovieReviewsPresenter.title, localized("MOVIE_REVIEWS_VIEW_TITLE"))
     }
   
+    func test_map_createsViewModels() {
+        let now = Date()
+        
+        let comments = [
+            MovieReview(id: "\(UUID().hashValue)", author: "an author", content: "any content", createdAt: now.adding(minutes: -10)),
+            MovieReview(id: "\(UUID().hashValue)", author: "another author", content: "another content", createdAt: now.adding(days: -2)),
+        ]
+        
+        let viewModel = MovieReviewsPresenter.map(comments)
+        
+        XCTAssertEqual(viewModel.reviews, [
+            MovieReviewViewModel(author: "an author", content: "any content", date: "10 minutes ago"),
+            MovieReviewViewModel(author: "another author", content: "another content", date: "2 days ago")
+        ])
+    }
     
     //MARK: - Helpers
 
