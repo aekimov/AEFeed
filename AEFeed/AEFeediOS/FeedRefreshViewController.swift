@@ -8,21 +8,17 @@
 import UIKit
 import AEFeed
 
-public protocol FeedRefreshViewControllerDelegate {
-    func didRequestFeedRefresh()
-}
-
 public final class FeedRefreshViewController: NSObject, ResourceLoadingView {
     private(set) lazy var view = loadView()
     
-    private let delegate: FeedRefreshViewControllerDelegate
+    private let onRefresh: () -> Void
     
-    public init(delegate: FeedRefreshViewControllerDelegate) {
-        self.delegate = delegate
+    public init(onRefresh: @escaping () -> Void) {
+        self.onRefresh = onRefresh
     }
     
     @objc func refresh() {
-        delegate.didRequestFeedRefresh()
+        onRefresh()
     }
     
     public func display(_ viewModel: ResourceLoadingViewModel) {

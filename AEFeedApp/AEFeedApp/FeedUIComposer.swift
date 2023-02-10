@@ -17,7 +17,7 @@ public class FeedUIComposer {
     public static func feedComposedWith(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
         let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: feedLoader)
         
-        let refreshController = FeedRefreshViewController(delegate: presentationAdapter)
+        let refreshController = FeedRefreshViewController(onRefresh: presentationAdapter.loadResource)
         let viewController = ListViewController(refreshController: refreshController)
         
         let presenter = LoadResourcePresenter(
@@ -55,12 +55,6 @@ final class LoadResourcePresentationAdapter<Resource, View: ResourceView> {
             }, receiveValue: { [weak self] resource in
                 self?.presenter?.didFinishLoading(with: resource)
             })
-    }
-}
-
-extension LoadResourcePresentationAdapter: FeedRefreshViewControllerDelegate {
-    func didRequestFeedRefresh() {
-        loadResource()
     }
 }
 

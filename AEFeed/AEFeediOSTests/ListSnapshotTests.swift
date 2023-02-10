@@ -52,16 +52,12 @@ final class FeedSnapshotTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT() -> ListViewController {
-        let refresh = FeedRefreshViewController(delegate: DelegateStub())
+        let refresh = FeedRefreshViewController(onRefresh: {})
         let controller = ListViewController(refreshController: refresh)
         controller.loadViewIfNeeded()
         controller.tableView.showsVerticalScrollIndicator = false
         controller.tableView.showsHorizontalScrollIndicator = false
         return controller
-    }
-
-    private struct DelegateStub: FeedRefreshViewControllerDelegate {
-        func didRequestFeedRefresh() {}
     }
     
     private func emptyFeed() -> [FeedImageCellController] {
