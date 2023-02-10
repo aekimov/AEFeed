@@ -8,6 +8,12 @@
 import UIKit
 import AEFeed
 
+public protocol CellController {
+    func view(in tableView: UITableView) -> UITableViewCell
+    func preload()
+    func cancelLoad()
+}
+
 public class ListViewController: UITableViewController, UITableViewDataSourcePrefetching, ResourceErrorView {
 
     private let refreshController: FeedRefreshViewController
@@ -23,15 +29,15 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
     
     public let errorView = ErrorView()
     
-    private var loadingControllers: [IndexPath: FeedImageCellController] = [:]
+    private var loadingControllers: [IndexPath: CellController] = [:]
     
-    private var models: [FeedImageCellController] = [] {
+    private var models: [CellController] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     
-    public func display(_ cellControllers: [FeedImageCellController]) {
+    public func display(_ cellControllers: [CellController]) {
         loadingControllers = [:]
         self.models = cellControllers
     }
@@ -76,7 +82,7 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
         indexPaths.forEach(cancelCellControllerLoad)
     }
     
-    private func cellController(forRowAt indexPath: IndexPath) -> FeedImageCellController {
+    private func cellController(forRowAt indexPath: IndexPath) -> CellController {
         let controller = models[indexPath.row]
         loadingControllers[indexPath] = controller
         return controller
