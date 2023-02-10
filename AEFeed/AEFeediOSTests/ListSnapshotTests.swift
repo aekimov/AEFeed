@@ -52,7 +52,7 @@ final class FeedSnapshotTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT() -> ListViewController {
-        let refresh = FeedRefreshViewController(onRefresh: {})
+        let refresh = RefreshViewController(onRefresh: {})
         let controller = ListViewController(refreshController: refresh)
         controller.loadViewIfNeeded()
         controller.tableView.showsVerticalScrollIndicator = false

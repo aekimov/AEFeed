@@ -1,5 +1,5 @@
 //
-//  FeedRefreshViewController.swift
+//  RefreshViewController.swift
 //  AEFeediOS
 //
 //  Created by Artem Ekimov on 1/21/23.
@@ -8,7 +8,7 @@
 import UIKit
 import AEFeed
 
-public final class FeedRefreshViewController: NSObject, ResourceLoadingView {
+public final class RefreshViewController: NSObject, ResourceLoadingView {
     private(set) lazy var view = loadView()
     
     private let onRefresh: () -> Void
