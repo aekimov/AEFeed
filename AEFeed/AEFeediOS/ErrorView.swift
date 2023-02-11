@@ -25,6 +25,8 @@ public final class ErrorView: UIButton {
         titleLabel?.textColor = .white
         titleLabel?.numberOfLines = 0
         titleLabel?.textAlignment = .center
+        titleLabel?.font = .preferredFont(forTextStyle: .body)
+        titleLabel?.adjustsFontForContentSizeCategory = true
     }
 
     private func hideMessage() {

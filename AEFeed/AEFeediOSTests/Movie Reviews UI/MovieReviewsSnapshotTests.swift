@@ -18,6 +18,7 @@ final class MovieReviewsSnapshotTests: XCTestCase {
 
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "MOVIE_REVIEWS_light")
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "MOVIE_REVIEWS_dark")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraLarge)), named: "MOVIE_REVIEWS_light_extraExtraLarge")
     }
     
     
