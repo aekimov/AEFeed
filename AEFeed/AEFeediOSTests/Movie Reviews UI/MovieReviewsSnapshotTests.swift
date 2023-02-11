@@ -32,8 +32,11 @@ final class MovieReviewsSnapshotTests: XCTestCase {
         return controller
     }
 
-    
     private func reviews() -> [CellController] {
+        return reviewControllers().map { CellController($0) }
+    }
+    
+    private func reviewControllers() -> [MovieReviewCellController] {
         return [
             MovieReviewCellController(
                 model: MovieReviewViewModel(

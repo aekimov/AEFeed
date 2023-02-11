@@ -8,7 +8,7 @@
 import UIKit
 import AEFeed
 
-public class MovieReviewCellController: NSObject, CellController {
+public class MovieReviewCellController: NSObject, UITableViewDataSource {
 
     private let model: MovieReviewViewModel
     
@@ -26,8 +26,4 @@ public class MovieReviewCellController: NSObject, CellController {
         cell.dateLabel.text = model.date
         return cell
     }
-    
-    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {}
-    
-    
 }
