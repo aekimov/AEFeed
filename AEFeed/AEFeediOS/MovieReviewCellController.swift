@@ -8,14 +8,17 @@
 import UIKit
 import AEFeed
 
-public class MovieReviewCellController: CellController {
+public class MovieReviewCellController: NSObject, CellController {
+
     private let model: MovieReviewViewModel
     
     public init(model: MovieReviewViewModel) {
         self.model = model
     }
     
-    public func view(in tableView: UITableView) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.register(MovieReviewCell.self)
         let cell: MovieReviewCell = tableView.dequeueReusableCell()
         cell.authorLabel.text = model.author
@@ -24,12 +27,7 @@ public class MovieReviewCellController: CellController {
         return cell
     }
     
-    public func preload() {
-        
-    }
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {}
     
-    public func cancelLoad() {
-        
-    }
     
 }
