@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class ErrorView: UIView {
+public final class ErrorView: UIButton {
     
     init() {
         super.init(frame: .zero)
@@ -15,44 +15,36 @@ public final class ErrorView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
-    
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(hideMessageAnimated)))
-        label.textColor = .white
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        return label
-    }()
-    
-    private lazy var bottomConstaint = bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 8)
-    
+
     private func setup() {
-        label.text = nil
-        alpha = 0
+        addTarget(self, action: #selector(hideMessageAnimated), for: .touchUpInside)
         backgroundColor = UIColor(red: 255/255, green: 110/255, blue: 100/255, alpha: 1)
-        bottomConstaint.priority = .defaultLow - 1
-        addSubview(label)
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: topAnchor, constant: 8),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-            trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: 8),
-            bottomConstaint
-        ])
+        hideMessage()
+        titleLabel?.textColor = .white
+        titleLabel?.numberOfLines = 0
+        titleLabel?.textAlignment = .center
+    }
+
+    private func hideMessage() {
+        setTitle(nil, for: .normal)
+        alpha = 0
+        contentEdgeInsets = .init(top: -2.5, left: 0, bottom: -2.5, right: 0)
+        onHide?()
     }
     
     public var message: String? {
         get {
-            return isVisible ? label.text : nil
+            return isVisible ? title(for: .normal) : nil
         }
         set {
             setMessageAnimated(newValue)
         }
     }
     
+    public var onHide: (() -> Void)?
+
     private var isVisible: Bool {
         return alpha > 0
     }
@@ -66,8 +58,8 @@ public final class ErrorView: UIView {
     }
     
     private func showAnimated(_ message: String) {
-        label.text = message
-        
+        setTitle(message, for: .normal)
+        contentEdgeInsets = .init(top: 8, left: 8, bottom: 8, right: 8)
         UIView.animate(withDuration: 0.25) {
             self.alpha = 1
         }
@@ -75,7 +67,7 @@ public final class ErrorView: UIView {
     
     @objc private func hideMessageAnimated() {
         UIView.animate(withDuration: 0.25, animations: { self.alpha = 0 }, completion: { completed in
-            if completed { self.label.text = nil }
+            if completed { self.hideMessage() }
         })
     }
 }

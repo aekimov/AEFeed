@@ -35,7 +35,9 @@ extension FeedImageCellController: UITableViewDataSource, UITableViewDelegate, U
         cell = tableView.dequeueReusableCell()
         cell?.titleLabel.text = viewModel.title
         cell?.overviewLabel.text = viewModel.overview
-        cell?.onRetry = delegate.didRequestImage
+        cell?.onRetry = { [weak self] in
+            self?.delegate.didRequestImage()
+        }
         delegate.didRequestImage()
         return cell!
     }

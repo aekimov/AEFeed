@@ -72,4 +72,8 @@ extension ListViewController {
     var errorMessage: String? {
         return errorView.message
     }
+    
+    func simulateErrorViewTap() {
+        errorView.simulateTap()
+    }
 }
