@@ -21,4 +21,8 @@ extension ListUIIntegrationTests {
     var feedTitle: String {
         FeedPresenter.title
     }
+    
+    var reviewsTitle: String {
+        MovieReviewsPresenter.title
+    }
 }

@@ -13,6 +13,14 @@ import AEFeediOS
 import Combine
 
 final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
+    func test_movieReviewsView_hasTitle() {
+        let (sut, _) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+
+        XCTAssertEqual(sut.title, reviewsTitle)
+    }
+    
     override func test_loadActions_requestFeedFromLoader() {
         let (sut, loader) = makeSUT()
         
@@ -71,14 +79,6 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         sut.simulateUserInitiatedFeedReload()
         loader.completeFeedLoadingWithError(at: 1)
         assertThat(sut, isRendering: [image0])
-    }
-    
-    override func test_feedView_hasTitle() {
-        let (sut, _) = makeSUT()
-        
-        sut.loadViewIfNeeded()
-
-        XCTAssertEqual(sut.title, feedTitle)
     }
     
     override func test_loadFeedCompletion_dispatchesFromBackgroundToMainThread() {

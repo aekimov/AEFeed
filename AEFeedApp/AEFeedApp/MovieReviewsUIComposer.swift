@@ -26,7 +26,7 @@ public class MovieReviewsUIComposer {
             errorView: WeakRefVirtualProxy(viewController),
             mapper: FeedPresenter.map)
 
-        viewController.title = FeedPresenter.title
+        viewController.title = MovieReviewsPresenter.title
         presentationAdapter.presenter = presenter
         return viewController
     }
