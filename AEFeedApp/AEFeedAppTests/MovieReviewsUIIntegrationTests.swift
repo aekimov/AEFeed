@@ -33,22 +33,22 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         XCTAssertEqual(loader.loadReviewsCallCount, 2, "Expected another loading request once user initiates a reload")
     }
     
-    override func test_loadingIndicator_isVisibleWhileLoadingFeed() {
+    func test_loadingIndicator_isVisibleWhileLoadingReviews() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
         XCTAssertEqual(sut.isShowingLoadingIndicator, true, "Expected a loading indicator once view is loaded")
 
-        loader.completeFeedLoading(at: 0)
+        loader.completeReviewsLoading(at: 0)
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "Expected no loading indicator once loading is completed")
         
         sut.simulateUserInitiatedReload()
         XCTAssertEqual(sut.isShowingLoadingIndicator, true, "Expected a loading indicator once loading is user initiated")
         
-        loader.completeFeedLoading(at: 1)
+        loader.completeReviewsLoading(at: 1)
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "Expected no loading indicator once user initiated loading is completed")
         
-        loader.completeFeedLoadingWithError(at: 0)
+        loader.completeReviewsLoadingWithError(at: 0)
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "Expected no loading indicator once user initiated loading is completed with error")
     }
     
@@ -60,11 +60,11 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         sut.loadViewIfNeeded()
         assertThat(sut, isRendering: [])
 
-        loader.completeFeedLoading(with: [image0], at: 0)
+        loader.completeReviewsLoading(with: [image0], at: 0)
         assertThat(sut, isRendering: [image0])
 
         sut.simulateUserInitiatedReload()
-        loader.completeFeedLoading(with: [image0, image1], at: 1)
+        loader.completeReviewsLoading(with: [image0, image1], at: 1)
         assertThat(sut, isRendering: [image0, image1])
     }
     
@@ -73,11 +73,11 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
-        loader.completeFeedLoading(with: [image0], at: 0)
+        loader.completeReviewsLoading(with: [image0], at: 0)
         assertThat(sut, isRendering: [image0])
         
         sut.simulateUserInitiatedReload()
-        loader.completeFeedLoadingWithError(at: 1)
+        loader.completeReviewsLoadingWithError(at: 1)
         assertThat(sut, isRendering: [image0])
     }
     
@@ -87,7 +87,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         
         let exp = expectation(description: "Wait for background queue")
         DispatchQueue.global().async {
-            loader.completeFeedLoading(at: 0)
+            loader.completeReviewsLoading(at: 0)
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)
@@ -109,7 +109,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
 
         XCTAssertEqual(sut.errorMessage, nil)
 
-        loader.completeFeedLoadingWithError(at: 0)
+        loader.completeReviewsLoadingWithError(at: 0)
         XCTAssertEqual(sut.errorMessage, loadError)
     }
     
@@ -119,7 +119,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         sut.loadViewIfNeeded()
         XCTAssertEqual(sut.errorMessage, nil)
         
-        loader.completeFeedLoadingWithError(at: 0)
+        loader.completeReviewsLoadingWithError(at: 0)
         XCTAssertEqual(sut.errorMessage, loadError)
         
         sut.simulateUserInitiatedReload()
@@ -132,7 +132,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         sut.loadViewIfNeeded()
         XCTAssertEqual(sut.errorMessage, nil)
         
-        loader.completeFeedLoadingWithError(at: 0)
+        loader.completeReviewsLoadingWithError(at: 0)
         XCTAssertEqual(sut.errorMessage, loadError)
         
         sut.simulateErrorViewTap()
@@ -145,11 +145,11 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
          let (sut, loader) = makeSUT()
 
          sut.loadViewIfNeeded()
-         loader.completeFeedLoading(with: [image0, image1], at: 0)
+         loader.completeReviewsLoading(with: [image0, image1], at: 0)
          assertThat(sut, isRendering: [image0, image1])
 
          sut.simulateUserInitiatedReload()
-         loader.completeFeedLoading(with: [], at: 1)
+         loader.completeReviewsLoading(with: [], at: 1)
          assertThat(sut, isRendering: [])
      }
     
@@ -181,11 +181,11 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
             return publisher.eraseToAnyPublisher()
         }
         
-        func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
+        func completeReviewsLoading(with feed: [FeedImage] = [], at index: Int = 0) {
             completions[index].send(feed)
         }
         
-        func completeFeedLoadingWithError(at index: Int = 0) {
+        func completeReviewsLoadingWithError(at index: Int = 0) {
             let error = NSError(domain: "an error", code: 0)
             completions[index].send(completion: .failure(error))
         }
