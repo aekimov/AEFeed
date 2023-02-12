@@ -34,7 +34,7 @@ final class MovieReviewsSnapshotTests: XCTestCase {
     }
 
     private func reviews() -> [CellController] {
-        return reviewControllers().map { CellController($0) }
+        return reviewControllers().map { CellController(id: UUID(), $0) }
     }
     
     private func reviewControllers() -> [MovieReviewCellController] {

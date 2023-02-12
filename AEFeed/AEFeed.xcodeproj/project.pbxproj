@@ -638,6 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				FFBF5DB4297AEAA900C66EB4 /* ListViewController.swift */,
+				FFA2BFA429975964008A8B7B /* CellController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -728,7 +729,6 @@
 			isa = PBXGroup;
 			children = (
 				FFA2BF992996A7E2008A8B7B /* MovieReviewCellController.swift */,
-				FFA2BFA429975964008A8B7B /* CellController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
