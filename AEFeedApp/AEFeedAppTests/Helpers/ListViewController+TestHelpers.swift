@@ -82,3 +82,36 @@ extension ListViewController {
         errorView.simulateTap()
     }
 }
+
+extension ListViewController {
+
+    func numberOfRenderedReviews() -> Int {
+        tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: movieReviewsSection)
+    }
+    
+    private var movieReviewsSection: Int {
+        return 0
+    }
+    
+    func reviewAuthor(at index: Int) -> String? {
+        return reviewView(at: index)?.authorLabel.text
+    }
+    
+    func reviewContent(at index: Int) -> String? {
+        return reviewView(at: index)?.contentLabel.text
+    }
+    
+    func reviewDate(at index: Int) -> String? {
+        return reviewView(at: index)?.dateLabel.text
+    }
+    
+    private func reviewView(at row: Int) -> MovieReviewCell? {
+        guard numberOfRenderedFeedImageViews() > row else {
+            return nil
+        }
+        let ds = tableView.dataSource
+        let index = IndexPath(row: row, section: movieReviewsSection)
+        return ds?.tableView(tableView, cellForRowAt: index) as? MovieReviewCell
+    }
+    
+}

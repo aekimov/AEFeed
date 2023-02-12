@@ -33,7 +33,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         XCTAssertEqual(loader.loadReviewsCallCount, 2, "Expected another loading request once user initiates a reload")
     }
     
-    func test_loadingIndicator_isVisibleWhileLoadingReviews() {
+    func test_loadingReviewsIndicator_isVisibleWhileLoadingReviews() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
@@ -52,24 +52,24 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "Expected no loading indicator once user initiated loading is completed with error")
     }
     
-    override func test_loadFeedCompletion_rendersSuccessfullyLoadedFeed() {
-        let image0 = makeImage(title: "movie1", imagePath: "path1", overview: "overview1")
-        let image1 = makeImage(title: "movie2", imagePath: "path2", overview: "overview2")
+    func test_loadReviewsCompletion_rendersSuccessfullyLoadedReviews() {
+        let review0 = makeReview(author: "author1", content: "content1", createdAt: Date())
+        let review1 = makeReview(author: "author2", content: "content2", createdAt: Date())
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
-        assertThat(sut, isRendering: [])
+        assertThat(sut, isRendering: [MovieReview]())
 
-        loader.completeReviewsLoading(with: [image0], at: 0)
-        assertThat(sut, isRendering: [image0])
+        loader.completeReviewsLoading(with: [review0], at: 0)
+        assertThat(sut, isRendering: [review0])
 
         sut.simulateUserInitiatedReload()
-        loader.completeReviewsLoading(with: [image0, image1], at: 1)
-        assertThat(sut, isRendering: [image0, image1])
+        loader.completeReviewsLoading(with: [review0, review1], at: 1)
+        assertThat(sut, isRendering: [review0, review1])
     }
     
-    override func test_loadFeedCompletion_doesNotAlterCurrentRenderingStateOnError() {
-        let image0 = makeImage()
+    func test_loadReviewsCompletion_doesNotAlterCurrentRenderingStateOnError() {
+        let image0 = makeReview()
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
@@ -80,6 +80,19 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         loader.completeReviewsLoadingWithError(at: 1)
         assertThat(sut, isRendering: [image0])
     }
+    
+    func test_loadReviewsCompletion_rendersSuccessfullyLoadedEmptyFeedAfterNonEmptyReviews() {
+         let image = makeReview()
+         let (sut, loader) = makeSUT()
+
+         sut.loadViewIfNeeded()
+         loader.completeReviewsLoading(with: [image], at: 0)
+         assertThat(sut, isRendering: [image])
+
+         sut.simulateUserInitiatedReload()
+         loader.completeReviewsLoading(with: [], at: 1)
+         assertThat(sut, isRendering: [MovieReview]())
+     }
     
     override func test_loadFeedCompletion_dispatchesFromBackgroundToMainThread() {
         let (sut, loader) = makeSUT()
@@ -138,20 +151,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         sut.simulateErrorViewTap()
         XCTAssertEqual(sut.errorMessage, nil)
     }
-    
-    override func test_loadFeedCompletion_rendersSuccessfullyLoadedEmptyFeedAfterNonEmptyFeed() {
-         let image0 = makeImage()
-         let image1 = makeImage()
-         let (sut, loader) = makeSUT()
 
-         sut.loadViewIfNeeded()
-         loader.completeReviewsLoading(with: [image0, image1], at: 0)
-         assertThat(sut, isRendering: [image0, image1])
-
-         sut.simulateUserInitiatedReload()
-         loader.completeReviewsLoading(with: [], at: 1)
-         assertThat(sut, isRendering: [])
-     }
     
     
     //MARK: - Helpers
@@ -163,26 +163,38 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         trackForMemoryLeaks(sut, file: file, line: line)
         return (sut, loader)
     }
+    
+    private func assertThat(_ sut: ListViewController, isRendering reviews: [MovieReview], file: StaticString = #file, line: UInt = #line) {
+        XCTAssertEqual(sut.numberOfRenderedReviews(), reviews.count, "reviews count", file: file, line: line)
+        
+        let viewModel = MovieReviewsPresenter.map(reviews)
+        
+        viewModel.reviews.enumerated().forEach { index, review in
+            XCTAssertEqual(sut.reviewAuthor(at: index), review.author, "author at \(index)", file: file, line: line)
+            XCTAssertEqual(sut.reviewContent(at: index), review.content, "content at \(index)", file: file, line: line)
+            XCTAssertEqual(sut.reviewDate(at: index), review.date, "date at \(index)", file: file, line: line)
+        }
+    }
 
-    private func makeImage(title: String = "title", imagePath: String = "path1", overview: String = "overview") -> FeedImage {
-        return FeedImage(id: UUID().hashValue, title: title, imagePath: imagePath, overview:overview)
+    private func makeReview(author: String = "author", content: String = "content", createdAt: Date = Date()) -> MovieReview {
+        return MovieReview(id: "\(UUID().hashValue)", author: author, content: content, createdAt: createdAt)
     }
     
     private class LoaderSpy {
-        private var completions: [PassthroughSubject<[FeedImage], Error>] = []
+        private var completions: [PassthroughSubject<[MovieReview], Error>] = []
         
         var loadReviewsCallCount: Int {
             return completions.count
         }
 
-        func loadPublisher() -> AnyPublisher<[FeedImage], Error> {
-            let publisher = PassthroughSubject<[FeedImage], Error>()
+        func loadPublisher() -> AnyPublisher<[MovieReview], Error> {
+            let publisher = PassthroughSubject<[MovieReview], Error>()
             completions.append(publisher)
             return publisher.eraseToAnyPublisher()
         }
         
-        func completeReviewsLoading(with feed: [FeedImage] = [], at index: Int = 0) {
-            completions[index].send(feed)
+        func completeReviewsLoading(with reviews: [MovieReview] = [], at index: Int = 0) {
+            completions[index].send(reviews)
         }
         
         func completeReviewsLoadingWithError(at index: Int = 0) {

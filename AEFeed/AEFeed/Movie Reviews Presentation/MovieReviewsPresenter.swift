@@ -29,7 +29,7 @@ public struct MovieReviewsViewModel {
     public let reviews: [MovieReviewViewModel]
 }
 
-public struct MovieReviewViewModel: Equatable {
+public struct MovieReviewViewModel: Hashable {
     public let author: String
     public let content: String
     public let date: String
