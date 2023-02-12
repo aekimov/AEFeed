@@ -150,6 +150,28 @@ final class MovieReviewsUIIntegrationTests: XCTestCase {
         sut.simulateErrorViewTap()
         XCTAssertEqual(sut.errorMessage, nil)
     }
+    
+    func test_deinit_cancelsRunningRequest() {
+        var cancelCallCount = 0
+
+        var sut: ListViewController?
+
+        autoreleasepool {
+            sut = MovieReviewsUIComposer.reviewsComposedWith(reviewsLoader: {
+                PassthroughSubject<[MovieReview], Error>()
+                    .handleEvents(receiveCancel: {
+                        cancelCallCount += 1
+                    }).eraseToAnyPublisher()
+            })
+            sut?.loadViewIfNeeded()
+        }
+
+        XCTAssertEqual(cancelCallCount, 0)
+
+        sut = nil
+
+        XCTAssertEqual(cancelCallCount, 1)
+    }
 
     
     
