@@ -21,16 +21,16 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         XCTAssertEqual(sut.title, reviewsTitle)
     }
     
-    override func test_loadActions_requestFeedFromLoader() {
+    func test_loadReviewsActions_requestReviewsFromLoader() {
         let (sut, loader) = makeSUT()
         
-        XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading requests before view is loaded")
+        XCTAssertEqual(loader.loadReviewsCallCount, 0, "Expected no loading requests before view is loaded")
         
         sut.loadViewIfNeeded()
-        XCTAssertEqual(loader.loadCallCount, 1, "Expected a loading request once view is loaded")
+        XCTAssertEqual(loader.loadReviewsCallCount, 1, "Expected a loading request once view is loaded")
         
-        sut.simulateUserInitiatedFeedReload()
-        XCTAssertEqual(loader.loadCallCount, 2, "Expected another loading request once user initiates a reload")
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadReviewsCallCount, 2, "Expected another loading request once user initiates a reload")
     }
     
     override func test_loadingIndicator_isVisibleWhileLoadingFeed() {
@@ -42,7 +42,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         loader.completeFeedLoading(at: 0)
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "Expected no loading indicator once loading is completed")
         
-        sut.simulateUserInitiatedFeedReload()
+        sut.simulateUserInitiatedReload()
         XCTAssertEqual(sut.isShowingLoadingIndicator, true, "Expected a loading indicator once loading is user initiated")
         
         loader.completeFeedLoading(at: 1)
@@ -63,7 +63,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         loader.completeFeedLoading(with: [image0], at: 0)
         assertThat(sut, isRendering: [image0])
 
-        sut.simulateUserInitiatedFeedReload()
+        sut.simulateUserInitiatedReload()
         loader.completeFeedLoading(with: [image0, image1], at: 1)
         assertThat(sut, isRendering: [image0, image1])
     }
@@ -76,7 +76,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         loader.completeFeedLoading(with: [image0], at: 0)
         assertThat(sut, isRendering: [image0])
         
-        sut.simulateUserInitiatedFeedReload()
+        sut.simulateUserInitiatedReload()
         loader.completeFeedLoadingWithError(at: 1)
         assertThat(sut, isRendering: [image0])
     }
@@ -122,7 +122,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         loader.completeFeedLoadingWithError(at: 0)
         XCTAssertEqual(sut.errorMessage, loadError)
         
-        sut.simulateUserInitiatedFeedReload()
+        sut.simulateUserInitiatedReload()
         XCTAssertEqual(sut.errorMessage, nil)
     }
     
@@ -148,7 +148,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
          loader.completeFeedLoading(with: [image0, image1], at: 0)
          assertThat(sut, isRendering: [image0, image1])
 
-         sut.simulateUserInitiatedFeedReload()
+         sut.simulateUserInitiatedReload()
          loader.completeFeedLoading(with: [], at: 1)
          assertThat(sut, isRendering: [])
      }
@@ -167,5 +167,27 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
     private func makeImage(title: String = "title", imagePath: String = "path1", overview: String = "overview") -> FeedImage {
         return FeedImage(id: UUID().hashValue, title: title, imagePath: imagePath, overview:overview)
     }
+    
+    private class LoaderSpy {
+        private var completions: [PassthroughSubject<[FeedImage], Error>] = []
+        
+        var loadReviewsCallCount: Int {
+            return completions.count
+        }
 
+        func loadPublisher() -> AnyPublisher<[FeedImage], Error> {
+            let publisher = PassthroughSubject<[FeedImage], Error>()
+            completions.append(publisher)
+            return publisher.eraseToAnyPublisher()
+        }
+        
+        func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
+            completions[index].send(feed)
+        }
+        
+        func completeFeedLoadingWithError(at index: Int = 0) {
+            let error = NSError(domain: "an error", code: 0)
+            completions[index].send(completion: .failure(error))
+        }
+    }
 }
