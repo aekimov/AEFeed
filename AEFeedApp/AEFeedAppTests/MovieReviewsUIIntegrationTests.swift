@@ -12,7 +12,7 @@ import AEFeedApp
 import AEFeediOS
 import Combine
 
-final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
+final class MovieReviewsUIIntegrationTests: XCTestCase {
     func test_movieReviewsView_hasTitle() {
         let (sut, _) = makeSUT()
         
@@ -94,7 +94,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
          assertThat(sut, isRendering: [MovieReview]())
      }
     
-    override func test_loadFeedCompletion_dispatchesFromBackgroundToMainThread() {
+    func test_loadReviewsCompletion_dispatchesFromBackgroundToMainThread() {
         let (sut, loader) = makeSUT()
         sut.loadViewIfNeeded()
         
@@ -105,17 +105,8 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         }
         wait(for: [exp], timeout: 1.0)
     }
-
     
-    override func test_errorView_doesNotRenderErrorOnLoad() {
-        let (sut, _) = makeSUT()
-        
-        sut.loadViewIfNeeded()
-        
-        XCTAssertEqual(sut.errorMessage, nil)
-    }
-    
-    override func test_loadFeedCompletion_rendersErrorMessageOnError() {
+    func test_loadReviewsCompletion_rendersErrorMessageOnError() {
         let (sut, loader) = makeSUT()
 
         sut.loadViewIfNeeded()
@@ -126,7 +117,7 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         XCTAssertEqual(sut.errorMessage, loadError)
     }
     
-    override func test_loadFeedCompletion_rendersErrorMessageOnErrorUntilNextReload() {
+    func test_loadReviewsCompletion_rendersErrorMessageOnErrorUntilNextReload() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
@@ -138,8 +129,16 @@ final class MovieReviewsUIIntegrationTests: ListUIIntegrationTests {
         sut.simulateUserInitiatedReload()
         XCTAssertEqual(sut.errorMessage, nil)
     }
+
+    func test_errorView_doesNotRenderErrorOnLoad() {
+        let (sut, _) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(sut.errorMessage, nil)
+    }
     
-    override func test_tapOnErrorView_hidesErrorMessage() {
+    func test_tapOnErrorView_hidesErrorMessage() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()

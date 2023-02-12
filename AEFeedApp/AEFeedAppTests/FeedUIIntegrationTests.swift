@@ -1,5 +1,5 @@
 //
-//  ListUIIntegrationTests.swift
+//  FeedUIIntegrationTests.swift
 //  AEFeediOSTests
 //
 //  Created by Artem Ekimov on 1/20/23.
@@ -12,7 +12,7 @@ import AEFeedApp
 import AEFeediOS
 import Combine
 
-class ListUIIntegrationTests: XCTestCase {
+class FeedUIIntegrationTests: XCTestCase {
     func test_loadActions_requestFeedFromLoader() {
         let (sut, loader) = makeSUT()
         

@@ -1,5 +1,5 @@
 //
-//  ListUIIntegrationTests+Assert.swift
+//  FeedUIIntegrationTests+Assert.swift
 //  AEFeedAppTests
 //
 //  Created by Artem Ekimov on 2/12/23.
@@ -9,7 +9,7 @@ import XCTest
 import AEFeediOS
 import AEFeed
 
-extension ListUIIntegrationTests {
+extension FeedUIIntegrationTests {
     func assertThat(_ sut: ListViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line) {
         sut.tableView.enforceLayoutUpdate()
         
