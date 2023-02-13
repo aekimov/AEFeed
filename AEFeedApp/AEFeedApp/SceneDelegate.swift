@@ -34,6 +34,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         imageLoader: makeLocalImageLoaderWithRemoteFallback,
         selection: showReviews))
     
+    private lazy var baseURL = URL(string: "https://api.themoviedb.org")!
+    
+    private lazy var secretKey = ""
+    
     convenience init(httpClient: HTTPClient, store: FeedStore & FeedImageDataStore) {
         self.init()
         self.httpClient = httpClient
@@ -52,11 +56,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func makeRemoteFeedLoaderWithFallback() -> AnyPublisher<[FeedImage], Error> {
-        let remoteURL = URL(string: "https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1&api_key=")!
+        let url = FeedEndpoint.get.url(baseURL: baseURL).authenticate(with: secretKey)
         
-        print(remoteURL)
         return httpClient
-            .getPublisher(url: remoteURL)
+            .getPublisher(url: url)
             .tryMap(FeedItemsMapper.map)
             .caching(to: localFeedLoader)
             .fallback(to: localFeedLoader.loadPublisher)
@@ -76,7 +79,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func showReviews(for image: FeedImage) {
-        let url = URL(string: "https://api.themoviedb.org/3/movie/\(image.id)/reviews?language=en-US&page=1&api_key=")!
+        let url = MovieReviewsEndpoint.get(image.id).url(baseURL: baseURL).authenticate(with: secretKey)
         let reviewsVC = MovieReviewsUIComposer.reviewsComposedWith(reviewsLoader: makeRemoteCommentsLoader(url: url))
         navigationConttroller.pushViewController(reviewsVC, animated: true)
     }
@@ -94,4 +97,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         localFeedLoader.validateCache { _ in }
     }
 
+}
+
+private extension URL {
+    func authenticate(with secretKey: String) -> URL {
+        guard var urlComponents = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return self }
+        urlComponents.queryItems?.append(URLQueryItem(name: "api_key", value: secretKey))
+        
+        guard let authenticatedURL = urlComponents.url else { return self }
+        return authenticatedURL
+    }
 }

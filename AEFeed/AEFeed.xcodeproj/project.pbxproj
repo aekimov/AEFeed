@@ -32,6 +32,8 @@
 		FF1EB9AF297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9AE297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift */; };
 		FF1EB9B1297424BD00CA9321 /* FeedCacheTestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9B0297424BD00CA9321 /* FeedCacheTestHelpers.swift */; };
 		FF1EB9B3297507F200CA9321 /* FeedCachePolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */; };
+		FF26A90E2999F5F9007D6533 /* FeedEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF26A90D2999F5F9007D6533 /* FeedEndpoint.swift */; };
+		FF26A9112999F9F0007D6533 /* MovieReviewsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF26A9102999F9F0007D6533 /* MovieReviewsEndpoint.swift */; };
 		FF2A0655290E383B0085559D /* FeedItemsMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2A0654290E383B0085559D /* FeedItemsMapperTests.swift */; };
 		FF2AB6AD2976D57E00A659BE /* FeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2AB6AC2976D57E00A659BE /* FeedStoreSpecs.swift */; };
 		FF2AB6AF2976D6D600A659BE /* XCTestCase+FeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF2AB6AE2976D6D600A659BE /* XCTestCase+FeedStoreSpecs.swift */; };
@@ -198,6 +200,8 @@
 		FF1EB9AE297420D200CA9321 /* ValidateFeedCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateFeedCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		FF1EB9B0297424BD00CA9321 /* FeedCacheTestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCacheTestHelpers.swift; sourceTree = "<group>"; };
 		FF1EB9B2297507F200CA9321 /* FeedCachePolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCachePolicy.swift; sourceTree = "<group>"; };
+		FF26A90D2999F5F9007D6533 /* FeedEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedEndpoint.swift; sourceTree = "<group>"; };
+		FF26A9102999F9F0007D6533 /* MovieReviewsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieReviewsEndpoint.swift; sourceTree = "<group>"; };
 		FF2A0654290E383B0085559D /* FeedItemsMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsMapperTests.swift; sourceTree = "<group>"; };
 		FF2AB6AC2976D57E00A659BE /* FeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreSpecs.swift; sourceTree = "<group>"; };
 		FF2AB6AE2976D6D600A659BE /* XCTestCase+FeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedStoreSpecs.swift"; sourceTree = "<group>"; };
@@ -505,6 +509,7 @@
 			isa = PBXGroup;
 			children = (
 				FF30906E2992064C0044213F /* MovieReviewsMapper.swift */,
+				FF26A9102999F9F0007D6533 /* MovieReviewsEndpoint.swift */,
 			);
 			path = "Movie Review API";
 			sourceTree = "<group>";
@@ -579,6 +584,7 @@
 				FF78D4EC290E8E6B00C4E37D /* FeedItemsMapper.swift */,
 				FF3090842993D5550044213F /* FeedImageDataMapper.swift */,
 				FF4FCE3129156FC5004DA00E /* RemoteFeedItem.swift */,
+				FF26A90D2999F5F9007D6533 /* FeedEndpoint.swift */,
 			);
 			path = "Feed API";
 			sourceTree = "<group>";
@@ -1171,6 +1177,7 @@
 				FF2AB6C029785C8100A659BE /* ManagedFeedImage.swift in Sources */,
 				FF30906F2992064C0044213F /* MovieReviewsMapper.swift in Sources */,
 				FFD2947729865CCB0047E30D /* CoreDataFeedStore+FeedStore.swift in Sources */,
+				FF26A9112999F9F0007D6533 /* MovieReviewsEndpoint.swift in Sources */,
 				FF183379298432AB0068E048 /* ResourceLoadingViewModel.swift in Sources */,
 				FF4FCE2E2914FD20004DA00E /* FeedStore.swift in Sources */,
 				FFD2946A298636470047E30D /* LocalFeedImageDataLoader.swift in Sources */,
@@ -1190,6 +1197,7 @@
 				FFA2BF6F29957A98008A8B7B /* MovieReviewsPresenter.swift in Sources */,
 				FF78D4ED290E8E6B00C4E37D /* FeedItemsMapper.swift in Sources */,
 				FF18337B298432BF0068E048 /* ResourceErrorViewModel.swift in Sources */,
+				FF26A90E2999F5F9007D6533 /* FeedEndpoint.swift in Sources */,
 				FFAE5F90291017FC00D78CF8 /* URLSessionHTTPClient.swift in Sources */,
 				FF183385298442C40068E048 /* FeedImageDataLoader.swift in Sources */,
 				FFD2946429850FD20047E30D /* HTTPURLResponse+StatusCode.swift in Sources */,
