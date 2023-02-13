@@ -14,14 +14,19 @@ import Foundation
 public class FeedUIComposer {
     private init() {}
     
-    public static func feedComposedWith(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
+    public static func feedComposedWith(
+        feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>,
+        imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
+        selection: @escaping (FeedImage) -> Void = { _ in }
+    ) -> ListViewController {
+            
         let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: feedLoader)
         
         let refreshController = RefreshViewController(onRefresh: presentationAdapter.loadResource)
         let viewController = ListViewController(refreshController: refreshController)
         
         let presenter = LoadResourcePresenter(
-            resourceView: FeedViewAdapter(controller: viewController, imageLoader: imageLoader),
+            resourceView: FeedViewAdapter(controller: viewController, imageLoader: imageLoader, selection: selection),
             loadingView: WeakRefVirtualProxy(refreshController),
             errorView: WeakRefVirtualProxy(viewController),
             mapper: FeedPresenter.map)
@@ -72,10 +77,14 @@ extension LoadResourcePresentationAdapter: FeedImageCellControllerDelegate {
 final class FeedViewAdapter: ResourceView {
     private weak var controller: ListViewController?
     private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
+    private let selection: (FeedImage) -> Void
     
-    init(controller: ListViewController, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) {
+    init(controller: ListViewController,
+         imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
+         selection: @escaping (FeedImage) -> Void) {
         self.controller = controller
         self.imageLoader = imageLoader
+        self.selection = selection
     }
     
     private let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500")!
@@ -92,7 +101,10 @@ final class FeedViewAdapter: ResourceView {
             
             let view = FeedImageCellController(
                 viewModel: FeedImagePresenter.map(model),
-                delegate: adapter)
+                delegate: adapter,
+                selection: { [selection] in
+                    selection(model)
+                })
             
             adapter.presenter = LoadResourcePresenter(
                 resourceView: WeakRefVirtualProxy(view),

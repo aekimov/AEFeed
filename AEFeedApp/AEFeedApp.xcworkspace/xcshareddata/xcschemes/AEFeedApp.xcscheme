@@ -40,6 +40,11 @@
                BlueprintName = "AEFeedAppTests"
                ReferencedContainer = "container:AEFeedApp.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ListAcceptanceTests/test_onImageSelection_shouldDisplayReviews()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

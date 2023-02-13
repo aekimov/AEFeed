@@ -56,6 +56,13 @@ final class ListAcceptanceTests: XCTestCase {
         XCTAssertNotNil(store.feedCache, "Expected to keep non-expired cache")
     }
     
+    func test_onImageSelection_shouldDisplayReviews() {
+        let reviews = showCommentsForFirstImage()
+        
+        XCTAssertEqual(reviews.numberOfRenderedReviews(), 1)
+        XCTAssertEqual(reviews.reviewContent(at: 1), makeContent())
+    }
+    
     
     // MARK: - Helpers
     
@@ -77,10 +84,20 @@ final class ListAcceptanceTests: XCTestCase {
         let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
         return (makeData(for: url), response)
     }
+    
+    private func showCommentsForFirstImage() -> ListViewController {
+        let feed = launch(httpClient: .online(response), store: .empty)
+        feed.simulateTapOnFeedImage(at: 0)
+        RunLoop.current.run(until: Date())
+        
+        return feed.navigationController?.topViewController as! ListViewController
+    }
 
     private func makeData(for url: URL) -> Data {
         if url.lastPathComponent == "imagePath" {
             return makeImageData()
+        } else if url.lastPathComponent == "movie/785084/reviews" {
+            return makeReviewsData()
         } else {
             return makeFeedData()
         }
@@ -92,7 +109,7 @@ final class ListAcceptanceTests: XCTestCase {
 
     private func makeFeedData() -> Data {
         return try! JSONSerialization.data(withJSONObject: ["results": [
-            ["id": UUID().hashValue,
+            ["id": 785084,
              "title": "any title",
              "poster_path": "imagePath",
              "overview": "any overview"],
@@ -101,5 +118,18 @@ final class ListAcceptanceTests: XCTestCase {
              "poster_path": "imagePath",
              "overview": "any overview"]
         ]])
+    }
+    
+    private func makeReviewsData() -> Data {
+        return try! JSONSerialization.data(withJSONObject: ["results": [
+            ["id": UUID().uuidString,
+             "author": "any author",
+             "content": makeContent(),
+             "created_at": "2017-02-13T22:23:01.268Z"]
+        ]])
+    }
+    
+    private func makeContent() -> String {
+        return "any content"
     }
 }
