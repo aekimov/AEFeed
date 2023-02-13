@@ -28,7 +28,25 @@ final class FeedSnapshotTests: XCTestCase {
 
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "FEED_WITH_FAILED_IMAGE_LOADING_light")
         assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "FEED_WITH_FAILED_IMAGE_LOADING_dark")
-        
+    }
+    
+    func test_feedWithLoadMoreIndicator() {
+        let sut = makeSUT()
+
+        sut.display(feedWithLoadMoreIndicator())
+
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "FEED_WITH_LOAD_MORE_INDICATOR_light")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "FEED_WITH_LOAD_MORE_INDICATOR_dark")
+    }
+    
+    func test_feedWithLoadMoreError() {
+        let sut = makeSUT()
+
+        sut.display(feedWithLoadMoreError())
+
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light)), named: "FEED_WITH_LOAD_MORE_ERROR_light")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .dark)), named: "FEED_WITH_LOAD_MORE_ERROR_dark")
+        assert(snapshot: sut.snapshot(for: .iPhone13(style: .light, contentSize: .extraExtraLarge)), named: "FEED_WITH_LOAD_MORE_ERROR_extraExtraLarge_light")
     }
     
     
@@ -61,6 +79,26 @@ final class FeedSnapshotTests: XCTestCase {
                           overview: "Growing up in post-World War II era Arizona, young Sammy Fabelman aspires to become a filmmaker as he reaches adolescence, but soon discovers a shattering family secret and explores how the power of films can help him see the truth.",
                           image: nil)]
     }
+    
+    private func feedWithLoadMoreIndicator() -> [CellController] {
+        let loadMoreController = LoadMoreController()
+        loadMoreController.display(ResourceLoadingViewModel(isLoading: true))
+        return [CellController(id: UUID(), cellWithContent()), CellController(id: UUID(), loadMoreController)]
+        
+    }
+    
+    private func feedWithLoadMoreError() -> [CellController] {
+        let loadMoreController = LoadMoreController()
+        loadMoreController.display(ResourceErrorViewModel(message: "Error message\nCouldn't load"))
+        return [CellController(id: UUID(), cellWithContent()), CellController(id: UUID(), loadMoreController)]
+    }
+    
+    private func cellWithContent() -> FeedImageCellController {
+        let stub = feedWithContent().first!
+        let cellController = FeedImageCellController(viewModel: stub.viewModel, delegate: stub, selection: {})
+        stub.controller = cellController
+        return cellController
+    }
 
 }
 
@@ -92,7 +130,7 @@ class ImageStub: FeedImageCellControllerDelegate {
 extension ListViewController {
     func display(_ stubs: [ImageStub]) {
         let cells: [CellController] = stubs.map { stub in
-            let cellController = FeedImageCellController(viewModel: stub.viewModel, delegate: stub)
+            let cellController = FeedImageCellController(viewModel: stub.viewModel, delegate: stub, selection: {})
             stub.controller = cellController
             return CellController(id: UUID(), cellController)
         }

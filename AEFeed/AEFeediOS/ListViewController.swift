@@ -22,9 +22,7 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
     }
     
     public let errorView = ErrorView()
-    
-    private var loadingControllers: [IndexPath: CellController] = [:]
-    
+        
     private lazy var dataSource: UITableViewDiffableDataSource<Int, CellController> = {
         UITableViewDiffableDataSource(tableView: tableView) { tableView, indexPath, controller in
             return controller.dataSource.tableView(tableView, cellForRowAt: indexPath)
