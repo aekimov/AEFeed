@@ -367,6 +367,17 @@ class FeedUIIntegrationTests: XCTestCase {
         sut.simulateTapOnFeedImage(at: 1)
         XCTAssertEqual(selectedImages, [image0, image1])
     }
+    
+    func test_loadMoreActions_requestMoreFeedFromLoader() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        loader.completeFeedLoading()
+
+        XCTAssertEqual(loader.loadMoreCallCount, 0, "Expected no requests until load more action")
+
+        sut.simulateLoadMoreFeedAction()
+        XCTAssertEqual(loader.loadMoreCallCount, 1, "Expected a load more request")
+    }
   
     //MARK: - Helpers
     
@@ -382,7 +393,6 @@ class FeedUIIntegrationTests: XCTestCase {
         return UIImage.make(withColor: .red).pngData()!
     }
 
-
     private func makeImage(title: String = "title", imagePath: String = "path1", overview: String = "overview") -> FeedImage {
         return FeedImage(id: UUID().hashValue, title: title, imagePath: imagePath, overview:overview)
     }
@@ -393,6 +403,8 @@ class FeedUIIntegrationTests: XCTestCase {
         var loadCallCount: Int {
             return completions.count
         }
+        
+        var loadMoreCallCount = 0
 
         func loadPublisher() -> AnyPublisher<Paginated<FeedImage>, Error> {
             let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
@@ -401,7 +413,9 @@ class FeedUIIntegrationTests: XCTestCase {
         }
         
         func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {
-            completions[index].send(Paginated(items: feed))
+            completions[index].send(Paginated(items: feed, loadMore: { [weak self] _ in
+                self?.loadMoreCallCount += 1
+            }))
         }
         
         func completeFeedLoadingWithError(at index: Int = 0) {

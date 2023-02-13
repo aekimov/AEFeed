@@ -90,8 +90,8 @@ final class FeedViewAdapter: ResourceView {
     private let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500")!
     
     func display(_ viewModel: Paginated<FeedImage>) {
-        controller?.display(viewModel.items.map { model in
-            let imageBaseURL = self.imageBaseURL
+        let imageBaseURL = self.imageBaseURL
+        let feed: [CellController] = viewModel.items.map { model in
             
             let adapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>(
                 loader: { [imageLoader] in
@@ -116,7 +116,15 @@ final class FeedViewAdapter: ResourceView {
                 })
             
             return CellController(id: model, view)
-        })
+        }
+        
+        let loadMore = LoadMoreCellController {
+            viewModel.loadMore?({ _ in })
+        }
+        
+        let loadMoreSection = [CellController(id: UUID(), loadMore)]
+        
+        controller?.display(feed, loadMoreSection)
     }
 }
 

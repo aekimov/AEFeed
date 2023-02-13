@@ -81,14 +81,14 @@ final class FeedSnapshotTests: XCTestCase {
     }
     
     private func feedWithLoadMoreIndicator() -> [CellController] {
-        let loadMoreController = LoadMoreController()
+        let loadMoreController = LoadMoreCellController(callback: {})
         loadMoreController.display(ResourceLoadingViewModel(isLoading: true))
         return [CellController(id: UUID(), cellWithContent()), CellController(id: UUID(), loadMoreController)]
         
     }
     
     private func feedWithLoadMoreError() -> [CellController] {
-        let loadMoreController = LoadMoreController()
+        let loadMoreController = LoadMoreCellController(callback: {})
         loadMoreController.display(ResourceErrorViewModel(message: "Error message\nCouldn't load"))
         return [CellController(id: UUID(), cellWithContent()), CellController(id: UUID(), loadMoreController)]
     }

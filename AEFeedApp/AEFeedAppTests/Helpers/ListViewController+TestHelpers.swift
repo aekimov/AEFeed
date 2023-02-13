@@ -55,6 +55,15 @@ extension ListViewController {
         delegate?.tableView?(tableView, didSelectRowAt: indexPath)
     }
     
+    func simulateLoadMoreFeedAction() {
+        guard let cell = cell(row: 0, section: loadMoreSection) else { return }
+        
+        let delegate = tableView.delegate
+        let indexPath = IndexPath(row: 0, section: loadMoreSection)
+        delegate?.tableView?(tableView, willDisplay: cell, forRowAt: indexPath)
+    }
+
+    
     func renderedFeedImageData(at index: Int) -> Data? {
         return simulateFeedImageViewVisible(at: index)?.renderedImage
     }
@@ -64,21 +73,15 @@ extension ListViewController {
     }
     
     func numberOfRenderedFeedImageViews() -> Int {
-        tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: feedImagesSection)
+        return numberOfRows(in: feedImagesSection)
     }
     
     func feedImageView(at row: Int) -> UITableViewCell? {
-        guard numberOfRenderedFeedImageViews() > row else {
-            return nil
-        }
-        let ds = tableView.dataSource
-        let index = IndexPath(row: row, section: feedImagesSection)
-        return ds?.tableView(tableView, cellForRowAt: index)
+        return cell(row: row, section: feedImagesSection)
     }
     
-    private var feedImagesSection: Int {
-        return 0
-    }
+    private var feedImagesSection: Int { 0 }
+    private var loadMoreSection: Int { 1 }
     
     var errorMessage: String? {
         return errorView.message
@@ -87,17 +90,29 @@ extension ListViewController {
     func simulateErrorViewTap() {
         errorView.simulateTap()
     }
+    
+    func numberOfRows(in section: Int) -> Int {
+        tableView.numberOfSections > section ? tableView.numberOfRows(inSection: section) : 0
+    }
+    
+    func cell(row: Int, section: Int) -> UITableViewCell? {
+        guard numberOfRows(in: section) > row else {
+            return nil
+        }
+        let ds = tableView.dataSource
+        let index = IndexPath(row: row, section: section)
+        return ds?.tableView(tableView, cellForRowAt: index)
+    }
+    
 }
 
 extension ListViewController {
 
     func numberOfRenderedReviews() -> Int {
-        tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: movieReviewsSection)
+        numberOfRows(in: movieReviewsSection)
     }
     
-    private var movieReviewsSection: Int {
-        return 0
-    }
+    private var movieReviewsSection: Int { 0 }
     
     func reviewAuthor(at index: Int) -> String? {
         return reviewView(at: index)?.authorLabel.text
@@ -112,12 +127,7 @@ extension ListViewController {
     }
     
     private func reviewView(at row: Int) -> MovieReviewCell? {
-        guard numberOfRenderedFeedImageViews() > row else {
-            return nil
-        }
-        let ds = tableView.dataSource
-        let index = IndexPath(row: row, section: movieReviewsSection)
-        return ds?.tableView(tableView, cellForRowAt: index) as? MovieReviewCell
+        return cell(row: row, section: movieReviewsSection) as? MovieReviewCell
     }
     
 }

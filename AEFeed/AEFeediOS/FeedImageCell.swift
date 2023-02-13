@@ -64,10 +64,17 @@ public final class FeedImageCell: UITableViewCell {
     }()
 
     var onRetry: (() -> Void)?
+//    var onReuse: (() -> Void)?
     
     @objc private func retryButtonTapped() {
         onRetry?()
     }
+    
+//    public override func prepareForReuse() {
+//        super.prepareForReuse()
+//
+//        onReuse?()
+//    }
     
     private func configureUI() {
         let container = UIStackView(axis: .vertical, spacing: 8, subviews: [imageViewContainer, titleLabel, overviewLabel])
