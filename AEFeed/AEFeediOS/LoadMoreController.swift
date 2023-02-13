@@ -26,6 +26,4 @@ extension LoadMoreController: ResourceLoadingView, ResourceErrorView {
     public func display(_ viewModel: ResourceLoadingViewModel) {
         cell.isLoading = viewModel.isLoading
     }
-    
-    
 }

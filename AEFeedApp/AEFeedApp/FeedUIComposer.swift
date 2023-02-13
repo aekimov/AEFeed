@@ -15,12 +15,12 @@ public class FeedUIComposer {
     private init() {}
     
     public static func feedComposedWith(
-        feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>,
+        feedLoader: @escaping () -> AnyPublisher<Paginated<FeedImage>, Error>,
         imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
         selection: @escaping (FeedImage) -> Void = { _ in }
     ) -> ListViewController {
             
-        let presentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: feedLoader)
+        let presentationAdapter = LoadResourcePresentationAdapter<Paginated<FeedImage>, FeedViewAdapter>(loader: feedLoader)
         
         let refreshController = RefreshViewController(onRefresh: presentationAdapter.loadResource)
         let viewController = ListViewController(refreshController: refreshController)
@@ -29,7 +29,7 @@ public class FeedUIComposer {
             resourceView: FeedViewAdapter(controller: viewController, imageLoader: imageLoader, selection: selection),
             loadingView: WeakRefVirtualProxy(refreshController),
             errorView: WeakRefVirtualProxy(viewController),
-            mapper: FeedPresenter.map)
+            mapper: { $0 })
 
         viewController.title = FeedPresenter.title
         presentationAdapter.presenter = presenter
@@ -89,8 +89,8 @@ final class FeedViewAdapter: ResourceView {
     
     private let imageBaseURL = URL(string: "https://image.tmdb.org/t/p/w500")!
     
-    func display(_ viewModel: FeedViewModel) {
-        controller?.display(viewModel.feed.map { model in
+    func display(_ viewModel: Paginated<FeedImage>) {
+        controller?.display(viewModel.items.map { model in
             let imageBaseURL = self.imageBaseURL
             
             let adapter = LoadResourcePresentationAdapter<Data, WeakRefVirtualProxy<FeedImageCellController>>(
