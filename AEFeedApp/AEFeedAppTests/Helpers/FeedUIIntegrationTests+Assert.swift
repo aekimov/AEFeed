@@ -11,7 +11,7 @@ import AEFeed
 
 extension FeedUIIntegrationTests {
     func assertThat(_ sut: ListViewController, isRendering feed: [FeedImage], file: StaticString = #file, line: UInt = #line) {
-        sut.tableView.enforceLayoutUpdate()
+        sut.view.enforceLayoutCycle()
         
         guard sut.numberOfRenderedFeedImageViews() == feed.count else {
             return XCTFail("Expected \(feed.count) images, got \(sut.numberOfRenderedFeedImageViews()) instead.", file: file, line: line)
@@ -20,6 +20,7 @@ extension FeedUIIntegrationTests {
         feed.enumerated().forEach { index, image in
             assertThat(sut, hasViewConfiguredFor: image, at: index, file: file, line: line)
         }
+        executeRunLoopToCleanUpReferences()
     }
 
     func assertThat(_ sut: ListViewController, hasViewConfiguredFor image: FeedImage, at index: Int, file: StaticString = #file, line: UInt = #line) {
@@ -34,4 +35,7 @@ extension FeedUIIntegrationTests {
         XCTAssertEqual(cell.overviewText, image.overview, "Expected description text to be \(String(describing: image.overview)) for image view at index (\(index)", file: file, line: line)
     }
 
+    private func executeRunLoopToCleanUpReferences() {
+        RunLoop.current.run(until: Date())
+    }
 }

@@ -393,6 +393,28 @@ class FeedUIIntegrationTests: XCTestCase {
         sut.simulateLoadMoreFeedAction()
         XCTAssertEqual(loader.loadMoreCallCount, 3, "Expected no request after loading all pages")
     }
+    
+    func test_loadingMoreIndicator_isVisibleWhileLoadingMore() {
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(sut.isShowingLoadMoreFeedIndicator, false, "Expected no loading more indicator once view is loaded")
+
+        loader.completeFeedLoading(at: 0)
+        XCTAssertEqual(sut.isShowingLoadMoreFeedIndicator, false, "Expected no loading indicator once loading is completed")
+
+        sut.simulateLoadMoreFeedAction()
+        XCTAssertEqual(sut.isShowingLoadMoreFeedIndicator, true, "Expected a loading indicator on load more action")
+        
+        loader.completeLoadMore(at: 0)
+        XCTAssertEqual(sut.isShowingLoadMoreFeedIndicator, false, "Expected no loading indicator once loading completes successfully")
+        
+        sut.simulateLoadMoreFeedAction()
+        XCTAssertEqual(sut.isShowingLoadMoreFeedIndicator, true, "Expected loading indicator on another load more action")
+
+        loader.completeLoadMoreWithError(at: 1)
+        XCTAssertEqual(sut.isShowingLoadMoreFeedIndicator, false, "Expected no loading indicator once user initiated loading  completes with error")
+    }
   
     //MARK: - Helpers
     
@@ -414,16 +436,10 @@ class FeedUIIntegrationTests: XCTestCase {
     
     class LoaderSpy: FeedImageDataLoader {
         private var feedRequests: [PassthroughSubject<Paginated<FeedImage>, Error>] = []
-        
         private var loadMoreRequests: [PassthroughSubject<Paginated<FeedImage>, Error>] = []
 
-        var loadCallCount: Int {
-            return feedRequests.count
-        }
-        
-        var loadMoreCallCount: Int {
-            return loadMoreRequests.count
-        }
+        var loadCallCount: Int { feedRequests.count }
+        var loadMoreCallCount: Int { loadMoreRequests.count }
 
         func loadPublisher() -> AnyPublisher<Paginated<FeedImage>, Error> {
             let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()

@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIView {
-    func enforceLayoutUpdate() {
+    func enforceLayoutCycle() {
         layoutIfNeeded()
         RunLoop.current.run(until: Date())
     }
