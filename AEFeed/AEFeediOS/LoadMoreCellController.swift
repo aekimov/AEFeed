@@ -19,6 +19,7 @@ public final class LoadMoreCellController: NSObject, UITableViewDataSource, UITa
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 1 }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        loadMoreCell.selectionStyle = .none
         return loadMoreCell
     }
     

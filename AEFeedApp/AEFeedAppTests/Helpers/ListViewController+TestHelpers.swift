@@ -121,6 +121,10 @@ extension ListViewController {
         return ds?.tableView(tableView, cellForRowAt: index)
     }
     
+    var canLoadMore: Bool {
+        return loadMoreFeedCell() != nil
+    }
+    
 }
 
 extension ListViewController {

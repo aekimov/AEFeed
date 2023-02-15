@@ -17,8 +17,26 @@ final class ListAcceptanceTests: XCTestCase {
         let feed = launch(httpClient: .online(response), store: .empty)
         
         XCTAssertEqual(feed.numberOfRenderedFeedImageViews(), 2)
-        XCTAssertEqual(feed.renderedFeedImageData(at: 0), makeImageData())
-        XCTAssertEqual(feed.renderedFeedImageData(at: 1), makeImageData())
+        XCTAssertEqual(feed.renderedFeedImageData(at: 0), makeImageData0())
+        XCTAssertEqual(feed.renderedFeedImageData(at: 1), makeImageData1())
+        XCTAssertTrue(feed.canLoadMore)
+        
+        feed.simulateLoadMoreFeedAction()
+
+        XCTAssertEqual(feed.numberOfRenderedFeedImageViews(), 3)
+        XCTAssertEqual(feed.renderedFeedImageData(at: 0), makeImageData0())
+        XCTAssertEqual(feed.renderedFeedImageData(at: 1), makeImageData1())
+        XCTAssertEqual(feed.renderedFeedImageData(at: 2), makeImageData2())
+        XCTAssertTrue(feed.canLoadMore)
+        
+        feed.simulateLoadMoreFeedAction()
+
+        XCTAssertEqual(feed.numberOfRenderedFeedImageViews(), 3)
+        XCTAssertEqual(feed.renderedFeedImageData(at: 0), makeImageData0())
+        XCTAssertEqual(feed.renderedFeedImageData(at: 1), makeImageData1())
+        XCTAssertEqual(feed.renderedFeedImageData(at: 2), makeImageData2())
+        XCTAssertFalse(feed.canLoadMore)
+        
     }
     
     func test_onLaunch_displaysCachedRemoteFeedWhenCustomerHasNoConnectivity() {
@@ -30,8 +48,8 @@ final class ListAcceptanceTests: XCTestCase {
         let offlineFeed = launch(httpClient: .offline, store: sharedStore)
 
         XCTAssertEqual(offlineFeed.numberOfRenderedFeedImageViews(), 2)
-        XCTAssertEqual(offlineFeed.renderedFeedImageData(at: 0), makeImageData())
-        XCTAssertEqual(offlineFeed.renderedFeedImageData(at: 1), makeImageData())
+        XCTAssertEqual(offlineFeed.renderedFeedImageData(at: 0), makeImageData0())
+        XCTAssertEqual(offlineFeed.renderedFeedImageData(at: 1), makeImageData1())
     }
     
     func test_onLaunch_displaysEmptyFeedWhenCustomerHasNoConnectivityAndNoCache() {
@@ -60,7 +78,7 @@ final class ListAcceptanceTests: XCTestCase {
         let reviews = showCommentsForFirstImage()
         
         XCTAssertEqual(reviews.numberOfRenderedReviews(), 1)
-        XCTAssertEqual(reviews.reviewContent(at: 1), makeContent())
+        XCTAssertEqual(reviews.reviewContent(at: 0), makeContent())
     }
     
     
@@ -94,30 +112,55 @@ final class ListAcceptanceTests: XCTestCase {
     }
 
     private func makeData(for url: URL) -> Data {
-        if url.lastPathComponent == "imagePath" {
-            return makeImageData()
-        } else if url.lastPathComponent == "movie/785084/reviews" {
-            return makeReviewsData()
-        } else {
+        switch url.path {
+        case "/3/movie/upcoming" where url.query?.contains("page=1") == true:
             return makeFeedData()
+        case "/3/movie/upcoming" where url.query?.contains("page=2") == true:
+            return makeSecondFeedPage()
+        case "/3/movie/upcoming" where url.query?.contains("page=3") == true:
+            return makeEmptyFeedPage()
+        case "/t/p/w500/imagePath0":
+            return makeImageData0()
+        case "/t/p/w500/imagePath1":
+            return makeImageData1()
+        case "/t/p/w500/imagePath2":
+            return makeImageData2()
+        case "/3/movie/785084/reviews":
+            return makeReviewsData()
+        default:
+            return Data()
         }
     }
 
-    private func makeImageData() -> Data {
-        return UIImage.make(withColor: .green).pngData()!
-    }
+    private func makeImageData0() -> Data { UIImage.make(withColor: .green).pngData()! }
+    private func makeImageData1() -> Data { UIImage.make(withColor: .yellow).pngData()! }
+    private func makeImageData2() -> Data { UIImage.make(withColor: .purple).pngData()! }
+
 
     private func makeFeedData() -> Data {
         return try! JSONSerialization.data(withJSONObject: ["results": [
             ["id": 785084,
              "title": "any title",
-             "poster_path": "imagePath",
+             "poster_path": "imagePath0",
              "overview": "any overview"],
             ["id": UUID().hashValue,
              "title": "any title",
-             "poster_path": "imagePath",
+             "poster_path": "imagePath1",
              "overview": "any overview"]
         ]])
+    }
+    
+    private func makeSecondFeedPage() -> Data {
+        return try! JSONSerialization.data(withJSONObject: ["results": [
+            ["id": UUID().hashValue,
+             "title": "any title",
+             "poster_path": "imagePath2",
+             "overview": "any overview"]
+        ]])
+    }
+    
+    private func makeEmptyFeedPage() -> Data {
+        return try! JSONSerialization.data(withJSONObject: ["results": []])
     }
     
     private func makeReviewsData() -> Data {
