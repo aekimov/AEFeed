@@ -30,6 +30,11 @@ final class MovieReviewsUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.loadReviewsCallCount, 1, "Expected a loading request once view is loaded")
         
         sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadReviewsCallCount, 1, "Expected no results until previous completes")
+        
+        loader.completeReviewsLoading(at: 0)
+        
+        sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadReviewsCallCount, 2, "Expected another loading request once user initiates a reload")
     }
     
@@ -216,6 +221,7 @@ final class MovieReviewsUIIntegrationTests: XCTestCase {
         
         func completeReviewsLoading(with reviews: [MovieReview] = [], at index: Int = 0) {
             completions[index].send(reviews)
+            completions[index].send(completion: .finished)
         }
         
         func completeReviewsLoadingWithError(at index: Int = 0) {
