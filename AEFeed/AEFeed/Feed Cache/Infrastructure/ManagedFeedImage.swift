@@ -25,13 +25,28 @@ class ManagedFeedImage: NSManagedObject {
     }
     
     static func images(from localFeed: [LocalFeedImage], in context: NSManagedObjectContext) -> NSOrderedSet {
-        return NSOrderedSet(array: localFeed.map {
+        let images = NSOrderedSet(array: localFeed.map {
             let managed = ManagedFeedImage(context: context)
             managed.id = NSNumber(value: $0.id)
             managed.title = $0.title
             managed.imagePath = $0.imagePath
             managed.overview = $0.overview
+            managed.data = context.userInfo[$0.imagePath] as? Data
             return managed
         })
+        context.userInfo.removeAllObjects()
+        return images
+    }
+    
+    static func data(with url: URL, in context: NSManagedObjectContext) throws -> Data? {
+        if let data = context.userInfo[url.lastPathComponent] as? Data {
+            return data
+        }
+        return try first(with: url.lastPathComponent, in: context)?.data
+    }
+    
+    override func prepareForDeletion() {
+        super.prepareForDeletion()
+        managedObjectContext?.userInfo[imagePath] = data
     }
 }
