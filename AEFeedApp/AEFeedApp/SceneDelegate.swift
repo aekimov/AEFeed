@@ -10,6 +10,7 @@ import AEFeed
 import AEFeediOS
 import CoreData
 import Combine
+import os
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -25,6 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         do {
             return try CoreDataFeedStore(storeURL: localStoreURL)
         } catch {
+            assertionFailure("Failed to instantiate CoreData store with error: \(error.localizedDescription)")
             return NullStore()
         }
     }()
