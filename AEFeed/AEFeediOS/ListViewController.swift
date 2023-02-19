@@ -35,14 +35,18 @@ public class ListViewController: UITableViewController, UITableViewDataSourcePre
             snapshot.appendSections([section])
             snapshot.appendItems(cellControllers, toSection: section)
         }
-        dataSource.apply(snapshot)
+        
+        if #available(iOS 15.0, *) {
+            dataSource.applySnapshotUsingReloadData(snapshot)
+        } else {
+            dataSource.apply(snapshot)
+        }
     }
         
     public override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = dataSource
         tableView.prefetchDataSource = self
-        tableView.delegate = self
         tableView.refreshControl = refreshController.view
         dataSource.defaultRowAnimation = .fade
         refreshController.refresh()
