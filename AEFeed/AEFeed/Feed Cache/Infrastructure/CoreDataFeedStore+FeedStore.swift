@@ -11,7 +11,7 @@ extension CoreDataFeedStore: FeedStore {
     public func retrieve(completion: @escaping RetrievalCompletion) {
         perform { context in
             completion(Result(catching: {
-                try ManagedCache.findCache(in: context).map {
+                try ManagedCache.find(in: context).map {
                     return CachedFeed(feed: $0.localFeed, timestamp: $0.timestamp)
                 }
             }))
@@ -33,7 +33,7 @@ extension CoreDataFeedStore: FeedStore {
     public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
         perform { context in
             completion(Result(catching: {
-                try ManagedCache.findCache(in: context).map(context.delete).map(context.save)
+                try ManagedCache.deleteCache(in: context)
             }))
         }
     }
