@@ -21,7 +21,6 @@
 		FF183365297F94C40068E048 /* FeedPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183364297F94C30068E048 /* FeedPresenterTests.swift */; };
 		FF18337429842EF20068E048 /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF18337329842EF20068E048 /* FeedPresenter.swift */; };
 		FF1833752984305A0068E048 /* Feed.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF18336A297F9F020068E048 /* Feed.strings */; };
-		FF1833772984328F0068E048 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1833762984328F0068E048 /* FeedViewModel.swift */; };
 		FF183379298432AB0068E048 /* ResourceLoadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183378298432AB0068E048 /* ResourceLoadingViewModel.swift */; };
 		FF18337B298432BF0068E048 /* ResourceErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF18337A298432BF0068E048 /* ResourceErrorViewModel.swift */; };
 		FF18337C2984335E0068E048 /* FeedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF183350297DA1AC0068E048 /* FeedLocalizationTests.swift */; };
@@ -196,7 +195,6 @@
 		FF183369297F9F020068E048 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Feed.strings; sourceTree = "<group>"; };
 		FF18336B297F9F070068E048 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Feed.strings; sourceTree = "<group>"; };
 		FF18337329842EF20068E048 /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
-		FF1833762984328F0068E048 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		FF183378298432AB0068E048 /* ResourceLoadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceLoadingViewModel.swift; sourceTree = "<group>"; };
 		FF18337A298432BF0068E048 /* ResourceErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceErrorViewModel.swift; sourceTree = "<group>"; };
 		FF18337D298434CA0068E048 /* FeedImagePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImagePresenterTests.swift; sourceTree = "<group>"; };
@@ -430,7 +428,6 @@
 			isa = PBXGroup;
 			children = (
 				FF18337329842EF20068E048 /* FeedPresenter.swift */,
-				FF1833762984328F0068E048 /* FeedViewModel.swift */,
 				FF1833812984411E0068E048 /* FeedImagePresenter.swift */,
 				FF183383298441360068E048 /* FeedImageViewModel.swift */,
 				FF18336A297F9F020068E048 /* Feed.strings */,
@@ -824,16 +821,16 @@
 		FFB4D3F5290D87CF00FC6F96 /* AEFeed */ = {
 			isa = PBXGroup;
 			children = (
-				FF3090782993565A0044213F /* Movie Review API */,
-				FFA2BF6D29957A80008A8B7B /* Movie Reviews Presentation */,
-				FF3090BA299402270044213F /* Shared Presentation */,
 				FF309073299354D50044213F /* Shared API */,
 				FF309074299354EA0044213F /* Shared API Infra */,
-				FF30907029920B9F0044213F /* Movie Reviews Feature */,
-				FF18337229842ED90068E048 /* Feed Presentation */,
+				FF3090BA299402270044213F /* Shared Presentation */,
 				FF2A0653290E37330085559D /* Feed Feature */,
 				FF78D4E9290E40A600C4E37D /* Feed API */,
 				FF4FCE2A2914FC59004DA00E /* Feed Cache */,
+				FF18337229842ED90068E048 /* Feed Presentation */,
+				FF30907029920B9F0044213F /* Movie Reviews Feature */,
+				FF3090782993565A0044213F /* Movie Review API */,
+				FFA2BF6D29957A80008A8B7B /* Movie Reviews Presentation */,
 			);
 			path = AEFeed;
 			sourceTree = "<group>";
@@ -1186,7 +1183,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF2AB6BE29785C7000A659BE /* ManagedCache.swift in Sources */,
-				FF1833772984328F0068E048 /* FeedViewModel.swift in Sources */,
 				FF78D4EF290E99A200C4E37D /* HTTPClient.swift in Sources */,
 				FFD294752986436B0047E30D /* CoreDataFeedStore+FeedImageDataLoader.swift in Sources */,
 				FF3090CA299423610044213F /* ResourceErrorView.swift in Sources */,
