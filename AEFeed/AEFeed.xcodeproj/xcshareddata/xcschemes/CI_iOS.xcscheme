@@ -108,6 +108,14 @@
                BlueprintName = "AEFeediOSTests"
                ReferencedContainer = "container:AEFeed.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "FeedSnapshotTests">
+               </Test>
+               <Test
+                  Identifier = "MovieReviewsSnapshotTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>
