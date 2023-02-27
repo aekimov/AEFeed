@@ -1,4 +1,8 @@
 # AEFeed
+
+[![CI_iOS](https://github.com/aekimov/AEFeed/actions/workflows/CI_iOS.yml/badge.svg)](https://github.com/aekimov/AEFeed/actions/workflows/CI_iOS.yml)
+[![CI_macOS](https://github.com/aekimov/AEFeed/actions/workflows/CI_macOS.yml/badge.svg)](https://github.com/aekimov/AEFeed/actions/workflows/CI_macOS.yml)
+
 > This project is intended to demonstrate effective iOS development techniques, with a concentration on TDD, clean architecture, reusability and maintainability.
 
 
