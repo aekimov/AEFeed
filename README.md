@@ -5,16 +5,16 @@
 
 > This project is intended to demonstrate effective iOS development techniques, with a concentration on TDD, clean architecture, reusability and maintainability.
 
+## Getting Started
+You need a [token](https://www.themoviedb.org/documentation/api) to use the app.
 
 ## Movies Feed Feature Requirements
 
 Scenarios:
 
-
 Option #1
 As an online user, I want the app to automatically update the feed with the latest content. 
 This ensures that I am always up to date with the latest images, providing a nice and smooth user experience.
-
 
 
 Option #2
